@@ -27,6 +27,12 @@ class Navigator {
 export const prevNavigator = new Navigator($(".navigator.previous"), "previous");
 export const nextNavigator = new Navigator($(".navigator.next"), "next");
 
+window.addEventListener("keydown", (e) => {
+	if (e.key == "ArrowLeft" || e.key == "ArrowRight") e.preventDefault();
+	if (e.key == "ArrowLeft") navigate("previous");
+	if (e.key == "ArrowRight") navigate("next");
+});
+
 function navigate(direction) {
 	if (direction == "previous") navigatePrev();
 	if (direction == "next") navigateNext();
