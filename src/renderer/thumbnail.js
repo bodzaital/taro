@@ -16,6 +16,8 @@ export function selectThumbnail(nextThumbnail) {
 	activeThumbnail.classList.remove("active");
 
 	nextThumbnail.classList.add("active");
+
+	nextThumbnail.scrollIntoView();
 }
 
 export function selectFirstThumbnail() {

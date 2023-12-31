@@ -77,6 +77,7 @@ body
 	gap: 5px;
 	overflow-x: scroll;
 	height: 105px;
+	scroll-behavior: smooth;
 
 	.thumbnail
 	{
