@@ -1,3 +1,5 @@
+* { outline: 1px solid red; }
+
 body
 {
 	display: flex;
@@ -19,17 +21,54 @@ body
 {
 	flex: 1;
 	overflow: auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.viewer
+{
+	flex-grow: 1;
+	display: flex;
+	justify-content: space-between;
+
+	.lhs,
+	.rhs
+	{
+		font-size: 2rem;
+		flex-grow: 0;
+		color: purple;
+		display: flex;
+		align-items: center;
+
+		a
+		{
+			padding: .25rem .5rem;
+			margin: 1rem;
+		}
+	}
+
+	.photo
+	{
+		flex-grow: 1;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
 }
 
 .thumbnail-container
 {
+	flex-grow: 0;
 	display: flex;
 	gap: 5px;
 	overflow-x: scroll;
+	height: 105px;
 
 	.thumbnail
 	{
-		height: 100px;
+		height: 100%;
 		width: auto;
 		border: 1px solid transparent;
 		padding: 2px;

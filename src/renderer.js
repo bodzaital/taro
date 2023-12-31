@@ -1,7 +1,6 @@
 import './index.scss';
-import { selectThumbnail } from './renderer/thumbnailExplorer';
+import { loadActivePhoto, selectThumbnail } from './renderer/thumbnailExplorer';
 
-const openFolderButton = document.querySelector("#openFolderButton");
 const photosetContainer = document.querySelector(".thumbnail-container");
 
 window.ipc.loadImages((listOfImageUris) => {
@@ -10,10 +9,6 @@ window.ipc.loadImages((listOfImageUris) => {
 
 window.ipc.closeFolder(() => {
 	document.querySelector(".thumbnail-container").innerText = "";
-});
-
-openFolderButton.addEventListener("click", () => {
-	window.ipc.openFolder();
 });
 
 photosetContainer.addEventListener("click", (e) => {
@@ -30,6 +25,8 @@ function createThumbnails(listOfImageUris) {
 	listOfPhotoItems[0].classList.add("active");
 
 	listOfPhotoItems.forEach((photoItem) => photosetContainer.appendChild(photoItem));
+
+	loadActivePhoto();
 }
 
 function createThumbnail(imageUri) {
