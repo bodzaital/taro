@@ -57,3 +57,5 @@ spec/fixtures/logo.png
 
 # Out artifacts are not needed
 out/
+.webpack/
+STYLE.md

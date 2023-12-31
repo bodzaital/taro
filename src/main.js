@@ -1,7 +1,10 @@
-const { app, BrowserWindow, ipcMain, dialog, protocol, net, session } = require('electron');
-const { readdirSync } = require('fs');
-const path = require('path');
-const { fileURLToPath } = require('url');
+const { app, BrowserWindow, ipcMain, dialog, protocol, net, Menu, ipcRenderer } = require('electron');
+// const { readdirSync } = require('fs');
+// const { registerFabProtocol, openFolderDialogAndSendPath } = require('./main/io');
+const { registerAboutPanel, registerMenu } = require('./main/system');
+const { registerIpcMainHandlers, raiseEvent, initializeIpc } = require('./main/ipc');
+const { registerFabProtocol } = require('./main/io');
+const { CH_FULL_SCREEN } = require('./ipcConstants');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -16,6 +19,8 @@ const createWindow = () => {
 		webPreferences: {
 			preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
 		},
+		titleBarStyle: "hidden",
+		trafficLightPosition: { x: 18, y: 18 }
 	});
 
 	// and load the index.html of the app.
@@ -23,6 +28,14 @@ const createWindow = () => {
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools();
+
+	// Initialize the IPC handler once with the mainWindow instance.
+	initializeIpc(mainWindow);
+
+	registerAboutPanel();
+	registerMenu();
+
+	registerIpcMainHandlers();
 };
 
 // This method will be called when Electron has finished
@@ -34,44 +47,22 @@ app.on('ready', createWindow);
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
+	// if (process.platform !== 'darwin') {
 		app.quit();
-	}
+	// }
 });
 
-app.on('activate', () => {
-	// On OS X it's common to re-create a window in the app when the
-	// dock icon is clicked and there are no other windows open.
-	if (BrowserWindow.getAllWindows().length === 0) {
-		createWindow();
-	}
-});
+// app.on('activate', () => {
+// 	// On OS X it's common to re-create a window in the app when the
+// 	// dock icon is clicked and there are no other windows open.
+// 	if (BrowserWindow.getAllWindows().length === 0) {
+// 		createWindow();
+// 	}
+// });
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
 app.whenReady().then(() => {
 	registerFabProtocol();
-
-	ipcMain.handle("showTheThing", showTheThing);
-	ipcMain.handle("getListOfFiles", getListOfFiles);
 });
-
-function showTheThing() {
-	const path = dialog.showOpenDialogSync({
-		properties: ["openDirectory"]
-	});
-
-	return path;
-}
-
-function getListOfFiles(e, args) {
-	const files = readdirSync(args[0]);
-	return files;
-}
-
-function registerFabProtocol() {
-	protocol.handle("fab", (request) => {
-		return net.fetch("file://" + request.url.slice("fab://".length));
-	});
-}

@@ -1,52 +1,42 @@
-/**
- * This file will automatically be loaded by webpack and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/tutorial/application-architecture#main-and-renderer-processes
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.js` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
-
 import './index.scss';
+import { selectThumbnail } from './renderer/thumbnailExplorer';
 
-const selectFolderButton = document.querySelector("#selectFolderButton");
-const selectedFolderPath = document.querySelector("#selectedFolderPath");
-const filesInFolder = document.querySelector("#filesInFolder");
-const imagesInFolderContainer = document.querySelector("#imagesInFolderContainer");
+const openFolderButton = document.querySelector("#openFolderButton");
+const photosetContainer = document.querySelector(".thumbnail-container");
 
-selectFolderButton.addEventListener("click", () => {
-	window.ipc.showTheThing().then((e) => {
-		selectedFolderPath.innerText = e;
-
-		window.ipc.getListOfFiles(e).then((f) => {
-			f = f.map((x) => e[0] + "/" + x);
-
-			filesInFolder.innerText = JSON.stringify(f);
-			
-			for (let i = 0; i < f.length; i++) {
-				const image = document.createElement("img");
-				image.src = `fab://${f[i]}`;
-				imagesInFolderContainer.appendChild(image);
-			}
-		});
-	});
+window.ipc.loadImages((listOfImageUris) => {
+	createThumbnails(listOfImageUris);
 });
+
+window.ipc.closeFolder(() => {
+	document.querySelector(".thumbnail-container").innerText = "";
+});
+
+openFolderButton.addEventListener("click", () => {
+	window.ipc.openFolder();
+});
+
+photosetContainer.addEventListener("click", (e) => {
+	const nearest = e.target.closest("img");
+	if (nearest == null) return;
+	
+	selectThumbnail(nearest);
+});
+
+function createThumbnails(listOfImageUris) {
+	const listOfPhotoItems = listOfImageUris
+		.map((image) => createThumbnail(image));
+
+	listOfPhotoItems[0].classList.add("active");
+
+	listOfPhotoItems.forEach((photoItem) => photosetContainer.appendChild(photoItem));
+}
+
+function createThumbnail(imageUri) {
+	const photoImage = document.createElement("img");
+
+	photoImage.src = `fab://${imageUri}`;
+	photoImage.classList.add("thumbnail");
+
+	return photoImage;
+}
