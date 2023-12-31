@@ -1,4 +1,5 @@
 import { $ } from "./shorthand";
+import { selectThumbnail, showSelectedThumbnail } from "./thumbnail";
 
 class Navigator {
 	constructor(element, direction) {
@@ -11,19 +12,24 @@ class Navigator {
 		});
 	}
 
-	updateState() {
-		
+	/** This should not be called outside. Use updateNavigatorStates() instead. */
+	setState(nextState) {
+		if (nextState == "enabled") {
+			this.element.classList.remove("disabled");
+		} else {
+			this.element.classList.add("disabled");
+		}
+	
+		this.state = nextState;
 	}
 }
-
-const photo = $("#activePhoto");
 
 export const prevNavigator = new Navigator($(".navigator.previous"), "previous");
 export const nextNavigator = new Navigator($(".navigator.next"), "next");
 
 function navigate(direction) {
-	if (direction == "next") navigateNext();
 	if (direction == "previous") navigatePrev();
+	if (direction == "next") navigateNext();
 }
 
 function navigatePrev() {
@@ -32,15 +38,10 @@ function navigatePrev() {
 	let activeThumbnail = $(".thumbnail.active");
 	let prevThumbnail = activeThumbnail.previousSibling;
 
-	selectPhoto(prevThumbnail);
-
-	let foreshadow = $(".thumbnail.active").previousSibling;
-	setNavigatorState(prevNavigator, foreshadow == null
-		? "disabled"
-		: "enabled"
-	);
-
-	setNavigatorState(nextNavigator, "enabled");
+	selectThumbnail(prevThumbnail);
+	showSelectedThumbnail();
+	
+	updateNavigatorStates();
 }
 
 function navigateNext() {
@@ -49,41 +50,39 @@ function navigateNext() {
 	let activeThumbnail = $(".thumbnail.active");
 	let nextThumbnail = activeThumbnail.nextSibling;
 
-	selectPhoto(nextThumbnail);
+	selectThumbnail(nextThumbnail);
+	showSelectedThumbnail();
 
-	let foreshadow = $(".thumbnail.active").nextSibling;
-	setNavigatorState(nextNavigator, foreshadow == null
-		? "disabled"
-		: "enabled"
-	);
-
-	setNavigatorState(prevNavigator, "enabled");
+	updateNavigatorStates();
 }
 
-export function selectPhoto(thumbnail) {
-	$(".thumbnail.active").classList.remove("active");
-	thumbnail.classList.add("active");
-
-	displayPhoto(thumbnail);
-}
-
-export function displayPhoto() {
-	const selectedPhoto = $(".thumbnail.active");
-	if (selectedPhoto == null) return;
-	
-	photo.style.backgroundImage = `url('${selectedPhoto.src}')`;
-}
-
-export function setNavigatorState(navigator, nextState) {
-	if (nextState == "enabled") {
-		navigator.element.classList.remove("disabled");
+export function updateNavigatorStates(overridePrev = null, overrideNext = null) {
+	if (overridePrev != null) {
+		prevNavigator.setState(overridePrev);
 	} else {
-		navigator.element.classList.add("disabled");
+		let prevForeshadow = $(".thumbnail.active").previousSibling;
+		prevNavigator.setState(prevForeshadow == null
+			? "disabled"
+			: "enabled"	
+		);
 	}
 
-	navigator.state = nextState;
+	if (overrideNext != null) {
+		nextNavigator.setState(overrideNext);
+	} else {
+		let nextForeshadow = $(".thumbnail.active").nextSibling;
+		nextNavigator.setState(nextForeshadow == null
+			? "disabled"
+			: "enabled"	
+		);
+	}
 }
 
-export function clearPhoto() {
-	photo.style.backgroundImage = "";
-}
+// export function displayPhoto() {
+// 	const selectedPhoto = $(".thumbnail.active");
+// 	photo.style.backgroundImage = `url('${selectedPhoto.src}')`;
+// }
+
+// export function clearPhoto() {
+// 	photo.style.backgroundImage = "";
+// }
