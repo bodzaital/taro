@@ -34,22 +34,28 @@ body
 	display: flex;
 	justify-content: space-between;
 
-	.lhs,
-	.rhs
+	.navigator
 	{
 		font-size: 2rem;
 		flex-grow: 0;
 		display: flex;
 		align-items: center;
-		
-		a
+		color: purple;
+		padding: .25rem .5rem;
+		margin: 1rem;
+		transition: color .1s linear;
+
+		&:hover
 		{
-			color: purple;
-			padding: .25rem .5rem;
-			margin: 1rem;
+			color: blueviolet;
 		}
 
-		&.disabled a
+		&:active
+		{
+			color: blue;
+		}
+		
+		&.disabled
 		{
 			color: gray;
 		}

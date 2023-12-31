@@ -1,49 +1,33 @@
 import './index.scss';
-import { cullNavigatorState, loadActivePhoto, selectThumbnail, toggleCullNavigators } from './renderer/thumbnailExplorer';
+import { clearPhoto, displayPhoto, nextNavigator, prevNavigator, selectPhoto, setNavigatorState } from './renderer/navigator';
+import { $ } from './renderer/shorthand';
 
-toggleCullNavigators("disabled");
+const thumbnailContainer = $(".thumbnail-container");
 
-const photosetContainer = document.querySelector(".thumbnail-container");
-const prevButton = document.querySelector(".lhs a");
-const nextButton = document.querySelector(".rhs a");
-
-prevButton.addEventListener("click", (e) => {
-	e.preventDefault();
-	scrollPhotos("previous");
-});
-
-nextButton.addEventListener("click", (e) => {
-	e.preventDefault();
-	scrollPhotos("next");
-});
-
-function scrollPhotos(direction) {
-	if (cullNavigatorState == "disabled") return;
-
-	const currentImage = document.querySelector(".thumbnail.active");
-	let nextToCull = currentImage.previousSibling;
-
-	if (direction == "next") {
-		nextToCull = currentImage.nextSibling;
-	}
-	
-	selectThumbnail(nextToCull);
-}
+// On startup no folder is selected, so disable the navigators.
+setNavigatorState(prevNavigator, "disabled");
+setNavigatorState(nextNavigator, "disabled");
 
 window.ipc.loadImages((listOfImageUris) => {
 	createThumbnails(listOfImageUris);
+	displayPhoto()
 });
 
 window.ipc.closeFolder(() => {
-	document.querySelector(".thumbnail-container").innerText = "";
+	clearThumbnails();
+	clearPhoto();
 });
 
-photosetContainer.addEventListener("click", (e) => {
+thumbnailContainer.addEventListener("click", (e) => {
 	const nearest = e.target.closest("img");
 	if (nearest == null) return;
 	
-	selectThumbnail(nearest);
+	selectPhoto(nearest);
 });
+
+function clearThumbnails() {
+	$(".thumbnail-container").innerText = "";
+}
 
 function createThumbnails(listOfImageUris) {
 	const listOfPhotoItems = listOfImageUris
@@ -51,10 +35,10 @@ function createThumbnails(listOfImageUris) {
 
 	listOfPhotoItems[0].classList.add("active");
 
-	listOfPhotoItems.forEach((photoItem) => photosetContainer.appendChild(photoItem));
+	listOfPhotoItems.forEach((photoItem) => thumbnailContainer.appendChild(photoItem));
 
-	loadActivePhoto();
-	toggleCullNavigators("enabled");
+	setNavigatorState(prevNavigator, "enabled");
+	setNavigatorState(nextNavigator, "enabled");
 }
 
 function createThumbnail(imageUri) {
