@@ -17,7 +17,7 @@ export function registerMenu() {
 	const isMacOS = process.platform == "darwin";
 
 	const applicationMenu = getApplicationMenu(isMacOS);
-	const fileMenu = getFileMenu();
+	const fileMenu = getFileMenu(isMacOS);
 
 	const menu = [
 		...applicationMenu,
@@ -44,17 +44,19 @@ function getApplicationMenu(isMacOS) {
 	}] : [];
 }
 
-function getFileMenu() {
+function getFileMenu(isMacOS) {
 	return [{
 		label: "File",
 		submenu: [
 			{
 				label: "Open Folder",
-				click: () => openFolderHandler()
+				click: () => openFolderHandler(),
+				accelerator: isMacOS ? "Cmd+O" : "Ctrl+O"
 			},
 			{
 				label: "Close Folder",
-				click: () => closeFolderHandler()
+				click: () => closeFolderHandler(),
+				accelerator: isMacOS ? "Cmd+W" : "Ctrl+W"
 			}
 		]
 	}];
