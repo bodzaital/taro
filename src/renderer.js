@@ -1,7 +1,34 @@
 import './index.scss';
-import { loadActivePhoto, selectThumbnail } from './renderer/thumbnailExplorer';
+import { cullNavigatorState, loadActivePhoto, selectThumbnail, toggleCullNavigators } from './renderer/thumbnailExplorer';
+
+toggleCullNavigators("disabled");
 
 const photosetContainer = document.querySelector(".thumbnail-container");
+const prevButton = document.querySelector(".lhs a");
+const nextButton = document.querySelector(".rhs a");
+
+prevButton.addEventListener("click", (e) => {
+	e.preventDefault();
+	scrollPhotos("previous");
+});
+
+nextButton.addEventListener("click", (e) => {
+	e.preventDefault();
+	scrollPhotos("next");
+});
+
+function scrollPhotos(direction) {
+	if (cullNavigatorState == "disabled") return;
+
+	const currentImage = document.querySelector(".thumbnail.active");
+	let nextToCull = currentImage.previousSibling;
+
+	if (direction == "next") {
+		nextToCull = currentImage.nextSibling;
+	}
+	
+	selectThumbnail(nextToCull);
+}
 
 window.ipc.loadImages((listOfImageUris) => {
 	createThumbnails(listOfImageUris);
@@ -27,6 +54,7 @@ function createThumbnails(listOfImageUris) {
 	listOfPhotoItems.forEach((photoItem) => photosetContainer.appendChild(photoItem));
 
 	loadActivePhoto();
+	toggleCullNavigators("enabled");
 }
 
 function createThumbnail(imageUri) {
