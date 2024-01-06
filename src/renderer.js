@@ -1,12 +1,12 @@
 import './index.scss';
 import { folder } from './renderer/folder';
-import { updateTitleSearchBarPlaceholder } from './renderer/frame';
+import { windowFrame } from './renderer/windowFrame';
 
 window.ipc.loadImages((listOfImageUris, folderName) => {
-	updateTitleSearchBarPlaceholder(folderName);
 	folder.loadFolder(listOfImageUris);
 });
 
 window.ipc.closeFolder(() => {
 	folder.unloadFolder();
+	windowFrame.unloadFolder();
 });

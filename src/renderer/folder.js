@@ -1,4 +1,5 @@
-import { createThumbnails, selectThumbnail, showSelectedThumbnail } from "./thumbnail";
+import { clearPhoto, clearThumbnails, createThumbnails, selectThumbnail, showSelectedThumbnail } from "./thumbnail";
+import { windowFrame } from "./windowFrame";
 
 class Folder {
 	constructor() {
@@ -12,10 +13,15 @@ class Folder {
 		selectThumbnail(0);
 		showSelectedThumbnail();
 
+		windowFrame.loadFolder("foldername bruh");
+
 		this.isFolderLoaded = true;
 	}
 
 	unloadFolder() {
+		clearThumbnails();
+		clearPhoto();
+		
 		this.isFolderLoaded = false;
 	}
 }

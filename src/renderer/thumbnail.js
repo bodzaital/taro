@@ -76,3 +76,11 @@ function createThumbnail(uri) {
 
 	return thumbnail;
 }
+
+export function clearThumbnails() {
+	container.innerText = "";
+}
+
+export function clearPhoto() {
+	photo.style.backgroundImage = "";
+}
