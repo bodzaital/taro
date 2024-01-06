@@ -1,40 +1,70 @@
-import { $ } from "./shorthand";
+import { folder } from "./folder";
+import { $, $$ } from "./shorthand";
 
 const container = $(".thumbnail-container");
 const photo = $("#activePhoto");
 
-container.addEventListener("click", (e) => {
-	const nearest = e.target.closest("img");
-	if (nearest == null) return;
+/** The currently selected thumbnail's index. */
+let currentIndex = 0;
 
-	selectThumbnail(nearest);
+/** Handles navigation when clicking on thumbnails. */
+container.addEventListener("click", (e) => {
+	if (!folder.isFolderLoaded) return;
+
+	const selectedThumbnail = e.target.closest(".thumbnail");
+	if (selectedThumbnail == null) return;
+
+	const selectedIndex = Array.from($$(".thumbnail")).indexOf(selectedThumbnail);
+
+	selectThumbnail(selectedIndex);
 	showSelectedThumbnail();
 });
 
-export function selectThumbnail(nextThumbnail) {
-	const activeThumbnail = $(".thumbnail.active");
-	activeThumbnail.classList.remove("active");
+/** Handles navigation using keyboard arrow keys. */
+window.addEventListener("keydown", (e) => {
+	if (!folder.isFolderLoaded) return;
 
-	nextThumbnail.classList.add("active");
+	navigate(e.key, () => {
+		advanceIndexWithClamp(-1);
+	}, () => {
+		advanceIndexWithClamp(1);
+	});
+	
+	selectThumbnail(currentIndex);
+	showSelectedThumbnail();
+});
 
-	nextThumbnail.scrollIntoView();
+/** Checks if a keypress is left or right arrow, and invokes the associated callbacks respectively. */
+function navigate(key, prevCallback, nextCallback) {
+	if (key == "ArrowLeft") prevCallback();
+	if (key == "ArrowRight") nextCallback();
 }
 
-export function selectFirstThumbnail() {
-	const thumbnail = $(".thumbnail");
-	thumbnail.classList.add("active");
+/** Advances the current thumbnail index while clamping it between 0 and the last item's index. */
+function advanceIndexWithClamp(delta) {
+	const lastValidIndex = $$(".thumbnail").length - 1;
+	currentIndex = Math.min(Math.max(currentIndex + delta, 0), lastValidIndex);
 }
 
+/** Deselects the current thumbnail and selects a new thumbnail by index. */
+export function selectThumbnail(index) {
+	const currentThumbnail = $(".thumbnail.active");
+	if (currentThumbnail != null) currentThumbnail.classList.remove("active");
+
+	const selectedThumbnail = $$(".thumbnail")[index];
+	selectedThumbnail.classList.add("active");
+}
+
+/** Shows the selected thumbnail as the active photo. */
 export function showSelectedThumbnail() {
-	const activeThumbnail = $(".thumbnail.active");
-	photo.style.backgroundImage = `url('${activeThumbnail.src}')`;
+	const selectedThumbnail = $(".thumbnail.active");
+	photo.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 }
 
-/** Create the thumbnails from a list of URIs and select the first thumbnail. */
-export function createThumbnails(listOfImageUris) {
-	const listOfThumbnails = listOfImageUris.map((uri) => createThumbnail(uri));
-
-	listOfThumbnails
+/** Creates the thumbnails from the collection of image URIs. */
+export function createThumbnails(imageUris) {
+	imageUris
+		.map((uri) => createThumbnail(uri))
 		.forEach((thumbnail) => container.appendChild(thumbnail));
 }
 

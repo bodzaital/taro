@@ -15,6 +15,19 @@ body
     -webkit-app-region: drag;
     -webkit-user-select: none;
     user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	input
+	{
+		-webkit-app-region: none;
+		-webkit-user-select: auto;
+		user-select: auto;
+		max-width: 300px;
+		text-align: center;
+
+	}
 }
 
 .content

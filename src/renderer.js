@@ -1,18 +1,12 @@
 import './index.scss';
-import { updateNavigatorStates } from './renderer/navigator';
-import { createThumbnails, selectFirstThumbnail, showSelectedThumbnail } from './renderer/thumbnail';
+import { folder } from './renderer/folder';
+import { updateTitleSearchBarPlaceholder } from './renderer/frame';
 
-// On startup no folder is selected, so disable the navigators.
-updateNavigatorStates("disabled", "disabled");
-
-window.ipc.loadImages((listOfImageUris) => {
-	createThumbnails(listOfImageUris);
-	selectFirstThumbnail();
-	showSelectedThumbnail();
-	updateNavigatorStates();
+window.ipc.loadImages((listOfImageUris, folderName) => {
+	updateTitleSearchBarPlaceholder(folderName);
+	folder.loadFolder(listOfImageUris);
 });
 
 window.ipc.closeFolder(() => {
-	// clearThumbnails();
-	// clearPhoto();
+	folder.unloadFolder();
 });
