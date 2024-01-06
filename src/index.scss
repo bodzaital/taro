@@ -1,4 +1,10 @@
+// TODO: separate scss file into smaller files.
+
 // * { outline: 1px solid red; }
+
+// TODO: look into a less hacky way of keeping the viewer from growing too large.
+$titleBarHeight: 50px;
+$thumbnailRowHeight: 105px;
 
 html
 {
@@ -31,48 +37,77 @@ body
 
 #title-bar
 {
-	flex-basis: 50px;
+	flex-basis: $titleBarHeight;
     -webkit-app-region: drag;
     -webkit-user-select: none;
     user-select: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: .5rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 
-	input
+	.title-bar-center
+	{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		grid-column: 2;
+
+		#titleBarSearch
+		{
+			text-align: center;
+		}
+	}
+
+	.title-bar-right
+	{
+		display: flex;
+		align-items: center;
+		justify-content: right;
+		grid-column: 3;
+
+		#toggleSidebar
+		{
+			margin-right: .5rem;
+		}
+	}
+
+	.title-bar-interactable
 	{
 		-webkit-app-region: none;
 		-webkit-user-select: auto;
 		user-select: auto;
-		max-width: 300px;
-		text-align: center;
 	}
 }
 
 .content
 {
 	flex: 1;
-	overflow: auto;
+	overflow: scroll;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	gap: .5rem;
 }
 
 .viewer
 {
-	flex-grow: 1;
-	display: flex;
-	justify-content: space-between;
+	height: calc(100vh - $titleBarHeight - $thumbnailRowHeight);
+	display: grid;
+	grid-template-columns: auto 250px;
+	grid-template-rows: minmax(0, 1fr);
 
 	.photo
 	{
-		flex-grow: 1;
+		// padding: .5rem 0 0 0;
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center;
+	}
+
+	.sidebar
+	{
+		min-height: 0;
+		overflow-y: scroll;
+		font-size: .8rem;
 	}
 }
 
@@ -82,7 +117,7 @@ body
 	display: flex;
 	gap: 5px;
 	overflow-x: scroll;
-	height: 105px;
+	height: $thumbnailRowHeight;
 	scroll-behavior: smooth;
 
 	.thumbnail
