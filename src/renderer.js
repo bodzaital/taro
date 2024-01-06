@@ -1,5 +1,6 @@
 import './index.scss';
 import { folder } from './renderer/folder';
+import { $ } from './renderer/shorthand';
 import { windowFrame } from './renderer/windowFrame';
 
 window.ipc.loadImages((listOfImageUris, folderName) => {
@@ -9,4 +10,10 @@ window.ipc.loadImages((listOfImageUris, folderName) => {
 window.ipc.closeFolder(() => {
 	folder.unloadFolder();
 	windowFrame.unloadFolder();
+});
+
+window.ipc.toggleDarkMode((isDarkMode) => {
+	$("html").dataset.bsTheme = isDarkMode
+		? "dark"
+		: "light";
 });

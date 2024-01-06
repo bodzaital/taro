@@ -1,5 +1,7 @@
 import { Menu, app } from "electron";
 import { closeFolderHandler, openFolderHandler } from "./io";
+import { raiseEvent } from "./ipc";
+import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
 
 /** Registers the about panel and sets the basic values on it. */
 export function registerAboutPanel() {
@@ -18,11 +20,13 @@ export function registerMenu() {
 
 	const applicationMenu = getApplicationMenu(isMacOS);
 	const fileMenu = getFileMenu(isMacOS);
+	const viewMenu = getViewMenu(isMacOS);
 
 	const menu = [
 		...applicationMenu,
-		...fileMenu
-	]
+		...fileMenu,
+		...viewMenu
+	];
 
 	Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 }
@@ -60,4 +64,25 @@ function getFileMenu(isMacOS) {
 			}
 		]
 	}];
+}
+
+function getViewMenu(isMacOS) {
+	return [{
+		label: "View",
+		submenu: [
+			{
+				label: "Dark mode",
+				type: "checkbox",
+				id: "view/dark-mode",
+				click: () => toggleDarkMode(),
+				accelerator: isMacOS ? "Cmd+Option+L" : "Ctrl+Alt+L"
+			}
+		]
+	}];
+}
+
+function toggleDarkMode() {
+	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
+
+	raiseEvent(CH_TOGGLE_DARK_MODE, [isDarkMode]);
 }
