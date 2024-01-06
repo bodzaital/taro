@@ -50,16 +50,16 @@ function advanceIndexWithClamp(delta) {
 
 /** Deselects the current thumbnail and selects a new thumbnail by index. */
 export function selectThumbnail(index) {
-	const currentThumbnail = $(".thumbnail.active");
-	if (currentThumbnail != null) currentThumbnail.classList.remove("active");
+	const currentThumbnail = $(".thumbnail.current");
+	if (currentThumbnail != null) currentThumbnail.classList.remove("current");
 
 	const selectedThumbnail = $$(".thumbnail")[index];
-	selectedThumbnail.classList.add("active");
+	selectedThumbnail.classList.add("current");
 }
 
 /** Shows the selected thumbnail as the active photo. */
 export function showSelectedThumbnail() {
-	const selectedThumbnail = $(".thumbnail.active");
+	const selectedThumbnail = $(".thumbnail.current");
 	photo.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 }
 

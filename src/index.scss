@@ -1,5 +1,21 @@
 // * { outline: 1px solid red; }
 
+html[data-bs-theme='dark']
+{
+	.thumbnail-container .thumbnail.current
+	{
+		border-color: lightpink;
+	}
+}
+
+html[data-bs-theme='light']
+{
+	.thumbnail-container .thumbnail.current
+	{
+		border-color: purple;
+	}
+}
+
 body
 {
 	display: flex;
@@ -11,7 +27,6 @@ body
 #title-bar
 {
 	flex-basis: 50px;
-    // border-bottom: 1px solid #d0d0d0;
     -webkit-app-region: drag;
     -webkit-user-select: none;
     user-select: none;
@@ -70,13 +85,7 @@ body
 		height: 100%;
 		width: auto;
 		border: 1px solid transparent;
-		padding: 2px;
+		padding: 5px;
 		border-radius: 5px;
-
-		// TODO: rename to "current"
-		&.active
-		{
-			border-color: purple;
-		}
 	}
 }
