@@ -1,88 +1,86 @@
 import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 
-const container = $(".thumbnail-container");
-const photo = $("#activePhoto");
+class Thumbnail {
+	#container = $(".thumbnail-container");
+	#activePhoto = $("#activePhoto");
+	#currentIndex = 0;
 
-/** The currently selected thumbnail's index. */
-let currentIndex = 0;
+	constructor() {
+		this.#container.addEventListener("click", (e) => {
+			if (!folder.isFolderLoaded) return;
 
-// TODO: refactor into a class like folder and windowFrame?
+			const selectedThumbnail = e.target.closest(".thumbnail");
+			if (selectedThumbnail == null) return;
 
-/** Handles navigation when clicking on thumbnails. */
-container.addEventListener("click", (e) => {
-	if (!folder.isFolderLoaded) return;
+			const selectedIndex = Array.from($$(".thumbnail")).indexOf(selectedThumbnail);
+			
+			this.selectThumbnail(selectedIndex);
+			this.showSelectedThumbnail();
+		});
 
-	const selectedThumbnail = e.target.closest(".thumbnail");
-	if (selectedThumbnail == null) return;
+		window.addEventListener("keydown", (e) => {
+			if (!folder.isFolderLoaded) return;
 
-	const selectedIndex = Array.from($$(".thumbnail")).indexOf(selectedThumbnail);
+			this.#navigate(e.key, () => {
+				this.#advanceIndexWithClamp(-1);
+			}, () => {
+				this.#advanceIndexWithClamp(1);
+			});
+			
+			this.selectThumbnail(this.#currentIndex);
+			this.showSelectedThumbnail();
+		});
+	}
 
-	selectThumbnail(selectedIndex);
-	showSelectedThumbnail();
-});
+	#navigate(key, prevCallback, nextCallback) {
+		if (key == "ArrowLeft") prevCallback();
+		if (key == "ArrowRight") nextCallback();
+	}
 
-/** Handles navigation using keyboard arrow keys. */
-window.addEventListener("keydown", (e) => {
-	if (!folder.isFolderLoaded) return;
+	#advanceIndexWithClamp(delta) {
+		const lastIndex = $$(".thumbnail").length - 1;
+		this.#currentIndex = Math.min(Math.max(this.#currentIndex + delta, 0), lastIndex);
+	}
 
-	navigate(e.key, () => {
-		advanceIndexWithClamp(-1);
-	}, () => {
-		advanceIndexWithClamp(1);
-	});
+	/** Deselects the current thumbnail and selects a new thumbnail by index. */
+	selectThumbnail(index) {
+		const currentThumbnail = $(".thumbnail.current");
+		if (currentThumbnail != null) currentThumbnail.classList.remove("current");
 	
-	selectThumbnail(currentIndex);
-	showSelectedThumbnail();
-});
+		const selectedThumbnail = $$(".thumbnail")[index];
+		selectedThumbnail.classList.add("current");
+	}
 
-/** Checks if a keypress is left or right arrow, and invokes the associated callbacks respectively. */
-function navigate(key, prevCallback, nextCallback) {
-	if (key == "ArrowLeft") prevCallback();
-	if (key == "ArrowRight") nextCallback();
+	/** Shows the selected thumbnail as the active photo. */
+	showSelectedThumbnail() {
+		const selectedThumbnail = $(".thumbnail.current");
+		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
+	}
+
+	/** Creates the thumbnails from the collection of image URIs. */
+	createThumbnails(imageUris) {
+		imageUris
+			.map((uri) => this.#createThumbnail(uri))
+			.forEach((thumbnail) => this.#container.appendChild(thumbnail));
+	}
+
+	#createThumbnail(uri) {
+		const thumbnail = document.createElement("img");
+	
+		thumbnail.src = `fab://${uri}`;
+		thumbnail.classList.add("thumbnail");
+	
+		return thumbnail;
+	}
+
+	clearThumbnails() {
+		this.#container.innerText = "";
+	}
+	
+	clearPhoto() {
+		this.#activePhoto.style.backgroundImage = "";
+	}
 }
 
-/** Advances the current thumbnail index while clamping it between 0 and the last item's index. */
-function advanceIndexWithClamp(delta) {
-	const lastValidIndex = $$(".thumbnail").length - 1;
-	currentIndex = Math.min(Math.max(currentIndex + delta, 0), lastValidIndex);
-}
-
-/** Deselects the current thumbnail and selects a new thumbnail by index. */
-export function selectThumbnail(index) {
-	const currentThumbnail = $(".thumbnail.current");
-	if (currentThumbnail != null) currentThumbnail.classList.remove("current");
-
-	const selectedThumbnail = $$(".thumbnail")[index];
-	selectedThumbnail.classList.add("current");
-}
-
-/** Shows the selected thumbnail as the active photo. */
-export function showSelectedThumbnail() {
-	const selectedThumbnail = $(".thumbnail.current");
-	photo.style.backgroundImage = `url('${selectedThumbnail.src}')`;
-}
-
-/** Creates the thumbnails from the collection of image URIs. */
-export function createThumbnails(imageUris) {
-	imageUris
-		.map((uri) => createThumbnail(uri))
-		.forEach((thumbnail) => container.appendChild(thumbnail));
-}
-
-function createThumbnail(uri) {
-	const thumbnail = document.createElement("img");
-
-	thumbnail.src = `fab://${uri}`;
-	thumbnail.classList.add("thumbnail");
-
-	return thumbnail;
-}
-
-export function clearThumbnails() {
-	container.innerText = "";
-}
-
-export function clearPhoto() {
-	photo.style.backgroundImage = "";
-}
+export const thumbnail = new Thumbnail();

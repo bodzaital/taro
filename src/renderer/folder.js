@@ -1,4 +1,4 @@
-import { clearPhoto, clearThumbnails, createThumbnails, selectThumbnail, showSelectedThumbnail } from "./thumbnail";
+import { clearPhoto, clearThumbnails, createThumbnails, selectThumbnail, showSelectedThumbnail, thumbnail } from "./thumbnail";
 import { windowFrame } from "./windowFrame";
 
 class Folder {
@@ -9,9 +9,9 @@ class Folder {
 	loadFolder(imageUris) {
 		// TODO: might delegate IPC communication here from renderer.
 
-		createThumbnails(imageUris);
-		selectThumbnail(0);
-		showSelectedThumbnail();
+		thumbnail.createThumbnails(imageUris);
+		thumbnail.selectThumbnail(0);
+		thumbnail.showSelectedThumbnail();
 
 		windowFrame.loadFolder("foldername bruh");
 
@@ -19,8 +19,8 @@ class Folder {
 	}
 
 	unloadFolder() {
-		clearThumbnails();
-		clearPhoto();
+		thumbnail.clearThumbnails();
+		thumbnail.clearPhoto();
 		
 		this.isFolderLoaded = false;
 	}
