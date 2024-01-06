@@ -20,8 +20,6 @@ export function openFolderHandler() {
 	const listOfImageUris = readdirSync(folderPath[0])
 		.map((uri) => `${folderPath}/${uri}`);
 
-	
-
 	raiseEvent(CH_LOAD_IMAGES, [listOfImageUris, folderPath]);
 }
 

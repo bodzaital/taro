@@ -7,6 +7,8 @@ const photo = $("#activePhoto");
 /** The currently selected thumbnail's index. */
 let currentIndex = 0;
 
+// TODO: refactor into a class like folder and windowFrame?
+
 /** Handles navigation when clicking on thumbnails. */
 container.addEventListener("click", (e) => {
 	if (!folder.isFolderLoaded) return;

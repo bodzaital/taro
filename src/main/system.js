@@ -81,6 +81,7 @@ function getViewMenu(isMacOS) {
 	}];
 }
 
+// TODO: refactor this
 function toggleDarkMode() {
 	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
 

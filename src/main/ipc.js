@@ -12,8 +12,8 @@ export function registerIpcMainHandlers() {
 	ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
 }
 
-export function raiseEvent(channelName, args = null) {
+export function raiseEvent(channelName, argsArray = null) {
 	if (_mainWindow == null) throw new Error("initializeIpc was not called with an instance of mainWindow.");
 
-	_mainWindow.webContents.send(channelName, args);
+	_mainWindow.webContents.send(channelName, argsArray);
 }

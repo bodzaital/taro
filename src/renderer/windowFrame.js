@@ -1,5 +1,7 @@
 import { $ } from "./shorthand";
 
+// TODO: handle dark mode here
+
 class WindowFrame {
 	constructor() {
 		this._searchbar = $("#titleBarSearch");
