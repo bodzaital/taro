@@ -1,18 +1,23 @@
 // * { outline: 1px solid red; }
 
-html[data-bs-theme='dark']
+html
 {
-	.thumbnail-container .thumbnail.current
-	{
-		border-color: lightpink;
-	}
-}
+	scroll-behavior: smooth;
 
-html[data-bs-theme='light']
-{
-	.thumbnail-container .thumbnail.current
+	&[data-bs-theme='dark']
 	{
-		border-color: purple;
+		.thumbnail-container .thumbnail.current
+		{
+			border-color: lightpink;
+		}
+	}
+
+	&[data-bs-theme='light']
+	{
+		.thumbnail-container .thumbnail.current
+		{
+			border-color: purple;
+		}
 	}
 }
 
@@ -33,6 +38,7 @@ body
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: .5rem;
 
 	input
 	{
@@ -41,7 +47,6 @@ body
 		user-select: auto;
 		max-width: 300px;
 		text-align: center;
-
 	}
 }
 

@@ -22,13 +22,19 @@ class Thumbnail {
 		window.addEventListener("keydown", (e) => {
 			if (!folder.isFolderLoaded) return;
 
+			if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+			
+			e.preventDefault();
+
 			this.#navigate(e.key, () => {
 				this.#advanceIndexWithClamp(-1);
 			}, () => {
 				this.#advanceIndexWithClamp(1);
 			});
 			
-			this.selectThumbnail(this.#currentIndex);
+			let selectedThumbnail = this.selectThumbnail(this.#currentIndex);
+			selectedThumbnail.scrollIntoView();
+			
 			this.showSelectedThumbnail();
 		});
 	}
@@ -50,6 +56,8 @@ class Thumbnail {
 	
 		const selectedThumbnail = $$(".thumbnail")[index];
 		selectedThumbnail.classList.add("current");
+
+		return selectedThumbnail;
 	}
 
 	/** Shows the selected thumbnail as the active photo. */
