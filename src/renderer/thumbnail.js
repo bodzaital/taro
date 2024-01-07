@@ -14,6 +14,7 @@ class Thumbnail {
 			if (selectedThumbnail == null) return;
 
 			const selectedIndex = Array.from($$(".thumbnail")).indexOf(selectedThumbnail);
+			this.#currentIndex = selectedIndex;
 			
 			this.selectThumbnail(selectedIndex);
 			this.showSelectedThumbnail();
