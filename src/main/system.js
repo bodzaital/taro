@@ -21,11 +21,13 @@ export function registerMenu() {
 	const applicationMenu = getApplicationMenu(isMacOS);
 	const fileMenu = getFileMenu(isMacOS);
 	const viewMenu = getViewMenu(isMacOS);
+	const toolsMenu = getToolsMenu(isMacOS);
 
 	const menu = [
 		...applicationMenu,
 		...fileMenu,
-		...viewMenu
+		...viewMenu,
+		...toolsMenu
 	];
 
 	Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
@@ -76,6 +78,18 @@ function getViewMenu(isMacOS) {
 				id: "view/dark-mode",
 				click: () => toggleDarkMode(),
 				accelerator: isMacOS ? "Cmd+Option+L" : "Ctrl+Alt+L"
+			}
+		]
+	}];
+}
+
+function getToolsMenu(isMacOS) {
+	return [{
+		label: "Tools",
+		submenu: [
+			{
+				role: "toggleDevTools",
+				accelerator: "F12"
 			}
 		]
 	}];
