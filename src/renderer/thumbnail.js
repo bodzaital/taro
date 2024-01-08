@@ -78,6 +78,7 @@ class Thumbnail {
 		const thumbnail = document.createElement("img");
 	
 		thumbnail.src = `fab://${uri}`;
+		thumbnail.loading = "lazy";
 		thumbnail.classList.add("thumbnail");
 	
 		return thumbnail;
