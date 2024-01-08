@@ -9,18 +9,15 @@ class Folder {
 	loadFolder(imageUris) {
 		// TODO: might delegate IPC communication here from renderer.
 
-		thumbnail.createThumbnails(imageUris);
-		thumbnail.selectThumbnail(0);
-		thumbnail.showSelectedThumbnail();
-
+		thumbnail.loadFolder(imageUris);
 		windowFrame.loadFolder("foldername bruh");
 
 		this.isFolderLoaded = true;
 	}
 
 	unloadFolder() {
-		thumbnail.clearThumbnails();
-		thumbnail.clearPhoto();
+		thumbnail.unloadFolder();
+		windowFrame.unloadFolder();
 		
 		this.isFolderLoaded = false;
 	}

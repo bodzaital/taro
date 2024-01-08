@@ -9,7 +9,6 @@ window.ipc.loadImages((listOfImageUris, folderName) => {
 
 window.ipc.closeFolder(() => {
 	folder.unloadFolder();
-	windowFrame.unloadFolder();
 });
 
 window.ipc.toggleDarkMode((isDarkMode) => {

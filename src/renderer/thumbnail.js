@@ -74,6 +74,19 @@ class Thumbnail {
 			.forEach((thumbnail) => this.#container.appendChild(thumbnail));
 	}
 
+	/** Calls the necessary instance functions when a folder is loaded. */
+	loadFolder(imageUris) {
+		this.createThumbnails(imageUris);
+		this.selectThumbnail(0);
+		this.showSelectedThumbnail();
+	}
+
+	/** Calls the necessary instance functions when a folder is unloaded. */
+	unloadFolder() {
+		this.clearThumbnails();
+		this.clearPhoto();
+	}
+
 	#createThumbnail(uri) {
 		const thumbnail = document.createElement("img");
 	
