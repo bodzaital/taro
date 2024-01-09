@@ -5,10 +5,41 @@ class Tagging {
 	#tagAdderInput = $(".sidebar-tag-add");
 	#tagSuggestions = $(".sidebar-tag-suggestions");
 
+	#suggestedTags__DUMMY_DONT_RELEASE = ["landscape", "ambient", "happy"];
+
 	constructor() {
 		console.log(this.#getTags());
 		this.#clearSuggestions();
 		this.#clearTags();
+
+		this.#tagAdderInput.addEventListener("focus", () => {
+			// TODO: dynamically suggest tags based on what was written in
+			this.#suggestedTags__DUMMY_DONT_RELEASE.forEach((tag) => this.#addSuggestion(tag));
+		});
+
+		this.#tagAdderInput.addEventListener("focusout", () => {
+			this.#clearSuggestions();
+		});
+
+		this.#tagSuggestions.addEventListener("click", (e) => {
+			// TODO: tags must be unique on a photo.
+			const nearest = e.target.closest(".sidebar-tag-suggestions a");
+			if (nearest == null) return;
+
+			const tagName = nearest.innerText;
+			this.#addTag(tagName);
+
+			this.#clearSuggestions();
+		});
+
+		this.#tagContainer.addEventListener("click", (e) => {
+			const nearest = e.target.closest(".sidebar-tag-remove");
+			if (nearest == null) return;
+
+			const tagName = $(".sidebar-tag-name", nearest.parent).innerText;
+
+			this.#removeTag(tagName);
+		});
 	}
 	
 	#getTags() {
@@ -23,6 +54,7 @@ class Tagging {
 	#addTag(name) {
 		const tag = document.createElement("div");
 
+		tag.dataset.tag = name;
 		tag.classList.add("sidebar-tag");
 
 		const tagName = document.createElement("div");
@@ -38,6 +70,11 @@ class Tagging {
 		tag.appendChild(tagRemove);
 
 		this.#tagContainer.appendChild(tag);
+	}
+
+	#removeTag(name) {
+		const tagSelector = `.sidebar-tag[data-tag='${name}']`;
+		this.#tagContainer.removeChild($(tagSelector, this.#tagContainer));
 	}
 
 	#clearTags() {
