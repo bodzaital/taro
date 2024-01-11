@@ -1,9 +1,12 @@
 import { dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES } from "../ipcConstants";
-import { readdirSync } from "original-fs";
+// import { readdirSync } from "original-fs";
 // import { raiseEvent } from "./ipc";
-import { extname } from "path";
+import path from "path";
 import { ipc } from "./ipc";
+import FolderInfo from "../data/folderInfo";
+import fs from "fs";
+import Metadata from "../data/metadata";
 
 const PROTO_FAB = "fab";
 const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
@@ -20,12 +23,18 @@ export function openFolderHandler() {
 		properties: ["openDirectory"]
 	});
 
-	const listOfImageUris = readdirSync(folderPath[0])
+	const listOfImageUris = fs.readdirSync(folderPath[0])
 		.filter((file) => file[0] != ".")
 		.map((file) => `${folderPath}/${file}`)
-		.filter((uri) => !SUPPORTED_PHOTO_EXTENSIONS.includes(extname(uri).toLowerCase()));
+		.filter((uri) => !SUPPORTED_PHOTO_EXTENSIONS.includes(path.extname(uri).toLowerCase()));
 
-	ipc.raise(CH_LOAD_IMAGES, [listOfImageUris, folderPath]);
+	if (!fs.existsSync("taro.metadata.json")) {
+		fs.writeFileSync("taro.metadata.json", JSON.stringify(new Metadata("hello béla")));
+	}
+
+	const folderInfo = new FolderInfo(folderPath, listOfImageUris);
+
+	ipc.raise(CH_LOAD_IMAGES, [folderInfo]);
 }
 
 export function closeFolderHandler() {

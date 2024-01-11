@@ -10,7 +10,7 @@ class IPC {
 	}
 
 	register() {
-		ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
+		// ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
 	}
 
 	raise(channel, args = null) {
