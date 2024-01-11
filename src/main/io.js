@@ -1,8 +1,9 @@
 import { dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES } from "../ipcConstants";
 import { readdirSync } from "original-fs";
-import { raiseEvent } from "./ipc";
+// import { raiseEvent } from "./ipc";
 import { extname } from "path";
+import { ipc } from "./ipc";
 
 const PROTO_FAB = "fab";
 const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
@@ -24,9 +25,9 @@ export function openFolderHandler() {
 		.map((file) => `${folderPath}/${file}`)
 		.filter((uri) => !SUPPORTED_PHOTO_EXTENSIONS.includes(extname(uri).toLowerCase()));
 
-	raiseEvent(CH_LOAD_IMAGES, [listOfImageUris, folderPath]);
+	ipc.raise(CH_LOAD_IMAGES, [listOfImageUris, folderPath]);
 }
 
 export function closeFolderHandler() {
-	raiseEvent(CH_CLOSE_FOLDER);
+	ipc.raise(CH_CLOSE_FOLDER);
 }

@@ -1,4 +1,5 @@
-import { clearPhoto, clearThumbnails, createThumbnails, selectThumbnail, showSelectedThumbnail, thumbnail } from "./thumbnail";
+import { $ } from "./shorthand";
+import { thumbnail } from "./thumbnail";
 import { windowFrame } from "./windowFrame";
 
 class Folder {

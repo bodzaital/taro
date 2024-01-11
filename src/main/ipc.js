@@ -1,19 +1,21 @@
 import { ipcMain } from "electron";
-import { CH_OPEN_FOLDER } from "../ipcConstants";
+import { CH_GET_METADATA, CH_OPEN_FOLDER } from "../ipcConstants";
 import { openFolderHandler } from "./io";
 
-let _mainWindow = null;
+class IPC {
+	#mainWindow = null;
 
-export function initializeIpc(mainWindow) {
-	_mainWindow = mainWindow;
+	init(mainWindow) {
+		this.#mainWindow = mainWindow;
+	}
+
+	register() {
+		ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
+	}
+
+	raise(channel, args = null) {
+		this.#mainWindow.webContents.send(channel, args);
+	}
 }
 
-export function registerIpcMainHandlers() {
-	ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
-}
-
-export function raiseEvent(channelName, argsArray = null) {
-	if (_mainWindow == null) throw new Error("initializeIpc was not called with an instance of mainWindow.");
-
-	_mainWindow.webContents.send(channelName, argsArray);
-}
+export const ipc = new IPC();

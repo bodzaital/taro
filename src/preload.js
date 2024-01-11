@@ -5,5 +5,5 @@ contextBridge.exposeInMainWorld("ipc", {
 	loadImages: (callback) => ipcRenderer.on(CH_LOAD_IMAGES, (_, args) => callback(...args)),
 	openFolder: () => ipcRenderer.invoke(CH_OPEN_FOLDER),
 	closeFolder: (callback) => ipcRenderer.on(CH_CLOSE_FOLDER, () => callback()),
-	toggleDarkMode: (callback) => ipcRenderer.on(CH_TOGGLE_DARK_MODE, (_, args) => callback(...args))
+	toggleDarkMode: (callback) => ipcRenderer.on(CH_TOGGLE_DARK_MODE, (_, args) => callback(...args)),
 });

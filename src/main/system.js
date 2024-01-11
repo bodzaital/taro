@@ -1,7 +1,8 @@
 import { Menu, app } from "electron";
 import { closeFolderHandler, openFolderHandler } from "./io";
-import { raiseEvent } from "./ipc";
+// import { raiseEvent } from "./ipc";
 import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
+import { ipc } from "./ipc";
 
 /** Registers the about panel and sets the basic values on it. */
 export function registerAboutPanel() {
@@ -99,5 +100,5 @@ function getToolsMenu(isMacOS) {
 function toggleDarkMode() {
 	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
 
-	raiseEvent(CH_TOGGLE_DARK_MODE, [isDarkMode]);
+	ipc.raise(CH_TOGGLE_DARK_MODE, [isDarkMode]);
 }

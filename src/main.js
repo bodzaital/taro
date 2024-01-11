@@ -2,8 +2,9 @@ const { app, BrowserWindow } = require('electron');
 // const { readdirSync } = require('fs');
 // const { registerFabProtocol, openFolderDialogAndSendPath } = require('./main/io');
 const { registerAboutPanel, registerMenu } = require('./main/system');
-const { registerIpcMainHandlers, raiseEvent, initializeIpc } = require('./main/ipc');
+// const { registerIpcMainHandlers, raiseEvent, initializeIpc } = require('./main/ipc');
 const { registerFabProtocol } = require('./main/io');
+const { ipc } = require('./main/ipc');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -28,13 +29,12 @@ const createWindow = () => {
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools();
 
-	// Initialize the IPC handler once with the mainWindow instance.
-	initializeIpc(mainWindow);
+	ipc.init(mainWindow);
 
 	registerAboutPanel();
 	registerMenu();
 
-	registerIpcMainHandlers();
+	ipc.register();
 };
 
 // This method will be called when Electron has finished
