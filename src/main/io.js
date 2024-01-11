@@ -11,6 +11,8 @@ import Metadata from "../data/metadata";
 const HANDLE_FAB = "fab";
 const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
 
+// TODO: refactor to use new class
+
 /** Registers the fab:// handle by substituting it for the file:// URI path and returning the correct file. */
 export function registerFabProtocol() {
 	protocol.handle(HANDLE_FAB, (request) => {
