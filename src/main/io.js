@@ -8,28 +8,31 @@ import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
 
-const PROTO_FAB = "fab";
+const HANDLE_FAB = "fab";
 const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
 
 /** Registers the fab:// handle by substituting it for the file:// URI path and returning the correct file. */
 export function registerFabProtocol() {
-	protocol.handle(PROTO_FAB, (request) => {
-		return net.fetch("file://" + request.url.slice(`${PROTO_FAB}://`.length));
+	protocol.handle(HANDLE_FAB, (request) => {
+		return net.fetch("file://" + request.url.slice(`${HANDLE_FAB}://`.length));
 	});
 }
 
 export function openFolderHandler() {
 	const folderPath = dialog.showOpenDialogSync({
 		properties: ["openDirectory"]
-	});
+	})[0];
 
-	const listOfImageUris = fs.readdirSync(folderPath[0])
+	const listOfImageUris = fs.readdirSync(folderPath)
 		.filter((file) => file[0] != ".")
 		.map((file) => `${folderPath}/${file}`)
 		.filter((uri) => !SUPPORTED_PHOTO_EXTENSIONS.includes(path.extname(uri).toLowerCase()));
 
-	if (!fs.existsSync("taro.metadata.json")) {
-		fs.writeFileSync("taro.metadata.json", JSON.stringify(new Metadata("hello béla")));
+	const metadataPath = path.join(folderPath, "taro.metadata.json");
+	console.log(metadataPath);
+
+	if (!fs.existsSync(metadataPath)) {
+		fs.writeFileSync(metadataPath, JSON.stringify(new Metadata("hello béla")));
 	}
 
 	const folderInfo = new FolderInfo(folderPath, listOfImageUris);
@@ -40,3 +43,57 @@ export function openFolderHandler() {
 export function closeFolderHandler() {
 	ipc.raise(CH_CLOSE_FOLDER);
 }
+
+class IO {
+	static TARO_METADATA_FILENAME = "taro.metadata.json";
+	static SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
+
+	registerFabProtocol() {
+		protocol.handle(HANDLE_FAB, (request) => {
+			const protoFile = "file://";
+			const protoFab = HANDLE_FAB + "://";
+			const rawUri = request.url.slice(protoFab.length);
+
+			return net.fetch(protoFile + rawUri);
+		});
+	}
+
+	openFolderHandler() {
+		const folderPath = this.#getFolderPathFromDialog();
+		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
+		
+		this.#ensureMetadataFileExists();
+
+		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(folderPath, listOfImageURIs)]);
+	}
+
+	#getFolderPathFromDialog() {
+		const selectedFolderPaths = dialog.showOpenDialogSync({
+			properties: ["openDirectory"],
+			filters: [
+				{ name: "Images", extensions: ["jpg"] }
+			]
+		});
+
+		return selectedFolderPaths[0];
+	}
+
+	#getListOfImageURIs(folderPath) {
+		return fs.readdirSync(folderPath)
+			.filter((file) => file[0] != ".")
+			.map((file) => path.join(folderPath, file));
+	}
+
+	#ensureMetadataFileExists(folderPath) {
+		const taroMetadataPath = path.join(folderPath, IO.TARO_METADATA_FILENAME);
+
+		if (fs.existsSync(taroMetadataPath)) {
+			return;
+		}
+
+		// TODO: create actual empty metadata.
+		fs.writeFileSync(taroMetadataPath, JSON.stringify(new Metadata("hello")));
+	}
+}
+
+export const io = new IO();
