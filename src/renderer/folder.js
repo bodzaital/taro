@@ -7,11 +7,13 @@ class Folder {
 		this.isFolderLoaded = false;
 	}
 
-	loadFolder(imageUris) {
+	loadFolder(folderInfo) {
 		// TODO: might delegate IPC communication here from renderer.
 
-		thumbnail.loadFolder(imageUris);
+		thumbnail.loadFolder(folderInfo.imageURIs);
 		windowFrame.loadFolder("foldername bruh");
+
+		alert(folderInfo.folderName);
 
 		this.isFolderLoaded = true;
 	}

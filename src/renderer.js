@@ -2,8 +2,8 @@ import './index.scss';
 import { folder } from './renderer/folder';
 import { $ } from './renderer/shorthand';
 
-window.ipc.loadImages((listOfImageUris, folderName) => {
-	folder.loadFolder(listOfImageUris);
+window.ipc.loadImages((folderInfo) => {
+	folder.loadFolder(folderInfo);
 });
 
 window.ipc.closeFolder(() => {
