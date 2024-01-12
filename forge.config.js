@@ -30,7 +30,7 @@ module.exports = {
       name: '@electron-forge/plugin-webpack',
       config: {
         mainConfig: './webpack.main.config.js',
-        "devContentSecurityPolicy": "fab:",
+        "devContentSecurityPolicy": "taro:",
         renderer: {
           config: './webpack.renderer.config.js',
           entryPoints: [

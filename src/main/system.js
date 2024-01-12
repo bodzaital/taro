@@ -7,7 +7,7 @@ import { ipc } from "./ipc";
 /** Registers the about panel and sets the basic values on it. */
 export function registerAboutPanel() {
 	app.setAboutPanelOptions({
-		applicationName: "fab - Photography Organization",
+		applicationName: "taro - Photography Organization",
 		applicationVersion: "Pre-Alpha",
 		version: "v0.1",
 		credits: "",

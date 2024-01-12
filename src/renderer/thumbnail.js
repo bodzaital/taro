@@ -90,7 +90,7 @@ class Thumbnail {
 	#createThumbnail(uri) {
 		const thumbnail = document.createElement("img");
 	
-		thumbnail.src = `fab://${uri}`;
+		thumbnail.src = `taro://${uri}`;
 		thumbnail.loading = "lazy";
 		thumbnail.classList.add("thumbnail");
 	

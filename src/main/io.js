@@ -8,15 +8,15 @@ import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
 
-const HANDLE_FAB = "fab";
+const TARO_HANDLE = "taro";
 const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
 
 // TODO: refactor to use new class
 
-/** Registers the fab:// handle by substituting it for the file:// URI path and returning the correct file. */
-export function registerFabProtocol() {
-	protocol.handle(HANDLE_FAB, (request) => {
-		return net.fetch("file://" + request.url.slice(`${HANDLE_FAB}://`.length));
+/** Registers the taro:// handle by substituting it for the file:// URI path and returning the correct file. */
+export function registerTaroProtocol() {
+	protocol.handle(TARO_HANDLE, (request) => {
+		return net.fetch("file://" + request.url.slice(`${TARO_HANDLE}://`.length));
 	});
 }
 
@@ -50,13 +50,13 @@ class IO {
 	static TARO_METADATA_FILENAME = "taro.metadata.json";
 	static SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
 
-	registerFabProtocol() {
-		protocol.handle(HANDLE_FAB, (request) => {
-			const protoFile = "file://";
-			const protoFab = HANDLE_FAB + "://";
-			const rawUri = request.url.slice(protoFab.length);
+	registerTaroProtocol() {
+		protocol.handle(TARO_HANDLE, (request) => {
+			const fileProto = "file://";
+			const taroProto = TARO_HANDLE + "://";
+			const rawUri = request.url.slice(taroProto.length);
 
-			return net.fetch(protoFile + rawUri);
+			return net.fetch(fileProto + rawUri);
 		});
 	}
 

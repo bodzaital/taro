@@ -1,9 +1,6 @@
 const { app, BrowserWindow } = require('electron');
-// const { readdirSync } = require('fs');
-// const { registerFabProtocol, openFolderDialogAndSendPath } = require('./main/io');
 const { registerAboutPanel, registerMenu } = require('./main/system');
-// const { registerIpcMainHandlers, raiseEvent, initializeIpc } = require('./main/ipc');
-const { registerFabProtocol } = require('./main/io');
+const { registerTaroProtocol } = require('./main/io');
 const { ipc } = require('./main/ipc');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -63,5 +60,5 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 
 app.whenReady().then(() => {
-	registerFabProtocol();
+	registerTaroProtocol();
 });
