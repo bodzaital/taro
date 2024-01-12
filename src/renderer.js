@@ -15,3 +15,8 @@ window.ipc.toggleDarkMode((isDarkMode) => {
 		? "dark"
 		: "light";
 });
+
+window.ipc.noImages(() => {
+	// TODO: make this nicer.
+	alert("There are no images in this folder.");
+});

@@ -1,5 +1,5 @@
 import { Menu, app } from "electron";
-import { closeFolderHandler, openFolderHandler } from "./io";
+import { closeFolderHandler, io, openFolderHandler } from "./io";
 // import { raiseEvent } from "./ipc";
 import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
 import { ipc } from "./ipc";
@@ -57,12 +57,12 @@ function getFileMenu(isMacOS) {
 		submenu: [
 			{
 				label: "Open Folder",
-				click: () => openFolderHandler(),
+				click: () => io.openFolderHandler(),
 				accelerator: isMacOS ? "Cmd+O" : "Ctrl+O"
 			},
 			{
 				label: "Close Folder",
-				click: () => closeFolderHandler(),
+				click: () => io.closeFolderHandler(),
 				accelerator: isMacOS ? "Cmd+W" : "Ctrl+W"
 			}
 		]

@@ -1,7 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const { registerAboutPanel, registerMenu } = require('./main/system');
-const { registerTaroProtocol } = require('./main/io');
+// const { registerTaroProtocol } = require('./main/io');
 const { ipc } = require('./main/ipc');
+const { io } = require('./main/io');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -60,5 +61,6 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 
 app.whenReady().then(() => {
-	registerTaroProtocol();
+	// registerTaroProtocol();
+	io.registerTaroProtocol();
 });

@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 import { CH_GET_METADATA, CH_OPEN_FOLDER } from "../ipcConstants";
-import { openFolderHandler } from "./io";
+import { io } from "./io";
 
 class IPC {
 	#mainWindow = null;

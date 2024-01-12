@@ -5,7 +5,7 @@ import { $ } from "./shorthand";
 class WindowFrame {
 	constructor() {
 		this._searchbar = $("#titleBarSearch");
-		this._searchbar.placeholder = "No folder opened";
+		this._searchbar.placeholder = "taro";
 		this._searchbar.enabled = false;
 	}
 	
@@ -15,7 +15,7 @@ class WindowFrame {
 	}
 	
 	unloadFolder() {
-		this._searchbar.placeholder = "No folder opened";
+		this._searchbar.placeholder = "taro";
 		this._searchbar.enabled = false;
 	}
 }
