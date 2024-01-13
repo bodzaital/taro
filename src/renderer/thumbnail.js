@@ -17,8 +17,8 @@ class Thumbnail {
 			this.#currentIndex = selectedIndex;
 			
 			this.selectThumbnail(selectedIndex);
-			this.showSelectedThumbnail();
-			this.#loadExifForSelectedThumbnail(this.#activePhoto.src);
+			const uri = this.showSelectedThumbnail();
+			this.#loadExifForUri(uri);
 		});
 
 		window.addEventListener("keydown", (e) => {
@@ -37,8 +37,8 @@ class Thumbnail {
 			let selectedThumbnail = this.selectThumbnail(this.#currentIndex);
 			selectedThumbnail.scrollIntoView();
 			
-			this.showSelectedThumbnail();
-			this.#loadExifForSelectedThumbnail(this.#activePhoto.src);
+			const uri = this.showSelectedThumbnail();
+			this.#loadExifForUri(uri);
 		});
 	}
 
@@ -70,9 +70,8 @@ class Thumbnail {
 		return selectedThumbnail.src;
 	}
 
-	#loadExifForSelectedThumbnail(uri) {
+	#loadExifForUri(uri) {
 		window.ipc.getExif(uri).then((exif) => {
-			// TODO: FIXME: bug with the uri/src...
 			$("#exif-modal .modal-body").innerText = JSON.stringify(exif);
 			const exifModal = new bootstrap.Modal($("#exif-modal"));
 			exifModal.show();
