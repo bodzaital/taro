@@ -71,10 +71,22 @@ class Thumbnail {
 	}
 
 	#loadExifForUri(uri) {
-		window.ipc.getExif(uri).then((exif) => {
-			$("#exif-modal .modal-body").innerText = JSON.stringify(exif);
+		$("#showExif").addEventListener("click", () => {
 			const exifModal = new bootstrap.Modal($("#exif-modal"));
-			exifModal.show();
+			exifModal.show();			
+
+			window.ipc.getExif(uri).then((exif) => {
+				$("#exif-modal .exif-loading").classList.add("d-none");
+				$("#exif-modal .table").classList.remove("d-none");
+
+				console.log(exif);
+				
+				$("#exif-camera-model").innerText = "Canon EOS R8";
+				$("#exif-lens-model").innerText = "Canon RF 50mm f/1.8 STM";
+				$("#exif-focal-length").innerText = "50mm";
+				$("#exif-f-number").innerText = "f/2.8";
+				$("#exif-exposure-time").innerText = "1/2000s";
+			});
 		});
 	}
 

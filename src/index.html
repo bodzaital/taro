@@ -20,7 +20,10 @@
 				<div class="photo" id="activePhoto"></div>
 				<div class="sidebar border-start border-secondary-subtle">
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header">Details</div>
+						<div class="sidebar-section-header">
+							Details
+							<button class="btn btn-sm btn-outline-secondary" id="showExif"><i class="bi bi-info-circle"></i></button>
+						</div>
 						<div class="sidebar-section-details">
 							<div class="details-shutter">
 								<i class="bi bi-stopwatch"></i>
@@ -87,14 +90,42 @@
 			<div class="thumbnail-container border-top border-secondary"></div>
 		</section>
 
-		<div class="modal fade" id="exif-modal">
-			<div class="modal-dialog">
+		<div class="modal fade" id="exif-modal" data-bs-backdrop="static" data-bs-keyboard="false" >
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<div class="modal-title fs-5">EXIF data</div>
 						<button class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
-					<div class="modal-body"></div>
+					<div class="modal-body">
+						<div class="exif-loading d-flex justify-content-center">
+							<div class="spinner-border text-primary"></div>
+						</div>
+						<table class="table d-none">
+							<tbody>
+								<tr>
+									<th>Camera</th>
+									<td id="exif-camera-model"></td>
+								</tr>
+								<tr>
+									<th>Lens</th>
+									<td id="exif-lens-model"></td>
+								</tr>
+								<tr>
+									<th>Focal length</th>
+									<td id="exif-focal-length"></td>
+								</tr>
+								<tr>
+									<th>F number</th>
+									<td id="exif-f-number"></td>
+								</tr>
+								<tr>
+									<th>Exposure time</th>
+									<td id="exif-exposure-time"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
