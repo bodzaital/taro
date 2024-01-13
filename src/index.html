@@ -19,7 +19,37 @@
 				<!-- TODO: add a button to open folder when no folder is opened in place of the photo. -->
 				<div class="photo" id="activePhoto"></div>
 				<div class="sidebar border-start border-secondary-subtle">
-					<div class="sidebar-section-header">Tags</div>
+					<div class="sidebar-section ">
+						<div class="sidebar-section-header">Details</div>
+						<div class="sidebar-section-details">
+							<div class="details-shutter">
+								<i class="bi bi-stopwatch"></i>
+								1/8000
+							</div>
+							<div class="details-aperture">
+								<i class="bi bi-eye"></i>
+								ƒ/1.8
+							</div>
+							<div class="details-iso">
+								<i class="bi bi-volume-up"></i>
+								108000
+							</div>
+						</div>
+					</div>
+					<div class="sidebar-section ">
+						<div class="sidebar-section-header">Tags</div>
+					</div>
+					<div class="sidebar-section ">
+						<div class="sidebar-section-header">Rating</div>
+					</div>
+					<div class="sidebar-section ">
+						<div class="sidebar-section-header">Location</div>
+					</div>
+					<div class="sidebar-section ">
+						<div class="sidebar-section-header">Description</div>
+					</div>
+
+					<!-- <div class="sidebar-section-header">Tags</div>
 					<div class="sidebar-tag-container">
 						<div class="sidebar-tag">
 							<div class="sidebar-tag-name">landscape</div>
@@ -50,12 +80,24 @@
 							<a href="#" class="list-group-item list-group-item-action">joyful</a>
 							<a href="#" class="list-group-item list-group-item-action">monochrome</a>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
 			<div class="thumbnail-container border-top border-secondary"></div>
 		</section>
+
+		<div class="modal fade" id="exif-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-title fs-5">EXIF data</div>
+						<button class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body"></div>
+				</div>
+			</div>
+		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	</body>

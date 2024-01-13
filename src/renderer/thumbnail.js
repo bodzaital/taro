@@ -18,6 +18,7 @@ class Thumbnail {
 			
 			this.selectThumbnail(selectedIndex);
 			this.showSelectedThumbnail();
+			this.#loadExifForSelectedThumbnail(this.#activePhoto.src);
 		});
 
 		window.addEventListener("keydown", (e) => {
@@ -37,6 +38,7 @@ class Thumbnail {
 			selectedThumbnail.scrollIntoView();
 			
 			this.showSelectedThumbnail();
+			this.#loadExifForSelectedThumbnail(this.#activePhoto.src);
 		});
 	}
 
@@ -65,6 +67,16 @@ class Thumbnail {
 	showSelectedThumbnail() {
 		const selectedThumbnail = $(".thumbnail.current");
 		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
+		return selectedThumbnail.src;
+	}
+
+	#loadExifForSelectedThumbnail(uri) {
+		window.ipc.getExif(uri).then((exif) => {
+			// TODO: FIXME: bug with the uri/src...
+			$("#exif-modal .modal-body").innerText = JSON.stringify(exif);
+			const exifModal = new bootstrap.Modal($("#exif-modal"));
+			exifModal.show();
+		});
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */

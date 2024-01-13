@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { CH_GET_METADATA, CH_OPEN_FOLDER } from "../ipcConstants";
+import { CH_GET_EXIF, CH_GET_METADATA, CH_OPEN_FOLDER } from "../ipcConstants";
 import { io } from "./io";
 
 class IPC {
@@ -11,6 +11,8 @@ class IPC {
 
 	register() {
 		// ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
+
+		ipcMain.handle(CH_GET_EXIF, (a, b) => io.exifHandler(b));
 	}
 
 	raise(channel, args = null) {

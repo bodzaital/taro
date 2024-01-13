@@ -5,6 +5,7 @@ import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
+import ExifReader from "exifreader";
 
 class IO {
 	static TARO_HANDLE = "taro";
@@ -38,6 +39,13 @@ class IO {
 	
 	closeFolderHandler() {
 		ipc.raise(CH_CLOSE_FOLDER);
+	}
+
+	exifHandler(uri) {
+		console.log(uri);
+		const fileUri = uri.substring(IO.TARO_HANDLE.length + "://".length);
+		const data = ExifReader.load(fileUri);
+		return data;
 	}
 	
 	#getFolderPathFromDialog() {

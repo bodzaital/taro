@@ -5,3 +5,5 @@ export const CH_LOAD_IMAGES = "loadImages";
 export const CH_NO_IMAGES = "noImages";
 
 export const CH_TOGGLE_DARK_MODE = "toggleDarkMode";
+
+export const CH_GET_EXIF = "getExif";
