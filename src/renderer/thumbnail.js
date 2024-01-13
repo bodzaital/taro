@@ -75,6 +75,8 @@ class Thumbnail {
 			const exifModal = new bootstrap.Modal($("#exif-modal"));
 			exifModal.show();			
 
+			// TODO: refresh modal on exit?
+			// FIXME: bug on second modal: backdrop remains, lol
 			window.ipc.getExif(uri).then((exif) => {
 				$("#exif-modal .exif-loading").classList.add("d-none");
 				$("#exif-modal .table").classList.remove("d-none");
