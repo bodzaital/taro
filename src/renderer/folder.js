@@ -10,6 +10,8 @@ class Folder {
 	loadFolder(folderInfo) {
 		// TODO: might delegate IPC communication here from renderer.
 
+		this.unloadFolder();
+
 		thumbnail.loadFolder(folderInfo.imageURIs);
 		windowFrame.loadFolder("foldername bruh");
 
