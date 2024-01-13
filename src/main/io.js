@@ -1,59 +1,20 @@
 import { dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES } from "../ipcConstants";
-// import { readdirSync } from "original-fs";
-// import { raiseEvent } from "./ipc";
 import path from "path";
 import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
 
-const TARO_HANDLE = "taro";
-// const SUPPORTED_PHOTO_EXTENSIONS = ["jpg"];
-
-// TODO: refactor to use new class
-
-// /** Registers the taro:// handle by substituting it for the file:// URI path and returning the correct file. */
-// export function registerTaroProtocol() {
-// 	protocol.handle(TARO_HANDLE, (request) => {
-// 		return net.fetch("file://" + request.url.slice(`${TARO_HANDLE}://`.length));
-// 	});
-// }
-
-// export function openFolderHandler() {
-// 	const folderPath = dialog.showOpenDialogSync({
-// 		properties: ["openDirectory"]
-// 	})[0];
-
-// 	const listOfImageUris = fs.readdirSync(folderPath)
-// 		.filter((file) => file[0] != ".")
-// 		.map((file) => `${folderPath}/${file}`)
-// 		.filter((uri) => !SUPPORTED_PHOTO_EXTENSIONS.includes(path.extname(uri).toLowerCase()));
-
-// 	const metadataPath = path.join(folderPath, "taro.metadata.json");
-// 	console.log(metadataPath);
-
-// 	if (!fs.existsSync(metadataPath)) {
-// 		fs.writeFileSync(metadataPath, JSON.stringify(new Metadata("hello béla")));
-// 	}
-
-// 	const folderInfo = new FolderInfo(folderPath, listOfImageUris);
-
-// 	ipc.raise(CH_LOAD_IMAGES, [folderInfo]);
-// }
-
-// export function closeFolderHandler() {
-// 	ipc.raise(CH_CLOSE_FOLDER);
-// }
-
 class IO {
+	static TARO_HANDLE = "taro";
 	static TARO_METADATA_FILENAME = "taro.metadata.json";
 	static SUPPORTED_PHOTO_EXTENSIONS = [".jpg"];
 
 	registerTaroProtocol() {
-		protocol.handle(TARO_HANDLE, (request) => {
+		protocol.handle(IO.TARO_HANDLE, (request) => {
 			const fileProto = "file://";
-			const taroProto = TARO_HANDLE + "://";
+			const taroProto = IO.TARO_HANDLE + "://";
 			const rawUri = request.url.slice(taroProto.length);
 
 			return net.fetch(fileProto + rawUri);
