@@ -7,6 +7,7 @@ class Thumbnail {
 	#currentIndex = 0;
 
 	constructor() {
+		// TODO: refactor shared code between click and keydown.
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
 
@@ -77,6 +78,7 @@ class Thumbnail {
 
 			// TODO: refresh modal on exit?
 			// FIXME: bug on second modal: backdrop remains, lol
+			// TODO: separate into load exif data and show exif data.
 			window.ipc.getExif(uri).then((exif) => {
 				$("#exif-modal .exif-loading").classList.add("d-none");
 				$("#exif-modal .table").classList.remove("d-none");
