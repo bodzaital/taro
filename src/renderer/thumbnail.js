@@ -2,73 +2,77 @@ import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 
 class Thumbnail {
+	static #NAVIGATION_LEFT_KEYS = ["ArrowLeft"];
+	static #NAVIGATION_RIGHT_KEYS = ["ArrowRight"];
+
+	static #NAVIGATION_KEYS = [
+		...Thumbnail.#NAVIGATION_LEFT_KEYS,
+		...Thumbnail.#NAVIGATION_RIGHT_KEYS
+	];
+
 	#container = $(".thumbnail-container");
 	#activePhoto = $("#activePhoto");
 	#currentIndex = 0;
 
 	constructor() {
-		// TODO: refactor shared code between click and keydown.
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
 
-			const selectedThumbnail = e.target.closest(".thumbnail");
-			if (selectedThumbnail == null) return;
-
-			const selectedIndex = Array.from($$(".thumbnail")).indexOf(selectedThumbnail);
-			this.#currentIndex = selectedIndex;
-			
-			this.selectThumbnail(selectedIndex);
-			const uri = this.showSelectedThumbnail();
-			this.#loadExifForUri(uri);
+			this.#navigateOnClick(e);
+			this.selectPhoto(this.#currentIndex);
 		});
 
 		window.addEventListener("keydown", (e) => {
 			if (!folder.isFolderLoaded) return;
 
-			if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
-			
-			e.preventDefault();
-
-			this.#navigate(e.key, () => {
-				this.#advanceIndexWithClamp(-1);
-			}, () => {
-				this.#advanceIndexWithClamp(1);
-			});
-			
-			let selectedThumbnail = this.selectThumbnail(this.#currentIndex);
-			selectedThumbnail.scrollIntoView();
-			
-			const uri = this.showSelectedThumbnail();
-			this.#loadExifForUri(uri);
+			this.#navigateOnScroll(e);
+			this.selectPhoto(this.#currentIndex);
 		});
 	}
 
-	#navigate(key, prevCallback, nextCallback) {
-		if (key == "ArrowLeft") prevCallback();
-		if (key == "ArrowRight") nextCallback();
+	#navigateOnClick(e) {
+		const clickedThumbnail = e.target.closest(".thumbnail");
+		if (clickedThumbnail == null) return;
+
+		const selectedIndex = Array.from($$(".thumbnail")).indexOf(clickedThumbnail);
+		this.#currentIndex = selectedIndex;
 	}
 
+	#navigateOnScroll(e) {
+		if (!Thumbnail.#NAVIGATION_KEYS.includes(e.key)) return;		
+		e.preventDefault();
+
+		this.bidirectionalNavigation(e.key, () => {
+			this.#currentIndex = this.#advanceIndexWithClamp(-1);
+		}, () => {
+			this.#currentIndex = this.#advanceIndexWithClamp(1);
+		});
+	}
+
+	/** Calls the previous or next callback functions depending on if the pressed key is part of the left or right navigation keys. */
+	bidirectionalNavigation(key, prevCallback, nextCallback) {
+		if (Thumbnail.#NAVIGATION_LEFT_KEYS.includes(key)) prevCallback();
+		if (Thumbnail.#NAVIGATION_RIGHT_KEYS.includes(key)) nextCallback();
+	}
+
+	/** Advances the index left or right by the delta, clamped to the legal values of photo indexes. */
 	#advanceIndexWithClamp(delta) {
 		const lastIndex = $$(".thumbnail").length - 1;
-		this.#currentIndex = Math.min(Math.max(this.#currentIndex + delta, 0), lastIndex);
+		return Math.min(Math.max(this.#currentIndex + delta, 0), lastIndex);
 	}
 
 	/** Deselects the current thumbnail and selects a new thumbnail by index. */
-	selectThumbnail(index) {
+	selectPhoto(index = 0) {
 		const currentThumbnail = $(".thumbnail.current");
 		if (currentThumbnail != null) currentThumbnail.classList.remove("current");
 	
 		const selectedThumbnail = $$(".thumbnail")[index];
 		selectedThumbnail.classList.add("current");
-
-		return selectedThumbnail;
-	}
-
-	/** Shows the selected thumbnail as the active photo. */
-	showSelectedThumbnail() {
-		const selectedThumbnail = $(".thumbnail.current");
+		selectedThumbnail.scrollIntoView();
+		
 		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
-		return selectedThumbnail.src;
+
+		this.#loadExifForUri(selectedThumbnail.src);
 	}
 
 	#loadExifForUri(uri) {
@@ -104,8 +108,7 @@ class Thumbnail {
 	/** Calls the necessary instance functions when a folder is loaded. */
 	loadFolder(imageUris) {
 		this.createThumbnails(imageUris);
-		this.selectThumbnail(0);
-		this.showSelectedThumbnail();
+		this.selectPhoto();
 	}
 
 	/** Calls the necessary instance functions when a folder is unloaded. */

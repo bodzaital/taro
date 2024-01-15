@@ -13,7 +13,7 @@ class Folder {
 		this.unloadFolder();
 
 		thumbnail.loadFolder(folderInfo.imageURIs);
-		windowFrame.loadFolder("foldername bruh");
+		windowFrame.loadFolder(folderInfo.folderName);
 
 		this.isFolderLoaded = true;
 	}
