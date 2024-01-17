@@ -1,6 +1,7 @@
 // TODO: separate scss file into smaller files.
 @use "sidebar-tag";
 @use "styles/sidebar";
+@use "styles/exif-modal";
 
 // * { outline: 1px solid red; }
 
@@ -18,6 +19,11 @@ html
 		{
 			border-color: lightpink;
 		}
+
+		.exif-card
+		{
+			border: 1px solid lightpink;
+		}
 	}
 
 	&[data-bs-theme='light']
@@ -25,6 +31,11 @@ html
 		.thumbnail-container .thumbnail.current
 		{
 			border-color: purple;
+		}
+
+		.exif-card
+		{
+			border: 1px solid purple;
 		}
 	}
 }

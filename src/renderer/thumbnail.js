@@ -10,6 +10,21 @@ class Thumbnail {
 		...Thumbnail.#NAVIGATION_RIGHT_KEYS
 	];
 
+	static #EXIF_MORE_DETAILS = [
+		{ "key": "ShutterSpeedValue", "display": "Shutter speed" },
+		{ "key": "FNumber", "display": "Aperture" },
+		{ "key": "ISOSpeedRatings", "display": "ISO" },
+		{ "key": "DateTime", "display": "Date and time" },
+		{ "key": "FileType", "display": "File type" },
+		{ "key": "Flash", "display": "Flash" },
+		{ "key": "FocalLength", "display": "Focal length" },
+		{ "key": "Image Width", "display": "Width" },
+		{ "key": "Image Height", "display": "Height" },
+		{ "key": "LensModel", "display": "Lens" },
+		{ "key": "Model", "display": "Camera model" },
+		{ "key": "WhiteBalance", "display": "White balance" },
+	];
+
 	#container = $(".thumbnail-container");
 	#activePhoto = $("#activePhoto");
 	#currentIndex = 0;
@@ -41,7 +56,7 @@ class Thumbnail {
 		if (clickedThumbnail == null) return;
 
 		const selectedIndex = Array.from($$(".thumbnail")).indexOf(clickedThumbnail);
-		
+
 		return this.#updateCurrentIndex(selectedIndex);
 	}
 
@@ -97,6 +112,9 @@ class Thumbnail {
 		const sidebarExifShutter = $("#sidebarExifShutter");
 		const sidebarExifAperture = $("#sidebarExifAperture");
 		const sidebarExifIso = $("#sidebarExifIso");
+		const moreDetailsButton = $("#moreInfo");
+
+		moreDetailsButton.classList.add("disabled");
 
 		sidebarExifShutter.innerText = "";
 		sidebarExifAperture.innerText = "";
@@ -115,10 +133,36 @@ class Thumbnail {
 		const sidebarExifShutter = $("#sidebarExifShutter");
 		const sidebarExifAperture = $("#sidebarExifAperture");
 		const sidebarExifIso = $("#sidebarExifIso");
+		const moreDetailsButton = $("#moreInfo");
+
+		moreDetailsButton.classList.remove("disabled");
 
 		sidebarExifShutter.innerText = `${shutter}s`;
 		sidebarExifAperture.innerText = `ƒ/${aperture}`;
 		sidebarExifIso.innerText = iso;
+	}
+
+	#setModalExifData(exif) {
+		$(".exif-cards").innerText = "";
+
+		Thumbnail.#EXIF_MORE_DETAILS.map((x) => {
+			const exifCard = document.createElement("div");
+			exifCard.classList.add("exif-card");
+			
+			const value = document.createElement("div");
+			value.classList.add("exif-card-value");
+			value.innerText = exif[x.key].description;
+			
+			exifCard.appendChild(value);
+			
+			const text = document.createElement("div");
+			text.classList.add("exif-card-text");
+			text.innerText = x.display;
+			
+			exifCard.appendChild(text);
+
+			return exifCard;
+		}).forEach((x) => $(".exif-cards").appendChild(x));
 	}
 
 	#loadExifForUri(uri) {
@@ -131,6 +175,8 @@ class Thumbnail {
 				fnumber,
 				exif.ISOSpeedRatings.description
 			);
+
+			this.#setModalExifData(exif);
 			
 			console.log(exif);
 		});

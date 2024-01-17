@@ -1,0 +1,27 @@
+$exif-card-height: 8rem;
+
+.exif-cards
+{
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	.exif-card
+	{
+		flex: 0 0 $exif-card-height;
+		height: $exif-card-height;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border: 1px solid purple;
+		border-radius: .25rem;
+		padding: .5rem;
+
+		.exif-card-text
+		{
+			font-size: .8rem;
+			text-align: right;
+		}
+	}
+}
