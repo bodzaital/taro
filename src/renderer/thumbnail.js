@@ -20,14 +20,18 @@ class Thumbnail {
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
 
-			this.#navigateOnClick(e);
+			const shouldNavigate = this.#navigateOnClick(e);
+			if (!shouldNavigate) return;
+
 			this.selectPhoto(this.#currentIndex);
 		});
 
 		window.addEventListener("keydown", (e) => {
 			if (!folder.isFolderLoaded) return;
+			
+			const shouldNavigate = this.#navigateOnScroll(e);
+			if (!shouldNavigate) return;
 
-			this.#navigateOnScroll(e);
 			this.selectPhoto(this.#currentIndex);
 		});
 	}
@@ -37,18 +41,30 @@ class Thumbnail {
 		if (clickedThumbnail == null) return;
 
 		const selectedIndex = Array.from($$(".thumbnail")).indexOf(clickedThumbnail);
-		this.#currentIndex = selectedIndex;
+		
+		return this.#updateCurrentIndex(selectedIndex);
 	}
 
-	#navigateOnScroll(e) {
-		if (!Thumbnail.#NAVIGATION_KEYS.includes(e.key)) return;		
+	#navigateOnScroll(e) {	
+		if (!Thumbnail.#NAVIGATION_KEYS.includes(e.key)) return false;
 		e.preventDefault();
 
+		let selectedIndex = this.#currentIndex;
+
 		this.bidirectionalNavigation(e.key, () => {
-			this.#currentIndex = this.#advanceIndexWithClamp(-1);
+			selectedIndex = this.#advanceIndexWithClamp(-1);
 		}, () => {
-			this.#currentIndex = this.#advanceIndexWithClamp(1);
+			selectedIndex = this.#advanceIndexWithClamp(1);
 		});
+
+		return this.#updateCurrentIndex(selectedIndex);
+	}
+
+	#updateCurrentIndex(selectedIndex) {
+		if (this.#currentIndex == selectedIndex) return false;
+
+		this.#currentIndex = selectedIndex;
+		return true;
 	}
 
 	/** Calls the previous or next callback functions depending on if the pressed key is part of the left or right navigation keys. */
