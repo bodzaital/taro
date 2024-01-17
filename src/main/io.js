@@ -42,9 +42,7 @@ class IO {
 	}
 
 	exifHandler(uri) {
-		console.log(uri);
-		const fileUri = uri.substring(IO.TARO_HANDLE.length + "://".length);
-		const data = ExifReader.load(fileUri);
+		const data = ExifReader.load(uri);
 		return data;
 	}
 	

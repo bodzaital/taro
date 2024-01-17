@@ -24,11 +24,19 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		text-align: center;
+		gap: .5rem;
 
-		div
+		.details-shutter,
+		.details-aperture,
+		.details-iso
 		{
 			display: flex;
 			gap: .5rem;
+
+			.details-value
+			{
+				flex-grow: 1;
+			}
 		}
 	}
 }

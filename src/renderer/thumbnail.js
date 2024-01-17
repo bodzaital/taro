@@ -15,6 +15,8 @@ class Thumbnail {
 	#currentIndex = 0;
 
 	constructor() {
+		this.#clearSidebarExifData();
+
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
 
@@ -72,30 +74,71 @@ class Thumbnail {
 		
 		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
-		this.#loadExifForUri(selectedThumbnail.src);
+		this.#loadExifForUri(selectedThumbnail.dataset.rawSrc);
+	}
+
+	#clearSidebarExifData() {
+		const sidebarExifShutter = $("#sidebarExifShutter");
+		const sidebarExifAperture = $("#sidebarExifAperture");
+		const sidebarExifIso = $("#sidebarExifIso");
+
+		sidebarExifShutter.innerText = "";
+		sidebarExifAperture.innerText = "";
+		sidebarExifIso.innerText = "";
+
+		const placeholder = document.createElement("div");
+		placeholder.classList.add("placeholder");
+		placeholder.style.width = "100%";
+
+		sidebarExifShutter.appendChild(placeholder.cloneNode());
+		sidebarExifAperture.appendChild(placeholder.cloneNode());
+		sidebarExifIso.appendChild(placeholder.cloneNode());
+	}
+
+	#setSidebarExifData(shutter, aperture, iso) {
+		const sidebarExifShutter = $("#sidebarExifShutter");
+		const sidebarExifAperture = $("#sidebarExifAperture");
+		const sidebarExifIso = $("#sidebarExifIso");
+
+		sidebarExifShutter.innerText = `${shutter}s`;
+		sidebarExifAperture.innerText = `ƒ/${aperture}`;
+		sidebarExifIso.innerText = iso;
 	}
 
 	#loadExifForUri(uri) {
-		$("#showExif").addEventListener("click", () => {
-			const exifModal = new bootstrap.Modal($("#exif-modal"));
-			exifModal.show();			
+		this.#clearSidebarExifData();
 
-			// TODO: refresh modal on exit?
-			// FIXME: bug on second modal: backdrop remains, lol
-			// TODO: separate into load exif data and show exif data.
-			window.ipc.getExif(uri).then((exif) => {
-				$("#exif-modal .exif-loading").classList.add("d-none");
-				$("#exif-modal .table").classList.remove("d-none");
-
-				console.log(exif);
-				
-				$("#exif-camera-model").innerText = "Canon EOS R8";
-				$("#exif-lens-model").innerText = "Canon RF 50mm f/1.8 STM";
-				$("#exif-focal-length").innerText = "50mm";
-				$("#exif-f-number").innerText = "f/2.8";
-				$("#exif-exposure-time").innerText = "1/2000s";
-			});
+		window.ipc.getExif(uri).then((exif) => {
+			const fnumber = exif.FNumber.value[0] / exif.FNumber.value[1];
+			this.#setSidebarExifData(
+				exif.ExposureTime.description,
+				fnumber,
+				exif.ISOSpeedRatings.description
+			);
+			
+			console.log(exif);
 		});
+
+		// $("#showExif").addEventListener("click", () => {
+		// 	const exifModal = new bootstrap.Modal($("#exif-modal"));
+		// 	exifModal.show();			
+
+		// 	// TODO: refresh modal on exit?
+		// 	// FIXME: bug on second modal: backdrop remains, lol
+		// 	// TODO: separate into load exif data and show exif data.
+		// 	window.ipc.getExif(uri).then((exif) => {
+		// 		$("#exif-modal .exif-loading").classList.add("d-none");
+		// 		$("#exif-modal .table").classList.remove("d-none");
+
+		// 		console.log(exif);
+				
+		// 		$("#exif-camera-model").innerText = "Canon EOS R8";
+		// 		$("#exif-lens-model").innerText = "Canon RF 50mm f/1.8 STM";
+		// 		$("#exif-focal-length").innerText = "50mm";
+		// 		$("#exif-f-number").innerText = "f/2.8";
+		// 		$("#exif-exposure-time").innerText = "1/2000s";
+		// 	});
+		// });
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */
@@ -123,6 +166,7 @@ class Thumbnail {
 		thumbnail.src = `taro://${uri}`;
 		thumbnail.loading = "lazy";
 		thumbnail.classList.add("thumbnail");
+		thumbnail.dataset.rawSrc = uri;
 	
 		return thumbnail;
 	}

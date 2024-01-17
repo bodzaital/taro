@@ -22,20 +22,20 @@
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">
 							Details
-							<button class="btn btn-sm btn-outline-secondary" id="showExif"><i class="bi bi-info-circle"></i></button>
+							<button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exif-modal"><i class="bi bi-info-circle"></i></button>
 						</div>
 						<div class="sidebar-section-details">
 							<div class="details-shutter">
 								<i class="bi bi-stopwatch"></i>
-								1/8000
+								<div class="details-value" id="sidebarExifShutter"></div>
 							</div>
 							<div class="details-aperture">
 								<i class="bi bi-eye"></i>
-								ƒ/1.8
+								<div class="details-value" id="sidebarExifAperture"></div>
 							</div>
 							<div class="details-iso">
 								<i class="bi bi-volume-up"></i>
-								108000
+								<div class="details-value" id="sidebarExifIso"></div>
 							</div>
 						</div>
 					</div>
