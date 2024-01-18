@@ -14,27 +14,27 @@ html
 
 	&[data-bs-theme='dark']
 	{
-		.thumbnail-container .thumbnail.current
-		{
-			border-color: lightpink;
-		}
-
 		.exif-card
 		{
 			border: 1px solid lightpink;
+		}
+
+		.thumbnail.current
+		{
+			box-shadow: 0 0 .5rem rgba(0, 0, 0, 1), 0 0 .5rem rgba(0, 0, 0, 1);
 		}
 	}
 
 	&[data-bs-theme='light']
 	{
-		.thumbnail-container .thumbnail.current
-		{
-			border-color: purple;
-		}
-
 		.exif-card
 		{
 			border: 1px solid purple;
+		}
+
+		.thumbnail.current
+		{
+			box-shadow: 0 0 .5rem rgba(0, 0, 0, .5);
 		}
 	}
 }
@@ -75,6 +75,7 @@ body
 		align-items: center;
 		justify-content: right;
 		grid-column: 3;
+		margin-right: .5rem;
 
 		#toggleSidebar
 		{
@@ -111,49 +112,39 @@ body
 
 	.photo
 	{
-		// padding: .5rem 0 0 0;
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center;
 	}
 
-	// .sidebar
-	// {
-
-	// 	.sidebar-section-header
-	// 	{
-	// 		font-weight: 700;
-	// 		margin: 0 0 .5rem 0;
-	// 	}
-
-	// 	.sidebar-tag-container
-	// 	{
-	// 		margin: 0 0 .5rem 0;
-	// 	}
-
-	// 	input
-	// 	{
-	// 		font-size: .8rem;
-	// 	}
-	// }
+	&.no-sidebar
+	{
+		grid-template-columns: auto 0px;
+	}
 }
 
 .thumbnail-container
 {
 	flex-grow: 0;
 	display: flex;
-	gap: 5px;
+	gap: .5rem;
 	overflow-x: scroll;
 	height: $thumbnailRowHeight;
 	scroll-behavior: smooth;
-	padding: 5px;
+	padding: .5rem;
 
 	.thumbnail
 	{
 		height: 100%;
 		width: auto;
-		border: 1px solid transparent;
-		padding: 5px;
-		border-radius: 5px;
+		border-radius: .5rem;
+		cursor: pointer;
+		filter: saturate(.5);
+
+		&:hover,
+		&.current
+		{
+			filter: unset;
+		}
 	}
 }
