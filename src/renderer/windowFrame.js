@@ -3,20 +3,34 @@ import { $ } from "./shorthand";
 // TODO: handle dark mode here
 
 class WindowFrame {
+	#searchbar = $("#titleBarSearch");
+	#folderName = null;
+
 	constructor() {
-		this._searchbar = $("#titleBarSearch");
-		this._searchbar.placeholder = "taro";
-		this._searchbar.enabled = false;
+		this.#searchbar.addEventListener("focusin", () => {
+			this.#searchbar.classList.add("is-search-field");
+			this.#searchbar.placeholder = "Search for photo..."
+		});
+		
+		this.#searchbar.addEventListener("focusout", () => {
+			this.#searchbar.classList.remove("is-search-field");
+			this.#searchbar.placeholder = this.#folderName;
+			this.#searchbar.value = "";
+		});
 	}
 	
 	loadFolder(value) {
-		this._searchbar.placeholder = value;
-		this._searchbar.enabled = true;
+		this.#folderName = value;
+
+		this.#searchbar.placeholder = this.#folderName;
+		this.#searchbar.disabled = false;
 	}
 	
 	unloadFolder() {
-		this._searchbar.placeholder = "taro";
-		this._searchbar.enabled = false;
+		this.#folderName = null
+
+		this.#searchbar.placeholder = "taro";
+		this.#searchbar.disabled = true;
 	}
 }
 
