@@ -26,15 +26,14 @@ class IO {
 		const folderPath = this.#getFolderPathFromDialog();
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
-		
 		if (listOfImageURIs.length == 0) {
 			ipc.raise(CH_NO_IMAGES);
 			return;
 		}
 		
 		this.#ensureMetadataFileExists(folderPath);
-		
-		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(folderPath, listOfImageURIs)]);
+		const baseName = path.basename(folderPath);
+		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(baseName, listOfImageURIs)]);
 	}
 	
 	closeFolderHandler() {
