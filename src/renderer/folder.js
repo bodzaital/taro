@@ -1,4 +1,5 @@
 import { $ } from "./shorthand";
+import { sidebar } from "./sidebar";
 import { thumbnail } from "./thumbnail";
 import { windowFrame } from "./windowFrame";
 
@@ -14,6 +15,7 @@ class Folder {
 
 		thumbnail.loadFolder(folderInfo.imageURIs);
 		windowFrame.loadFolder(folderInfo.folderName);
+		sidebar.loadFolder();
 
 		this.isFolderLoaded = true;
 	}
@@ -21,6 +23,7 @@ class Folder {
 	unloadFolder() {
 		thumbnail.unloadFolder();
 		windowFrame.unloadFolder();
+		sidebar.unloadFolder();
 		
 		this.isFolderLoaded = false;
 	}

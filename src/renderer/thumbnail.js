@@ -1,5 +1,6 @@
 import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
+import { sidebar } from "./sidebar";
 
 class Thumbnail {
 	static #NAVIGATION_LEFT_KEYS = ["ArrowLeft"];
@@ -15,7 +16,7 @@ class Thumbnail {
 	#currentIndex = 0;
 
 	constructor() {
-		this.#clearSidebarExifData();
+		sidebar.clearExifData();
 
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
@@ -90,50 +91,7 @@ class Thumbnail {
 		
 		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
-		this.#loadExifForUri(selectedThumbnail.dataset.rawSrc);
-	}
-
-	#clearSidebarExifData() {
-		const sidebarExifShutter = $("#sidebarExifShutter");
-		const sidebarExifAperture = $("#sidebarExifAperture");
-		const sidebarExifIso = $("#sidebarExifIso");
-
-		sidebarExifShutter.innerText = "";
-		sidebarExifAperture.innerText = "";
-		sidebarExifIso.innerText = "";
-
-		const placeholder = document.createElement("div");
-		placeholder.classList.add("placeholder");
-		placeholder.style.width = "100%";
-
-		sidebarExifShutter.appendChild(placeholder.cloneNode());
-		sidebarExifAperture.appendChild(placeholder.cloneNode());
-		sidebarExifIso.appendChild(placeholder.cloneNode());
-	}
-
-	#setSidebarExifData(shutter, aperture, iso) {
-		const sidebarExifShutter = $("#sidebarExifShutter");
-		const sidebarExifAperture = $("#sidebarExifAperture");
-		const sidebarExifIso = $("#sidebarExifIso");
-
-		sidebarExifShutter.innerText = `${shutter}s`;
-		sidebarExifAperture.innerText = `ƒ/${aperture}`;
-		sidebarExifIso.innerText = iso;
-	}
-
-	#loadExifForUri(uri) {
-		this.#clearSidebarExifData();
-
-		window.ipc.getExif(uri).then((exif) => {
-			const fnumber = exif.FNumber.value[0] / exif.FNumber.value[1];
-			this.#setSidebarExifData(
-				exif.ShutterSpeedValue.description,
-				fnumber,
-				exif.ISOSpeedRatings.description
-			);
-			
-			console.log(exif);
-		});
+		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */
