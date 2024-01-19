@@ -4,6 +4,7 @@ class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
 	#viewer = $(".viewer");
 	#isSidebarOpen = true;
+	photoName = $("#photo-name");
 
 	#details = {
 		exifShutter: $("#sidebarExifShutter"),
@@ -68,6 +69,7 @@ class Sidebar {
 	/** Calls the necessary instance functions when a folder is unloaded. */
 	unloadFolder() {
 		this.clearExifData();
+		this.photoName.innerText = "No image";
 	}
 }
 

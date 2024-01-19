@@ -1,6 +1,7 @@
 import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
+import { windowFrame } from "./windowFrame";
 
 class Thumbnail {
 	static #NAVIGATION_LEFT_KEYS = ["ArrowLeft"];
@@ -29,6 +30,7 @@ class Thumbnail {
 
 		window.addEventListener("keydown", (e) => {
 			if (!folder.isFolderLoaded) return;
+			if (windowFrame.isSearchActive) return;
 			
 			const shouldNavigate = this.#navigateOnScroll(e);
 			if (!shouldNavigate) return;
@@ -92,6 +94,7 @@ class Thumbnail {
 		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
 		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
+		sidebar.photoName.innerText = selectedThumbnail.dataset.name;
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */
@@ -120,8 +123,17 @@ class Thumbnail {
 		thumbnail.loading = "lazy";
 		thumbnail.classList.add("thumbnail");
 		thumbnail.dataset.rawSrc = uri;
+		thumbnail.dataset.name = this.#getFilenameFromUri(uri).toUpperCase();
 	
 		return thumbnail;
+	}
+
+	#getFilenameFromUri(uri) {
+		const regex = /.+\/(.+)$/;
+		const withExtension = uri.match(regex)[1];
+		const sansExtension = withExtension.substring(0, withExtension.indexOf("."));
+
+		return sansExtension
 	}
 
 	clearThumbnails() {
