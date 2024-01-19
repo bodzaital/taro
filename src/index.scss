@@ -66,6 +66,11 @@ body
 		#titleBarSearch
 		{
 			text-align: center;
+
+			&.is-search-field
+			{
+				text-align: left;
+			}
 		}
 	}
 
@@ -83,7 +88,7 @@ body
 		}
 	}
 
-	.title-bar-interactable
+	[data-interactable]
 	{
 		-webkit-app-region: none;
 		-webkit-user-select: auto;
