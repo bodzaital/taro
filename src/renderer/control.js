@@ -6,6 +6,8 @@ export default class Control {
 	#children = [];
 	#innerText = "";
 
+	// TODO: convert element creation to using this class.
+
 	constructor(elementName) {
 		this.#elementName = elementName;
 	}
