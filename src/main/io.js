@@ -1,5 +1,5 @@
 import { dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES } from "../ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
@@ -24,6 +24,11 @@ class IO {
 
 	openFolderHandler() {
 		const folderPath = this.#getFolderPathFromDialog();
+		if (folderPath == null) {
+			ipc.raise(CH_OPEN_CANCELED);
+			return;
+		}
+
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
 		if (listOfImageURIs.length == 0) {
@@ -49,6 +54,8 @@ class IO {
 		const selectedFolderPaths = dialog.showOpenDialogSync({
 			properties: ["openDirectory"]
 		});
+
+		if (selectedFolderPaths == undefined) return null;
 		
 		return selectedFolderPaths[0];
 	}
