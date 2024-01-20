@@ -2,7 +2,6 @@
 @use "styles/sidebar-tag";
 @use "styles/sidebar";
 @use "styles/darkmode-colors";
-@use "styles/thumbnails";
 
 // * { outline: 1px solid red; }
 
@@ -96,5 +95,31 @@ body
 	&.no-sidebar
 	{
 		grid-template-columns: auto 0px;
+	}
+}
+
+.thumbnail-container
+{
+	flex-grow: 0;
+	display: flex;
+	gap: .5rem;
+	overflow-x: scroll;
+	height: $thumbnailRowHeight;
+	scroll-behavior: smooth;
+	padding: .5rem;
+
+	.thumbnail
+	{
+		height: 100%;
+		width: auto;
+		border-radius: .25rem;
+		cursor: pointer;
+		filter: saturate(.5);
+
+		&:hover,
+		&.current
+		{
+			filter: unset;
+		}
 	}
 }
