@@ -1,43 +1,14 @@
 // TODO: separate scss file into smaller files.
-@use "sidebar-tag";
+@use "styles/sidebar-tag";
 @use "styles/sidebar";
+@use "styles/darkmode-colors";
+@use "styles/thumbnails";
 
 // * { outline: 1px solid red; }
 
 // TODO: look into a less hacky way of keeping the viewer from growing too large.
 $titleBarHeight: 50px;
 $thumbnailRowHeight: 115px;
-
-html
-{
-	scroll-behavior: smooth;
-
-	&[data-bs-theme='dark']
-	{
-		.exif-card
-		{
-			border: 1px solid lightpink;
-		}
-
-		.thumbnail.current
-		{
-			box-shadow: 0 0 .5rem rgba(0, 0, 0, 1), 0 0 .5rem rgba(0, 0, 0, 1);
-		}
-	}
-
-	&[data-bs-theme='light']
-	{
-		.exif-card
-		{
-			border: 1px solid purple;
-		}
-
-		.thumbnail.current
-		{
-			box-shadow: 0 0 .5rem rgba(0, 0, 0, .5);
-		}
-	}
-}
 
 body
 {
@@ -125,31 +96,5 @@ body
 	&.no-sidebar
 	{
 		grid-template-columns: auto 0px;
-	}
-}
-
-.thumbnail-container
-{
-	flex-grow: 0;
-	display: flex;
-	gap: .5rem;
-	overflow-x: scroll;
-	height: $thumbnailRowHeight;
-	scroll-behavior: smooth;
-	padding: .5rem;
-
-	.thumbnail
-	{
-		height: 100%;
-		width: auto;
-		border-radius: .25rem;
-		cursor: pointer;
-		filter: saturate(.5);
-
-		&:hover,
-		&.current
-		{
-			filter: unset;
-		}
 	}
 }

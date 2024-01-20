@@ -1,0 +1,15 @@
+html[data-bs-theme='dark']
+{
+	.thumbnail.current
+	{
+		box-shadow: 0 0 .5rem black, 0 0 .5rem black;
+	}
+}
+
+html[data-bs-theme='light']
+{
+	.thumbnail.current
+	{
+		box-shadow: 0 0 .5rem rgba(0, 0, 0, .5);
+	}
+}

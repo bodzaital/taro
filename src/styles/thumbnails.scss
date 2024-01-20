@@ -1,0 +1,25 @@
+.thumbnail-container
+{
+	flex-grow: 0;
+	display: flex;
+	gap: .5rem;
+	overflow-x: scroll;
+	height: $thumbnailRowHeight;
+	scroll-behavior: smooth;
+	padding: .5rem;
+
+	.thumbnail
+	{
+		height: 100%;
+		width: auto;
+		border-radius: .25rem;
+		cursor: pointer;
+		filter: saturate(.5);
+
+		&:hover,
+		&.current
+		{
+			filter: unset;
+		}
+	}
+}
