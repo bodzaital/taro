@@ -1,3 +1,4 @@
+import Control from "./control";
 import { $ } from "./shorthand";
 
 class InAppNotifications {
@@ -10,34 +11,23 @@ class InAppNotifications {
 	}
 
 	create(text, category = null) {
-		const notification = document.createElement("div");
-		notification.classList.add("toast");
-		notification.classList.add("align-items-center");
-
-		if (category == null) category = "secondary";
-		notification.classList.add(`text-bg-${category}`);
-
-		const flexContainer = document.createElement("div");
-		flexContainer.classList.add("d-flex")
-
-		const body = document.createElement("div");
-		body.classList.add("toast-body");
-		body.innerText = text;
-
-		flexContainer.appendChild(body);
-
-		const dismissButton = document.createElement("button");
-		dismissButton.classList.add("btn-close");
-		dismissButton.classList.add("btn-close-white");
-		dismissButton.classList.add("me-2");
-		dismissButton.classList.add("m-auto");
-		dismissButton.dataset.bsDismiss = "toast";
-
-		flexContainer.appendChild(dismissButton);
-
-		notification.appendChild(flexContainer);
+		const notification = new Control("div")
+			.class("toast", "align-items-center", `text-bg-${category}`)
+			.child(new Control("div")
+				.class("d-flex")
+				.child(new Control("div")
+					.class("toast-body")
+					.text(text)
+					.get())
+				.child(new Control("button")
+					.class("btn-close", "btn-close-white", "me-2", "m-auto")
+					.data("bsDismiss", "toast")
+					.get())
+				.get())
+			.get();
 
 		this.#container.appendChild(notification);
+
 		const toast = new bootstrap.Toast(notification);
 		toast.show();
 	}
