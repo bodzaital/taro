@@ -1,3 +1,4 @@
+import Control from "./control";
 import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
@@ -117,15 +118,13 @@ class Thumbnail {
 	}
 
 	#createThumbnail(uri) {
-		const thumbnail = document.createElement("img");
-	
-		thumbnail.src = `taro://${uri}`;
-		thumbnail.loading = "lazy";
-		thumbnail.classList.add("thumbnail");
-		thumbnail.dataset.rawSrc = uri;
-		thumbnail.dataset.name = this.#getFilenameFromUri(uri).toUpperCase();
-	
-		return thumbnail;
+		return new Control("img")
+			.add("src", `taro://${uri}`)
+			.add("loading", "lazy")
+			.class("thumbnail")
+			.data("rawSrc", uri)
+			.data("name", this.#getFilenameFromUri(uri).toUpperCase())
+			.get();
 	}
 
 	#getFilenameFromUri(uri) {
