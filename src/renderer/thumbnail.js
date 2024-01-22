@@ -14,7 +14,7 @@ class Thumbnail {
 	];
 
 	#container = $(".thumbnail-container");
-	#activePhoto = $("#activePhoto");
+	activePhoto = $("#activePhoto");
 	#currentIndex = 0;
 
 	constructor() {
@@ -92,7 +92,7 @@ class Thumbnail {
 		selectedThumbnail.classList.add("current");
 		selectedThumbnail.scrollIntoView();
 		
-		this.#activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
+		this.activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
 		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
 		sidebar.photoName.innerText = selectedThumbnail.dataset.name;
@@ -140,7 +140,7 @@ class Thumbnail {
 	}
 	
 	clearPhoto() {
-		this.#activePhoto.style.backgroundImage = "";
+		this.activePhoto.style.backgroundImage = "";
 	}
 }
 

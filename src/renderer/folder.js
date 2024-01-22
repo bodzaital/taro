@@ -4,8 +4,11 @@ import { thumbnail } from "./thumbnail";
 import { windowFrame } from "./windowFrame";
 
 class Folder {
+	isFolderLoaded = false;
+	
 	constructor() {
-		this.isFolderLoaded = false;
+		// this.isFolderLoaded = false;
+		this.unloadFolder();
 	}
 
 	loadFolder(folderInfo) {

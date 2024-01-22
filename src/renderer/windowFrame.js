@@ -1,3 +1,4 @@
+import Control from "./control";
 import { $, $$ } from "./shorthand";
 import { thumbnail } from "./thumbnail";
 
@@ -40,12 +41,47 @@ class WindowFrame {
 	loadFolder(value) {
 		this.#folderName = value;
 
+		thumbnail.activePhoto.innerText = "";
+
 		this.#searchbar.placeholder = this.#folderName;
 		this.#searchbar.disabled = false;
 	}
 	
 	unloadFolder() {
 		this.#folderName = null
+
+		thumbnail.activePhoto.appendChild(new Control("div")
+			.class("startup")
+				.child(new Control("h1")
+					.class("branding")
+					.text("taro")
+					.get()
+				).child(new Control("div")
+					.class("sub-branding")
+					.text("Photography culling and tagging")
+					.get()
+				).child(new Control("div")
+					.class("btn-group")
+					.child(new Control("button")
+						.add("id", "startupOpenFolder")
+						.class("btn", "btn-sm", "btn-success")
+						.text("Open folder")
+						.get()
+					).child(new Control("button")
+						.add("id", "startupDarkMode")
+						.class("btn", "btn-sm", "btn-outline-secondary")
+						.text("Dark mode")
+						.get()
+					).child(new Control("button")
+						.add("id", "startupGetHelp")
+						.class("btn", "btn-sm", "btn-outline-secondary")
+						.text("Get help")
+						.get()
+					)
+					.get()
+				)
+			.get()
+		);
 
 		this.#searchbar.placeholder = "taro";
 		this.#searchbar.disabled = true;
