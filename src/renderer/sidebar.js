@@ -42,23 +42,30 @@ class Sidebar {
 	}
 
 	setExifData(shutter, aperture, iso) {
-		this.#details.exifShutter.innerText = `${shutter}s`;
-		this.#details.exifAperture.innerText = `ƒ/${aperture}`;
-		this.#details.exifIso.innerText = iso;
+		this.#details.exifShutter.innerText = shutter != null
+			? `${shutter}s`
+			: "N/A";
+
+		this.#details.exifAperture.innerText = aperture != null
+			? `ƒ/${aperture}`
+			: "N/A";
+
+		this.#details.exifIso.innerText = iso ?? "N/A";
 	}
 
 	loadExifData(uri) {
 		this.clearExifData();
 
 		window.ipc.getExif(uri).then((exif) => {
-			const fnumber = exif.FNumber.value[0] / exif.FNumber.value[1];
+			const fnumber = exif.FNumber != null
+				? exif.FNumber?.value[0] / exif.FNumber?.value[1]
+				: null;
+
 			this.setExifData(
-				exif.ShutterSpeedValue.description,
+				exif.ShutterSpeedValue?.description,
 				fnumber,
-				exif.ISOSpeedRatings.description
+				exif.ISOSpeedRatings?.description
 			);
-			
-			console.log(exif);
 		});
 	}
 
