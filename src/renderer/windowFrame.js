@@ -31,8 +31,6 @@ class WindowFrame {
 				
 			const firstFoundIndex = Array.from($$(".thumbnail")).indexOf(firstFoundThumbnail);
 
-			console.log(`Searching for : ${searchTerm} at index: ${firstFoundIndex}`);
-
 			if (firstFoundIndex < 0) return;
 
 			thumbnail.selectPhoto(firstFoundIndex);
