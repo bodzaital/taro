@@ -1,4 +1,4 @@
-import { dialog, net, protocol } from "electron";
+import { app, dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
@@ -48,6 +48,33 @@ class IO {
 	exifHandler(uri) {
 		const data = ExifReader.load(uri);
 		return data;
+	}
+
+	// TODO: (settings) I guess refactor these methods.
+	// TODO: (settings) General idea behind the settings: an apply method will (1) load the settings file, (2) 
+	// read and set values in the main process including raising necessary events to the renderer.
+	// This apply method then can be called after startup or whenever we want to refresh the settings (e.g. after saving).
+	openSettings() {
+		const settingsFileUri = this.#getSettingsUri();
+
+		if (!fs.existsSync(settingsFileUri)) fs.writeFileSync(settingsFileUri, {});
+
+		const settings = JSON.parse(fs.readFileSync(settingsFileUri));
+
+		return settings;
+	}
+
+	saveSettings(key, value) {
+		const settingsFileUri = this.#getSettingsUri();
+		const settings = JSON.parse(fs.readFileSync(settingsFileUri));
+
+		settings[key] = value;
+
+		fs.writeFileSync(settingsFileUri, JSON.stringify(settings));
+	}
+
+	#getSettingsUri() {
+		return path.join(app.getPath("userData"), "settings.json");
 	}
 	
 	#getFolderPathFromDialog() {

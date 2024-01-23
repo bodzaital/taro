@@ -1,8 +1,9 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const { registerAboutPanel, registerMenu } = require('./main/system');
 // const { registerTaroProtocol } = require('./main/io');
 const { ipc } = require('./main/ipc');
 const { io } = require('./main/io');
+const { CH_TOGGLE_DARK_MODE } = require('./ipcConstants');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -33,6 +34,15 @@ const createWindow = () => {
 	registerMenu();
 
 	ipc.register();
+
+	// TODO: (settings) refactor into separate class for waiting for the DOM.
+	mainWindow.webContents.once("dom-ready", () => {
+		const settings = io.openSettings();
+		
+		Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];
+
+		ipc.raise(CH_TOGGLE_DARK_MODE, [settings["darkMode"]]);
+	});
 };
 
 // This method will be called when Electron has finished

@@ -16,6 +16,7 @@ class IPC {
 	}
 
 	raise(channel, args = null) {
+		console.log(channel, args);
 		this.#mainWindow.webContents.send(channel, args);
 	}
 }

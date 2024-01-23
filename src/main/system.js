@@ -1,5 +1,5 @@
 import { Menu, app } from "electron";
-import { closeFolderHandler, io, openFolderHandler } from "./io";
+import { io } from "./io";
 // import { raiseEvent } from "./ipc";
 import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
 import { ipc } from "./ipc";
@@ -98,7 +98,10 @@ function getToolsMenu(isMacOS) {
 
 // TODO: refactor this
 function toggleDarkMode() {
+	// TODO: (settings) handle setting initial state correctly after loading the settings (e.g. make sure the checkbox is checked if darkMode setting is on, not just the visuals).
 	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
+
+	io.saveSettings("darkMode", isDarkMode);
 
 	ipc.raise(CH_TOGGLE_DARK_MODE, [isDarkMode]);
 }

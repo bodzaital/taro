@@ -1,4 +1,7 @@
 # taro
+
+![](docs/screenshot-v0.1.png)
+
 A small photography culling and tagging app built with Bootstrap and Electron
 
 So far only tested on macOS, but will eventually test on Windows and Linux.
