@@ -101,7 +101,5 @@ function toggleDarkMode() {
 	// TODO: (settings) handle setting initial state correctly after loading the settings (e.g. make sure the checkbox is checked if darkMode setting is on, not just the visuals).
 	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
 
-	io.saveSettings("darkMode", isDarkMode);
-
 	ipc.raise(CH_TOGGLE_DARK_MODE, [isDarkMode]);
 }

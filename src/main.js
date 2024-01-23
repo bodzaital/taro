@@ -37,11 +37,11 @@ const createWindow = () => {
 
 	// TODO: (settings) refactor into separate class for waiting for the DOM.
 	mainWindow.webContents.once("dom-ready", () => {
-		const settings = io.openSettings();
+		// const settings = io.openSettings();
 		
-		Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];
+		// Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];
 
-		ipc.raise(CH_TOGGLE_DARK_MODE, [settings["darkMode"]]);
+		// ipc.raise(CH_TOGGLE_DARK_MODE, [settings["darkMode"]]);
 	});
 };
 
