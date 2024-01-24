@@ -1,5 +1,5 @@
 import { app, dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED } from "../ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
@@ -25,14 +25,14 @@ class IO {
 	openFolderHandler() {
 		const folderPath = this.#getFolderPathFromDialog();
 		if (folderPath == null) {
-			ipc.raise(CH_OPEN_CANCELED);
+			ipc.raise(CH_SHOW_ALERT, ["Opening a folder is canceled.", "info"]);
 			return;
 		}
 
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
 		if (listOfImageURIs.length == 0) {
-			ipc.raise(CH_NO_IMAGES);
+			ipc.raise(CH_SHOW_ALERT, ["There are no images in this folder.", "warning"]);
 			return;
 		}
 		

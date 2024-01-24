@@ -18,14 +18,6 @@ window.ipc.toggleDarkMode((isDarkMode) => {
 		: "light";
 });
 
-window.ipc.noImages(() => {
-	// TODO: make this nicer.
-	// alert("There are no images in this folder.");
-	notifications.create("There are no images in this folder.", "warning");
+window.ipc.showAlert((message, style) => {
+	notifications.create(message, style);
 });
-
-window.ipc.openCanceled(() => {
-	// TODO: make this nicer.
-	// alert("Open folder canceled.");
-	notifications.create("Opening a folder is canceled.", "info");
-})

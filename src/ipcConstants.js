@@ -8,3 +8,5 @@ export const CH_OPEN_CANCELED = "openCanceled";
 export const CH_TOGGLE_DARK_MODE = "toggleDarkMode";
 
 export const CH_GET_EXIF = "getExif";
+
+export const CH_SHOW_ALERT = "showAlert";

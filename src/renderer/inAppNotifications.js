@@ -11,6 +11,8 @@ class InAppNotifications {
 	}
 
 	create(text, category = null) {
+		if (category == null) category = "info";
+		
 		const notification = new Control("div")
 			.class("toast", "align-items-center", `text-bg-${category}`)
 			.child(new Control("div")
