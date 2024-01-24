@@ -1,10 +1,11 @@
 const { app, BrowserWindow, Menu } = require('electron');
-const { registerAboutPanel, registerMenu } = require('./main/system');
+// const { registerAboutPanel, registerMenu } = require('./main/system');
 // const { registerTaroProtocol } = require('./main/io');
 const { ipc } = require('./main/ipc');
 const { io } = require('./main/io');
 const { CH_TOGGLE_DARK_MODE } = require('./ipcConstants');
 const { appSettings } = require('./main/appsettings');
+const { system } = require('./main/system');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -31,8 +32,7 @@ const createWindow = () => {
 
 	ipc.init(mainWindow);
 
-	registerAboutPanel();
-	registerMenu();
+	system.registerOnStartup();
 
 	ipc.register();
 
