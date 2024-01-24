@@ -13,7 +13,6 @@ window.ipc.closeFolder(() => {
 });
 
 window.ipc.toggleDarkMode((isDarkMode) => {
-	console.log(isDarkMode);
 	$("html").dataset.bsTheme = isDarkMode
 		? "dark"
 		: "light";
