@@ -39,11 +39,6 @@ const createWindow = () => {
 	// TODO: (settings) refactor into separate class for waiting for the DOM.
 	mainWindow.webContents.once("dom-ready", () => {
 		appSettings.apply();
-		// const settings = io.openSettings();
-		
-		// Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];
-
-		// ipc.raise(CH_TOGGLE_DARK_MODE, [settings["darkMode"]]);
 	});
 };
 
@@ -73,6 +68,5 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 
 app.whenReady().then(() => {
-	// registerTaroProtocol();
 	io.registerTaroProtocol();
 });
