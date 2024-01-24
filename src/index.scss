@@ -5,7 +5,7 @@
 @use "styles/startup";
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
-// * { outline: 1px solid red; }
+* { outline: 1px solid red; }
 
 // TODO: look into a less hacky way of keeping the viewer from growing too large.
 $titleBarHeight: 50px;

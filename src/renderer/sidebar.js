@@ -10,6 +10,9 @@ class Sidebar {
 		exifShutter: $("#sidebarExifShutter"),
 		exifAperture: $("#sidebarExifAperture"),
 		exifIso: $("#sidebarExifIso"),
+		exifCamera: $("#sidebarExifCamera"),
+		exifFocal: $("#sidebarExifFocal"),
+
 		placeholder: null,
 	};
 
@@ -32,16 +35,15 @@ class Sidebar {
 	}
 
 	clearExifData() {
-		this.#details.exifShutter.innerText = "";
-		this.#details.exifAperture.innerText = "";
-		this.#details.exifIso.innerText = "";
+		for (const [key, value] of Object.entries(this.#details)) {
+			if (key == "placeholder") continue;
 
-		this.#details.exifShutter.appendChild(this.#details.placeholder.cloneNode());
-		this.#details.exifAperture.appendChild(this.#details.placeholder.cloneNode());
-		this.#details.exifIso.appendChild(this.#details.placeholder.cloneNode());
+			this.#details[key].innerText = "";
+			this.#details[key].appendChild(this.#details.placeholder.cloneNode());
+		}
 	}
 
-	setExifData(shutter, aperture, iso) {
+	setExifData(shutter, aperture, iso, model, focal) {
 		this.#details.exifShutter.innerText = shutter != null
 			? `${shutter}s`
 			: "N/A";
@@ -51,6 +53,10 @@ class Sidebar {
 			: "N/A";
 
 		this.#details.exifIso.innerText = iso ?? "N/A";
+
+		this.#details.exifCamera.innerText = model ?? "N/A";
+
+		this.#details.exifFocal.innerText = focal ?? "N/A";
 	}
 
 	loadExifData(uri) {
@@ -61,10 +67,14 @@ class Sidebar {
 				? exif.FNumber?.value[0] / exif.FNumber?.value[1]
 				: null;
 
+			console.log(exif);
+
 			this.setExifData(
-				exif.ShutterSpeedValue?.description,
+				exif.ExposureTime?.description,
 				fnumber,
-				exif.ISOSpeedRatings?.description
+				exif.ISOSpeedRatings?.description,
+				exif.Model?.description,
+				exif.FocalLength.description
 			);
 		});
 	}
