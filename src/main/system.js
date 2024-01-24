@@ -1,8 +1,8 @@
 import { Menu, app } from "electron";
 import { io } from "./io";
-// import { raiseEvent } from "./ipc";
 import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
 import { ipc } from "./ipc";
+import { AppSettings, appSettings } from "./appsettings";
 
 /** Registers the about panel and sets the basic values on it. */
 export function registerAboutPanel() {
@@ -101,5 +101,9 @@ function toggleDarkMode() {
 	// TODO: (settings) handle setting initial state correctly after loading the settings (e.g. make sure the checkbox is checked if darkMode setting is on, not just the visuals).
 	const isDarkMode = Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked;
 
-	ipc.raise(CH_TOGGLE_DARK_MODE, [isDarkMode]);
+	// ipc.raise(CH_TOGGLE_DARK_MODE, [isDarkMode]);
+
+	appSettings.changeSetting([
+		{ key: AppSettings.DARK_MODE, value: isDarkMode }
+	]);
 }

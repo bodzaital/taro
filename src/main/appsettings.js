@@ -1,9 +1,13 @@
-import { app } from "electron";
+import { Menu, app } from "electron";
 import path from "path";
 import fs from "fs";
+import { ipc } from "./ipc";
+import { CH_TOGGLE_DARK_MODE } from "../ipcConstants";
 
-class AppSettings {
-	#settings = null;
+export class AppSettings {
+	static DARK_MODE = "darkMode";
+
+	#appSettings = null;
 
 	applySettings() {
 		this.#open();
@@ -23,24 +27,44 @@ class AppSettings {
 		if (!fs.existsSync(settingsFileUri)) fs.writeFileSync(settingsFileUri, {});
 		const settings = JSON.parse(fs.readFileSync(settingsFileUri));
 
-		return settings;
+		this.#appSettings = settings;
 	}
 
 	#update(keyValuePairs) {
 		keyValuePairs.forEach((keyValuePair) => {
-			this.#settings[keyValuePair.key] = keyValuePair.value;
+			this.#appSettings[keyValuePair.key] = keyValuePair.value;
 		});
 	}
 
 	#apply() {
-		// TODO: the interesting part.
+		this.#applyDarkMode();
 	}
 
 	#write() {
 		const settingsFileUri = path.join(app.getPath("userData"), "settings.json");
 
-		const contents = JSON.stringify(this.#settings);
+		const contents = JSON.stringify(this.#appSettings);
 		fs.writeFileSync(settingsFileUri, contents);
+	}
+
+	#applyDarkMode() {
+		this.#applySetting(AppSettings.DARK_MODE, (value) => {
+			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value;
+			ipc.raise(CH_TOGGLE_DARK_MODE, [value]);
+		}, () => {
+			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = false;
+			ipc.raise(CH_TOGGLE_DARK_MODE, [false]);
+		});
+	}
+
+	/** Applies a setting by calling either the onValue function with the key value if the key is present, or the onDefault function if the key is not present. */
+	#applySetting(key, onValue, onDefault) {
+		if (!this.#appSettings.hasOwnProperty(key)) {
+			onDefault();
+			return;
+		}
+
+		onValue(this.#appSettings[key]);
 	}
 }
 

@@ -4,6 +4,7 @@ const { registerAboutPanel, registerMenu } = require('./main/system');
 const { ipc } = require('./main/ipc');
 const { io } = require('./main/io');
 const { CH_TOGGLE_DARK_MODE } = require('./ipcConstants');
+const { appSettings } = require('./main/appsettings');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -37,6 +38,7 @@ const createWindow = () => {
 
 	// TODO: (settings) refactor into separate class for waiting for the DOM.
 	mainWindow.webContents.once("dom-ready", () => {
+		appSettings.applySettings();
 		// const settings = io.openSettings();
 		
 		// Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];
