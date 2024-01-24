@@ -105,7 +105,7 @@ class System {
 			value: item.checked
 		};
 
-		appSettings.changeSetting([setting]);
+		appSettings.updateAndApply([setting]);
 	}
 }
 

@@ -38,7 +38,7 @@ const createWindow = () => {
 
 	// TODO: (settings) refactor into separate class for waiting for the DOM.
 	mainWindow.webContents.once("dom-ready", () => {
-		appSettings.applySettings();
+		appSettings.apply();
 		// const settings = io.openSettings();
 		
 		// Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = settings["darkMode"];

@@ -9,12 +9,12 @@ export class AppSettings {
 
 	#appSettings = null;
 
-	applySettings() {
+	apply() {
 		this.#open();
 		this.#apply();
 	}
 
-	changeSetting(keyValuePairs) {
+	updateAndApply(keyValuePairs) {
 		this.#open();
 		this.#update(keyValuePairs);
 		this.#apply();
@@ -31,20 +31,28 @@ export class AppSettings {
 	}
 
 	#update(keyValuePairs) {
+		if (this.#appSettings == null) throw new Error("AppSettings is not loaded.");
+
 		keyValuePairs.forEach((keyValuePair) => {
 			this.#appSettings[keyValuePair.key] = keyValuePair.value;
 		});
 	}
 
 	#apply() {
+		if (this.#appSettings == null) throw new Error("AppSettings is not loaded.");
+
 		this.#applyDarkMode();
 	}
 
 	#write() {
-		const settingsFileUri = path.join(app.getPath("userData"), "settings.json");
+		if (this.#appSettings == null) throw new Error("AppSettings is not loaded.");
 
+		const settingsFileUri = path.join(app.getPath("userData"), "settings.json");
 		const contents = JSON.stringify(this.#appSettings);
+		
 		fs.writeFileSync(settingsFileUri, contents);
+		
+		this.#appSettings = null;
 	}
 
 	#applyDarkMode() {
