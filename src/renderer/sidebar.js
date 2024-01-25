@@ -1,4 +1,5 @@
 import { $ } from './shorthand';
+import { computePosition } from '@floating-ui/dom';
 
 class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
@@ -16,6 +17,9 @@ class Sidebar {
 		placeholder: null,
 	};
 
+	#exifDetailTrigger = $("#exifDetailTrigger");
+	#exifDetailPanel = $("#exifDetailPanel");
+
 	constructor() {
 		this.#details.placeholder = document.createElement("div");
 		this.#details.placeholder.classList.add("placeholder");
@@ -32,11 +36,19 @@ class Sidebar {
 				this.#sidebarToggleButton.classList.remove("active");
 			}
 		});
+
+		computePosition(this.#exifDetailTrigger, this.#exifDetailPanel).then(({x, y}) => {
+			Object.assign(this.#exifDetailPanel.style, {
+				left: `${x}px`,
+				top: `${y + 8}px`
+			});
+		});
 	}
 
 	clearExifData() {
 		for (const [key, value] of Object.entries(this.#details)) {
 			if (key == "placeholder") continue;
+			if (key == "exifFloater") continue;
 
 			this.#details[key].innerText = "";
 			this.#details[key].appendChild(this.#details.placeholder.cloneNode());
