@@ -1,4 +1,4 @@
-import { $ } from './shorthand';
+import { $, $$ } from './shorthand';
 import { computePosition } from '@floating-ui/dom';
 
 class Sidebar {
@@ -12,13 +12,13 @@ class Sidebar {
 		exifAperture: $("#sidebarExifAperture"),
 		exifIso: $("#sidebarExifIso"),
 		exifCamera: $("#sidebarExifCamera"),
-		exifFocal: $("#sidebarExifFocal"),
+		exifFocal: $("#sidebarExifFocalLength"),
+		exifDate: $("#sidebarExifDate"),
 
 		placeholder: null,
 	};
 
-	#exifDetailTrigger = $("#exifDetailTrigger");
-	#exifDetailPanel = $("#exifDetailPanel");
+	#exifDateTimeTooltip = null;
 
 	constructor() {
 		this.#details.placeholder = document.createElement("div");
@@ -37,12 +37,7 @@ class Sidebar {
 			}
 		});
 
-		computePosition(this.#exifDetailTrigger, this.#exifDetailPanel).then(({x, y}) => {
-			Object.assign(this.#exifDetailPanel.style, {
-				left: `${x}px`,
-				top: `${y + 8}px`
-			});
-		});
+		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
 	}
 
 	clearExifData() {
@@ -55,7 +50,7 @@ class Sidebar {
 		}
 	}
 
-	setExifData(shutter, aperture, iso, model, focal) {
+	setExifData(shutter, aperture, iso, model, focal, dateTime) {
 		this.#details.exifShutter.innerText = shutter != null
 			? `${shutter}s`
 			: "N/A";
@@ -69,6 +64,17 @@ class Sidebar {
 		this.#details.exifCamera.innerText = model ?? "N/A";
 
 		this.#details.exifFocal.innerText = focal ?? "N/A";
+
+		const dateOnly = dateTime != null
+			? dateTime.substring(0, 10).replaceAll(":", "-")
+			: null;
+
+		dateTime = dateTime != null
+			? dateTime.replace(":", "-").replace(":", "-")
+			: null;
+
+		this.#details.exifDate.innerText = dateOnly ?? "N/A";
+		this.#exifDateTimeTooltip.setContent({ ".tooltip-inner": dateTime ?? "N/A" });
 	}
 
 	loadExifData(uri) {
@@ -86,7 +92,8 @@ class Sidebar {
 				fnumber,
 				exif.ISOSpeedRatings?.description,
 				exif.Model?.description,
-				exif.FocalLength.description
+				exif.FocalLength?.description,
+				exif.DateTime?.description
 			);
 		});
 	}
