@@ -42,16 +42,22 @@ class Thumbnail {
 		});
 
 		this.#thumbnailsToggleButton.addEventListener("click", () => {
-			this.#isThumbnailsOpen = !this.#isThumbnailsOpen;
-
-			if (this.#isThumbnailsOpen) {
-				windowFrame.content.classList.remove("no-thumbnails");
-				this.#thumbnailsToggleButton.classList.add("active");
-			} else {
-				windowFrame.content.classList.add("no-thumbnails");
-				this.#thumbnailsToggleButton.classList.remove("active");
-			}
+			this.toggleThumbnail(!this.#isThumbnailsOpen);
+			
+			window.ipc.saveSetting("isThumbnailsVisible", this.#isThumbnailsOpen);
 		});
+	}
+
+	toggleThumbnail(state) {
+		this.#isThumbnailsOpen = state;
+		
+		if (this.#isThumbnailsOpen) {
+			windowFrame.content.classList.remove("no-thumbnails");
+			this.#thumbnailsToggleButton.classList.add("active");
+		} else {
+			windowFrame.content.classList.add("no-thumbnails");
+			this.#thumbnailsToggleButton.classList.remove("active");
+		}
 	}
 
 	#navigateOnClick(e) {

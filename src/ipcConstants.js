@@ -10,3 +10,6 @@ export const CH_TOGGLE_DARK_MODE = "toggleDarkMode";
 export const CH_GET_EXIF = "getExif";
 
 export const CH_SHOW_ALERT = "showAlert";
+
+export const CH_SAVE_SETTING = "saveSetting";
+export const CH_APPLY_SETTING = "applySetting";

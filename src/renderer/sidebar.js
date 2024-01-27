@@ -28,21 +28,27 @@ class Sidebar {
 		this.#details.placeholder.style.width = "100%";
 		
 		this.#sidebarToggleButton.addEventListener("click", () => {
-			this.#isSidebarOpen = !this.#isSidebarOpen;
-
-			if (this.#isSidebarOpen) {
-				this.#viewer.classList.remove("no-sidebar");
-				this.#sidebarToggleButton.classList.add("active");
-			} else {
-				this.#viewer.classList.add("no-sidebar");
-				this.#sidebarToggleButton.classList.remove("active");
-			}
+			this.toggleSidebar(!this.#isSidebarOpen);
+			
+			window.ipc.saveSetting("isSidebarVisible", this.#isSidebarOpen);
 		});
 
 		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
 		this.#exifLensModelTooltip = new bootstrap.Tooltip($("#sidebarExifLensModel"));
 
 		this.clearExifData();
+	}
+
+	toggleSidebar(state) {
+		this.#isSidebarOpen = state;
+
+		if (this.#isSidebarOpen) {
+			this.#viewer.classList.remove("no-sidebar");
+			this.#sidebarToggleButton.classList.add("active");
+		} else {
+			this.#viewer.classList.add("no-sidebar");
+			this.#sidebarToggleButton.classList.remove("active");
+		}
 	}
 
 	clearExifData() {
