@@ -1,6 +1,8 @@
 # taro
 
-![](docs/screenshot-v0.1.png)
+Current version: `Pre-Alpha v0.1.1`
+
+![](docs/screenshot-v0.1.1.png)
 
 A small photography culling and tagging app built with Bootstrap and Electron
 
