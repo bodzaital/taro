@@ -12,6 +12,7 @@
 				<input id="titleBarSearch" type="text" class="form-control form-control-sm" data-interactable placeholder="taro" disabled>
 			</div>
 			<div class="title-bar-right">
+				<button class="btn btn-sm btn-outline-secondary active" data-interactable data-bs-toggle="button" id="thumbnailsToggleButton"><i class="bi bi-layout-sidebar-inset-reverse"></i></button>
 				<button class="btn btn-sm btn-outline-secondary active" data-interactable data-bs-toggle="button" id="sidebarToggleButton"><i class="bi bi-layout-sidebar-inset-reverse"></i></button>
 			</div>
 		</section>
@@ -38,25 +39,25 @@
 								<div class="exif-value" id="sidebarExifIso"></div>
 							</div>
 						</div>
-						<div class="sidebar-exif-row short-row">
+						<div class="sidebar-exif-row ">
 							<div class="exif-data">
 								<i class="exif-icon bi bi-binoculars"></i>
 								<div class="exif-value" id="sidebarExifFocalLength"></div>
 							</div>
-						</div>
-						<div class="sidebar-exif-row long-row">
-							<div class="exif-data" data-bs-toggle="tooltip" data-bs-title="Bruh wtf" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifDateTime">
+							<div class="exif-data long-data" data-bs-toggle="tooltip" data-bs-title="Unknown date/time" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifDateTime">
 								<i class="exif-icon bi bi-calendar-heart"></i>
 								<div class="exif-value" id="sidebarExifDate"></div>
 							</div>
-							<div></div>
 						</div>
-						<div class="sidebar-exif-row long-row">
+						<div class="sidebar-exif-row ">
 							<div class="exif-data">
+								<i class="exif-icon bi bi-exposure"></i>
+								<div class="exif-value" id="sidebarExifExposureMode"></div>
+							</div>
+							<div class="exif-data long-data" data-bs-toggle="tooltip" data-bs-title="Unknown lens" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifLensModel">
 								<i class="exif-icon bi bi-camera"></i>
 								<div class="exif-value" id="sidebarExifCamera"></div>
 							</div>
-							<div></div>
 						</div>
 					</div>
 					<div class="sidebar-section ">

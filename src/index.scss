@@ -53,10 +53,11 @@ body
 		justify-content: right;
 		grid-column: 3;
 		margin-right: .5rem;
-
-		#toggleSidebar
+		gap: .5rem;
+		
+		#thumbnailsToggleButton
 		{
-			margin-right: .5rem;
+			transform: rotate(90deg);
 		}
 	}
 
@@ -78,6 +79,19 @@ body
 	justify-content: space-between;
 
 	&::-webkit-scrollbar { display: none; }
+
+	&.no-thumbnails
+	{
+		.viewer
+		{
+			height: 100%;
+		}
+
+		.thumbnail-container
+		{
+			display: none;
+		}
+	}
 }
 
 .viewer

@@ -7,6 +7,7 @@ import { thumbnail } from "./thumbnail";
 class WindowFrame {
 	#searchbar = $("#titleBarSearch");
 	#folderName = null;
+	content = $(".content");
 
 	isSearchActive = false;
 

@@ -14,11 +14,13 @@ class Sidebar {
 		exifCamera: $("#sidebarExifCamera"),
 		exifFocal: $("#sidebarExifFocalLength"),
 		exifDate: $("#sidebarExifDate"),
+		exifExposure: $("#sidebarExifExposureMode"),
 
 		placeholder: null,
 	};
 
 	#exifDateTimeTooltip = null;
+	#exifLensModelTooltip = null;
 
 	constructor() {
 		this.#details.placeholder = document.createElement("div");
@@ -38,6 +40,9 @@ class Sidebar {
 		});
 
 		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
+		this.#exifLensModelTooltip = new bootstrap.Tooltip($("#sidebarExifLensModel"));
+
+		this.clearExifData();
 	}
 
 	clearExifData() {
@@ -48,9 +53,12 @@ class Sidebar {
 			this.#details[key].innerText = "";
 			this.#details[key].appendChild(this.#details.placeholder.cloneNode());
 		}
+
+		this.#exifDateTimeTooltip.setContent({ ".tooltip-inner": "Unknown date or time" });
+		this.#exifLensModelTooltip.setContent({ ".tooltip-inner": "Unknown lens" });
 	}
 
-	setExifData(shutter, aperture, iso, model, focal, dateTime) {
+	setExifData(shutter, aperture, iso, model, focal, dateTime, lensModel, exposure) {
 		this.#details.exifShutter.innerText = shutter != null
 			? `${shutter}s`
 			: "N/A";
@@ -74,7 +82,12 @@ class Sidebar {
 			: null;
 
 		this.#details.exifDate.innerText = dateOnly ?? "N/A";
+
+		this.#details.exifExposure.innerText = exposure ?? "N/A";
+
 		this.#exifDateTimeTooltip.setContent({ ".tooltip-inner": dateTime ?? "N/A" });
+
+		this.#exifLensModelTooltip.setContent({ ".tooltip-inner": lensModel ?? "N/A" })
 	}
 
 	loadExifData(uri) {
@@ -93,7 +106,9 @@ class Sidebar {
 				exif.ISOSpeedRatings?.description,
 				exif.Model?.description,
 				exif.FocalLength?.description,
-				exif.DateTime?.description
+				exif.DateTime?.description,
+				exif.LensModel?.description,
+				exif.ExposureProgram?.description
 			);
 		});
 	}
