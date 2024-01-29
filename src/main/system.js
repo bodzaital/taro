@@ -83,6 +83,20 @@ class System {
 					id: "view/dark-mode",
 					click: (item) => this.#handleViewDarkMode(item),
 					accelerator: "CmdOrCtrl+Alt+L"
+				},
+				{
+					label: "Toggle Thumbnails",
+					type: "checkbox",
+					id: "view/thumbnails",
+					click: (item) => this.#handleToggleThumbnails(item),
+					accelerator: "CmdOrCtrl+X"
+				},
+				{
+					label: "Toggle Sidebar",
+					type: "checkbox",
+					id: "view/sidebar",
+					click: (item) => this.#handleToggleSidebar(item),
+					accelerator: "CmdOrCtrl+B"
 				}
 			]
 		}];
@@ -103,6 +117,24 @@ class System {
 	#handleViewDarkMode(item) {
 		const setting = {
 			key: AppSettingsConstant.DARK_MODE,
+			value: item.checked
+		};
+
+		appSettings.updateAndApply([setting]);
+	}
+
+	#handleToggleThumbnails(item) {
+		const setting = {
+			key: AppSettingsConstant.THUMBNAILS_VISILE,
+			value: item.checked
+		};
+
+		appSettings.updateAndApply([setting]);
+	}
+
+	#handleToggleSidebar(item) {
+		const setting = {
+			key: AppSettingsConstant.SIDEBAR_VISIBLE,
 			value: item.checked
 		};
 

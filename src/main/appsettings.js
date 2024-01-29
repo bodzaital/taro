@@ -68,6 +68,7 @@ export class AppSettings {
 
 	#applyIsThumbnailsVisible() {
 		this.#applySetting(AppSettingsConstant.THUMBNAILS_VISILE, (value) => {
+			Menu.getApplicationMenu().getMenuItemById("view/thumbnails").checked = value;
 			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, value]);
 		}, () => {
 			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, true]);
@@ -76,6 +77,7 @@ export class AppSettings {
 	
 	#applyIsSidebarVisible() {
 		this.#applySetting(AppSettingsConstant.SIDEBAR_VISIBLE, (value) => {
+			Menu.getApplicationMenu().getMenuItemById("view/sidebar").checked = value;
 			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, value]);
 		}, () => {
 			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, true]);
