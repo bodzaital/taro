@@ -1,6 +1,7 @@
 import { Menu, app } from "electron";
 import { io } from "./io";
-import { AppSettings, appSettings } from "./appsettings";
+import { appSettings } from "./appsettings";
+import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 class System {
 	/** Registers the about panel and the menu, to be called on startup. */
@@ -101,7 +102,7 @@ class System {
 
 	#handleViewDarkMode(item) {
 		const setting = {
-			key: AppSettings.DARK_MODE,
+			key: AppSettingsConstant.DARK_MODE,
 			value: item.checked
 		};
 
