@@ -90,14 +90,14 @@ class System {
 				},
 				{ type: "separator" },
 				{
-					label: "Toggle Thumbnails",
+					label: "Thumbnails",
 					type: "checkbox",
 					id: "view/thumbnails",
 					click: (item) => this.#handleToggleThumbnails(item),
 					accelerator: "CmdOrCtrl+X"
 				},
 				{
-					label: "Toggle Sidebar",
+					label: "Sidebar",
 					type: "checkbox",
 					id: "view/sidebar",
 					click: (item) => this.#handleToggleSidebar(item),
