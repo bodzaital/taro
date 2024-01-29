@@ -4,10 +4,14 @@ import { appSettings } from "./appsettings";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 class System {
+	#mainWindow = null;
+
 	/** Registers the about panel and the menu, to be called on startup. */
-	registerOnStartup() {
+	registerOnStartup(mainWindow) {
 		this.registerAboutPanel();
 		this.registerMenu();
+
+		this.#mainWindow = mainWindow;
 	}
 
 	registerAboutPanel() {
@@ -84,6 +88,7 @@ class System {
 					click: (item) => this.#handleViewDarkMode(item),
 					accelerator: "CmdOrCtrl+Alt+L"
 				},
+				{ type: "separator" },
 				{
 					label: "Toggle Thumbnails",
 					type: "checkbox",
@@ -97,6 +102,14 @@ class System {
 					id: "view/sidebar",
 					click: (item) => this.#handleToggleSidebar(item),
 					accelerator: "CmdOrCtrl+B"
+				},
+				{ type: "separator" },
+				{
+					label: "Full Screen",
+					type: "checkbox",
+					id: "view/full-screen",
+					click: (item) => this.#handleFullScreen(item),
+					accelerator: "CmdOrCtrl+F"
 				}
 			]
 		}];
@@ -139,6 +152,14 @@ class System {
 		};
 
 		appSettings.updateAndApply([setting]);
+	}
+
+	#handleFullScreen(item) {
+		if (this.#mainWindow.isFullScreen()) {
+			this.#mainWindow.setFullScreen(false);
+		} else {
+			this.#mainWindow.setFullScreen(true);
+		}
 	}
 }
 

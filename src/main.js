@@ -32,7 +32,7 @@ const createWindow = () => {
 
 	ipc.init(mainWindow);
 
-	system.registerOnStartup();
+	system.registerOnStartup(mainWindow);
 
 	ipc.register();
 
