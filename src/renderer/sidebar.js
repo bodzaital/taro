@@ -84,7 +84,7 @@ class Sidebar {
 			: null;
 
 		dateTime = dateTime != null
-			? dateTime.replace(":", "-").replace(":", "-")
+			? dateTime.substring(dateTime.indexOf(" "))
 			: null;
 
 		this.#details.exifDate.innerText = dateOnly ?? "N/A";
