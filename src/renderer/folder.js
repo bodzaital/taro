@@ -4,7 +4,7 @@ import { thumbnail } from "./thumbnail";
 import { windowFrame } from "./windowFrame";
 
 class Folder {
-	isFolderLoaded = false;
+	isFolderLoaded = null;
 	
 	constructor() {
 		// this.isFolderLoaded = false;
@@ -24,6 +24,8 @@ class Folder {
 	}
 
 	unloadFolder() {
+		if (this.isFolderLoaded === false) return;
+
 		thumbnail.unloadFolder();
 		windowFrame.unloadFolder();
 		sidebar.unloadFolder();
