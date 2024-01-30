@@ -51,7 +51,7 @@ class IO {
 		return data;
 	}
 
-	metadataHandler(folder, photo) {
+	getMetadataHandler(folder, photo) {
 		const taroMetadataFolder = path.join(folder, IO.TARO_METADATA_FOLDER_NAME);
 
 		if (!fs.existsSync(taroMetadataFolder)) fs.mkdirSync(taroMetadataFolder);
@@ -66,7 +66,22 @@ class IO {
 			fs.writeFileSync(photoMetadataFile, JSON.stringify(new Metadata(photo, created)));
 		}
 
-		return new Metadata();
+		const metadata = JSON.parse(fs.readFileSync(photoMetadataFile));
+
+		return metadata;
+	}
+
+	writeMetadataHandler(folder, metadata) {
+		const taroMetadataFolder = path.join(folder, IO.TARO_METADATA_FOLDER_NAME);
+
+		const photoMetadataFile = path.join(
+			taroMetadataFolder,
+			`${metadata.photo}.json`
+		);
+
+		console.log("Saving metadata:", metadata);
+
+		fs.writeFileSync(photoMetadataFile, JSON.stringify(metadata));
 	}
 	
 	#getFolderPathFromDialog() {

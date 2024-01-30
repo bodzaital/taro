@@ -16,5 +16,5 @@ contextBridge.exposeInMainWorld("ipc", {
 	getExif: (uri) => ipcRenderer.invoke(CH_GET_EXIF, uri),
 
 	getMetadata: (folder, photo) => ipcRenderer.invoke(CH_GET_METADATA, folder, photo),
-	writeMetadata: (metadata) => ipcRenderer.invoke(CH_WRITE_METADATA, metadata),
+	writeMetadata: (folder, metadata) => ipcRenderer.invoke(CH_WRITE_METADATA, folder, metadata),
 });

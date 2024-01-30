@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { CH_GET_EXIF, CH_GET_METADATA, CH_OPEN_FOLDER, CH_SAVE_SETTING } from "../ipcConstants";
+import { CH_GET_EXIF, CH_GET_METADATA, CH_SAVE_SETTING, CH_WRITE_METADATA } from "../ipcConstants";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
 
@@ -18,7 +18,8 @@ class IPC {
 			"value": value
 		}]));
 
-		ipcMain.handle(CH_GET_METADATA, (_, folder, photo) => io.metadataHandler(folder, photo));
+		ipcMain.handle(CH_GET_METADATA, (_, folder, photo) => io.getMetadataHandler(folder, photo));
+		ipcMain.handle(CH_WRITE_METADATA, (_, folder, metadata) => io.writeMetadataHandler(folder, metadata));
 	}
 
 	raise(channel, args = null) {

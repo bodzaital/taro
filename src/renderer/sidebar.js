@@ -116,15 +116,17 @@ class Sidebar {
 				exif.ExposureProgram?.description
 			);
 		});
-
-		// window.ipc.getMetadata(folder.folderInfo.foldername, ).then((metadata) => {
-		// 	console.log(metadata);
-		// });
 	}
 
 	loadMetadata(folder, photo) {
 		window.ipc.getMetadata(folder, photo).then((metadata) => {
-			console.log(metadata);
+			console.log("Loaded metadata:", metadata);
+
+			metadata.location.push("budapest");
+			metadata.location.push("duna part");
+			metadata.rating = 1;
+
+			window.ipc.writeMetadata(folder, metadata);
 		});
 	}
 
