@@ -1,5 +1,4 @@
 import { $, $$ } from './shorthand';
-import { computePosition } from '@floating-ui/dom';
 
 class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
@@ -116,6 +115,16 @@ class Sidebar {
 				exif.LensModel?.description,
 				exif.ExposureProgram?.description
 			);
+		});
+
+		// window.ipc.getMetadata(folder.folderInfo.foldername, ).then((metadata) => {
+		// 	console.log(metadata);
+		// });
+	}
+
+	loadMetadata(folder, photo) {
+		window.ipc.getMetadata(folder, photo).then((metadata) => {
+			console.log(metadata);
 		});
 	}
 

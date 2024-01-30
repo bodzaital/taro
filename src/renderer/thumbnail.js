@@ -115,6 +115,7 @@ class Thumbnail {
 		this.activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
 		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
+		sidebar.loadMetadata(folder.folderInfo.folderPath, selectedThumbnail.dataset.name);
 		sidebar.photoName.innerText = selectedThumbnail.dataset.name;
 	}
 

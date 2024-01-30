@@ -5,6 +5,7 @@ import { windowFrame } from "./windowFrame";
 
 class Folder {
 	isFolderLoaded = null;
+	folderInfo = null;
 	
 	constructor() {
 		// this.isFolderLoaded = false;
@@ -13,8 +14,8 @@ class Folder {
 
 	loadFolder(folderInfo) {
 		// TODO: might delegate IPC communication here from renderer.
-
 		this.unloadFolder();
+		this.folderInfo = folderInfo;
 
 		thumbnail.loadFolder(folderInfo.imageURIs);
 		windowFrame.loadFolder(folderInfo.folderName);
@@ -31,6 +32,7 @@ class Folder {
 		sidebar.unloadFolder();
 		
 		this.isFolderLoaded = false;
+		this.folderInfo = null;
 	}
 }
 

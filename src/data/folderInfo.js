@@ -1,5 +1,6 @@
 export default class FolderInfo {
-	constructor(folderName, imageURIs) {
+	constructor(folderPath, folderName, imageURIs) {
+		this.folderPath = folderPath;
 		this.folderName = folderName;
 		this.imageURIs = imageURIs;
 	}

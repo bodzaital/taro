@@ -13,3 +13,6 @@ export const CH_SHOW_ALERT = "showAlert";
 
 export const CH_SAVE_SETTING = "saveSetting";
 export const CH_APPLY_SETTING = "applySetting";
+
+export const CH_GET_METADATA = "getMetadata";
+export const CH_WRITE_METADATA = "writeMetadata";

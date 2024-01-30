@@ -11,14 +11,14 @@ class IPC {
 	}
 
 	register() {
-		// ipcMain.handle(CH_OPEN_FOLDER, () => openFolderHandler());
-
-		ipcMain.handle(CH_GET_EXIF, (a, b) => io.exifHandler(b));
+		ipcMain.handle(CH_GET_EXIF, (_, b) => io.exifHandler(b));
 
 		ipcMain.handle(CH_SAVE_SETTING, (_, key, value) => appSettings.updateAndApply([{
 			"key": key,
 			"value": value
 		}]));
+
+		ipcMain.handle(CH_GET_METADATA, (_, folder, photo) => io.metadataHandler(folder, photo));
 	}
 
 	raise(channel, args = null) {

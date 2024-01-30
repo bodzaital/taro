@@ -9,6 +9,7 @@ import ExifReader from "exifreader";
 
 class IO {
 	static TARO_HANDLE = "taro";
+	static TARO_METADATA_FOLDER_NAME = ".taro";
 	static TARO_METADATA_FILENAME = "taro.metadata.json";
 	static SUPPORTED_PHOTO_EXTENSIONS = [".jpg"];
 
@@ -36,9 +37,9 @@ class IO {
 			return;
 		}
 		
-		this.#ensureMetadataFileExists(folderPath);
+		// this.#ensureMetadataFileExists(folderPath);
 		const baseName = path.basename(folderPath);
-		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(baseName, listOfImageURIs)]);
+		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
 	}
 	
 	closeFolderHandler() {
@@ -48,6 +49,24 @@ class IO {
 	exifHandler(uri) {
 		const data = ExifReader.load(uri);
 		return data;
+	}
+
+	metadataHandler(folder, photo) {
+		const taroMetadataFolder = path.join(folder, IO.TARO_METADATA_FOLDER_NAME);
+
+		if (!fs.existsSync(taroMetadataFolder)) fs.mkdirSync(taroMetadataFolder);
+
+		const photoMetadataFile = path.join(
+			taroMetadataFolder,
+			`${photo}.json`
+		);
+
+		if (!fs.existsSync(photoMetadataFile)) {
+			const created = new Date().toISOString();
+			fs.writeFileSync(photoMetadataFile, JSON.stringify(new Metadata(photo, created)));
+		}
+
+		return new Metadata();
 	}
 	
 	#getFolderPathFromDialog() {

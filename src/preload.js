@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { CH_APPLY_SETTING, CH_CLOSE_FOLDER, CH_GET_EXIF, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_OPEN_FOLDER, CH_SAVE_SETTING, CH_SHOW_ALERT, CH_TOGGLE_DARK_MODE } from "./ipcConstants";
+import { CH_APPLY_SETTING, CH_CLOSE_FOLDER, CH_GET_EXIF, CH_GET_METADATA, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_OPEN_FOLDER, CH_SAVE_SETTING, CH_SHOW_ALERT, CH_TOGGLE_DARK_MODE, CH_WRITE_METADATA } from "./ipcConstants";
 
 contextBridge.exposeInMainWorld("ipc", {
 	loadImages: (callback) => ipcRenderer.on(CH_LOAD_IMAGES, (_, args) => callback(...args)),
@@ -14,4 +14,7 @@ contextBridge.exposeInMainWorld("ipc", {
 	applySetting: (callback) => ipcRenderer.on(CH_APPLY_SETTING, (_, args) => callback(...args)),
 
 	getExif: (uri) => ipcRenderer.invoke(CH_GET_EXIF, uri),
+
+	getMetadata: (folder, photo) => ipcRenderer.invoke(CH_GET_METADATA, folder, photo),
+	writeMetadata: (metadata) => ipcRenderer.invoke(CH_WRITE_METADATA, metadata),
 });
