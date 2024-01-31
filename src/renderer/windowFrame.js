@@ -1,4 +1,5 @@
 import Control from "./control";
+import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 import { thumbnail } from "./thumbnail";
 
@@ -36,6 +37,14 @@ class WindowFrame {
 			if (firstFoundIndex < 0) return;
 
 			thumbnail.selectPhoto(firstFoundIndex);
+		});
+
+		window.addEventListener("folderLoaded", () => {
+			this.loadFolder(folder.folderInfo.folderName);
+		});
+
+		window.addEventListener("folderUnloaded", () => {
+			this.unloadFolder();
 		});
 	}
 	

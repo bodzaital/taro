@@ -6,6 +6,8 @@ import { notifications } from './renderer/inAppNotifications';
 import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
 
+folder.unloadFolder();
+
 window.ipc.loadImages((folderInfo) => {
 	folder.loadFolder(folderInfo);
 });

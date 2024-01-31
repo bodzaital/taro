@@ -48,6 +48,14 @@ class Thumbnail {
 			
 			window.ipc.saveSetting("isThumbnailsVisible", this.#isThumbnailsOpen);
 		});
+
+		window.addEventListener("folderLoaded", () => {
+			this.loadFolder(folder.folderInfo.imageURIs);
+		});
+
+		window.addEventListener("folderUnloaded", () => {
+			this.unloadFolder();
+		});
 	}
 
 	toggleThumbnail(state) {

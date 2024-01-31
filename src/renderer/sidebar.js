@@ -44,6 +44,14 @@ class Sidebar {
 		description.setDescriptionValue("");
 
 		this.clearExifData();
+
+		window.addEventListener("folderLoaded", () => {
+			this.loadFolder();
+		});
+
+		window.addEventListener("folderUnloaded", () => {
+			this.unloadFolder();
+		});
 	}
 
 	toggleSidebar(state) {
