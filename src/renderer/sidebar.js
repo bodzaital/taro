@@ -1,9 +1,14 @@
+import { folder } from './folder';
+import { description } from './metadata/description';
+import { rating } from './metadata/rating';
 import { $, $$ } from './shorthand';
 
 class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
 	#viewer = $(".viewer");
 	#isSidebarOpen = true;
+	metadata = null;
+
 	photoName = $("#photo-name");
 
 	#details = {
@@ -34,6 +39,9 @@ class Sidebar {
 
 		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
 		this.#exifLensModelTooltip = new bootstrap.Tooltip($("#sidebarExifLensModel"));
+
+		rating.setRatingValue(0);
+		description.setDescriptionValue("");
 
 		this.clearExifData();
 	}
@@ -118,16 +126,18 @@ class Sidebar {
 		});
 	}
 
-	loadMetadata(folder, photo) {
-		window.ipc.getMetadata(folder, photo).then((metadata) => {
-			console.log("Loaded metadata:", metadata);
+	loadMetadata(photo) {
+		window.ipc.getMetadata(folder.folderInfo.folderPath, photo).then((metadata) => {
+			this.metadata = metadata;
+			console.log("Loaded metadata:", this.metadata);
 
-			metadata.location.push("budapest");
-			metadata.location.push("duna part");
-			metadata.rating = 1;
-
-			window.ipc.writeMetadata(folder, metadata);
+			rating.setRatingValue(this.metadata.rating);
+			description.setDescriptionValue(this.metadata.description);
 		});
+	}
+
+	writeMetadata() {
+		window.ipc.writeMetadata(folder.folderInfo.folderPath, this.metadata);
 	}
 
 	/** Calls the necessary instance functions when a folder is loaded. */

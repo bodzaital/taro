@@ -66,9 +66,14 @@
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">Rating</div>
 						<div class="btn-group">
-							<button class="btn btn-sm btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i></button>
-							<button class="btn btn-sm btn-outline-secondary"><i class="bi bi-dash"></i></button>
-							<button class="btn btn-sm btn-outline-success"><i class="bi bi-hand-thumbs-up"></i></button>
+							<input type="radio" class="btn-check" name="rating" id="rate-down" value="-1" autocomplete="off">
+							<label for="rate-down" class="btn btn-sm btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i></label>
+
+							<input type="radio" class="btn-check" name="rating" id="no-rating" value="0" autocomplete="off" checked>
+							<label for="no-rating" class="btn btn-sm btn-outline-secondary"><i class="bi bi-dash-circle"></i></label>
+
+							<input type="radio" class="btn-check" name="rating" id="rate-up" value="1" autocomplete="off">
+							<label for="rate-up" class="btn btn-sm btn-outline-success"><i class="bi bi-hand-thumbs-up"></i></label>
 						</div>
 					</div>
 					<div class="sidebar-section ">
@@ -76,41 +81,8 @@
 					</div>
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">Description</div>
-						<textarea class="form-control-sm sidebar-textarea"></textarea>
+						<textarea class="form-control-sm sidebar-textarea" id="metadataDescription"></textarea>
 					</div>
-
-					<!-- <div class="sidebar-section-header">Tags</div>
-					<div class="sidebar-tag-container">
-						<div class="sidebar-tag">
-							<div class="sidebar-tag-name">landscape</div>
-							<div class="sidebar-tag-remove"><i class="bi bi-x-lg"></i></div>
-						</div>
-						<div class="sidebar-tag">
-							<div class="sidebar-tag-name">ambient</div>
-							<div class="sidebar-tag-remove"><i class="bi bi-x-lg"></i></div>
-						</div>
-						<div class="sidebar-tag">
-							<div class="sidebar-tag-name">winter</div>
-							<div class="sidebar-tag-remove"><i class="bi bi-x-lg"></i></div>
-						</div>
-						<div class="sidebar-tag">
-							<div class="sidebar-tag-name">happy</div>
-							<div class="sidebar-tag-remove"><i class="bi bi-x-lg"></i></div>
-						</div>
-						<div class="sidebar-tag">
-							<div class="sidebar-tag-name">extraSuperLongTagThatShouldOverflow</div>
-							<div class="sidebar-tag-remove"><i class="bi bi-x-lg"></i></div>
-						</div>
-					</div>
-					<div class="sidebar-tag-add-suggestions">
-						<input type="text" class="form-control form-control-sm sidebar-tag-add" placeholder="Add tag...">
-						<div class="list-group sidebar-tag-suggestions">
-							<a href="#" class="list-group-item list-group-item-action">vacation</a>
-							<a href="#" class="list-group-item list-group-item-action">birthday</a>
-							<a href="#" class="list-group-item list-group-item-action">joyful</a>
-							<a href="#" class="list-group-item list-group-item-action">monochrome</a>
-						</div>
-					</div> -->
 				</div>
 			</div>
 
