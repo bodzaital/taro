@@ -1,4 +1,4 @@
-import { app, dialog, net, protocol } from "electron";
+import { Menu, app, dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
@@ -6,12 +6,15 @@ import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
 import ExifReader from "exifreader";
+import { exec } from "child_process";
 
 class IO {
 	static TARO_HANDLE = "taro";
 	static TARO_METADATA_FOLDER_NAME = ".taro";
 	static TARO_METADATA_FILENAME = "taro.metadata.json";
 	static SUPPORTED_PHOTO_EXTENSIONS = [".jpg"];
+
+	#folderPath = null;
 
 	registerTaroProtocol() {
 		protocol.handle(IO.TARO_HANDLE, (request) => {
@@ -30,6 +33,8 @@ class IO {
 			return;
 		}
 
+		this.#folderPath = folderPath;
+
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
 		if (listOfImageURIs.length == 0) {
@@ -37,12 +42,17 @@ class IO {
 			return;
 		}
 		
-		// this.#ensureMetadataFileExists(folderPath);
+		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = true;
+		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = true;
+
 		const baseName = path.basename(folderPath);
 		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
 	}
 	
 	closeFolderHandler() {
+		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = false;
+		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = false;
+		this.#folderPath = null;
 		ipc.raise(CH_CLOSE_FOLDER);
 	}
 
@@ -52,7 +62,7 @@ class IO {
 	}
 
 	getMetadataHandler(folder, photo) {
-		const taroMetadataFolder = path.join(folder, IO.TARO_METADATA_FOLDER_NAME);
+		const taroMetadataFolder = path.join(this.#folderPath, IO.TARO_METADATA_FOLDER_NAME);
 
 		if (!fs.existsSync(taroMetadataFolder)) fs.mkdirSync(taroMetadataFolder);
 
@@ -72,16 +82,18 @@ class IO {
 	}
 
 	writeMetadataHandler(folder, metadata) {
-		const taroMetadataFolder = path.join(folder, IO.TARO_METADATA_FOLDER_NAME);
+		const taroMetadataFolder = path.join(this.#folderPath, IO.TARO_METADATA_FOLDER_NAME);
 
 		const photoMetadataFile = path.join(
 			taroMetadataFolder,
 			`${metadata.photo}.json`
 		);
 
-		console.log("Saving metadata:", metadata);
-
 		fs.writeFileSync(photoMetadataFile, JSON.stringify(metadata));
+	}
+
+	revealInFileExplorerHandler() {
+		exec(`open ${this.#folderPath}`);
 	}
 	
 	#getFolderPathFromDialog() {

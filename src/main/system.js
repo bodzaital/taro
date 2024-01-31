@@ -28,7 +28,7 @@ class System {
 		const isMacOS = process.platform == "darwin";
 
 		const applicationMenu = this.#getApplicationMenu(isMacOS);
-		const fileMenu = this.#getFileMenu();
+		const fileMenu = this.#getFileMenu(isMacOS);
 		const viewMenu = this.#getViewMenu();
 		const toolsMenu = this.#getToolsMenu();
 
@@ -59,7 +59,7 @@ class System {
 		}] : [];
 	}
 
-	#getFileMenu() {
+	#getFileMenu(isMacOS) {
 		return [{
 			label: "File",
 			submenu: [
@@ -71,7 +71,17 @@ class System {
 				{
 					label: "Close Folder",
 					click: () => io.closeFolderHandler(),
+					id: "file/close-folder",
+					enabled: false,
 					accelerator: "CmdOrCtrl+W"
+				},
+				{ type: "separator" },
+				{
+					label: `Reveal Folder in ${isMacOS ? "Finder" : "File Explorer"}`,
+					click: () => io.revealInFileExplorerHandler(),
+					accelerator: "CmdOrCtrl+Alt+R",
+					id: "file/reveal-folder",
+					enabled: false
 				}
 			]
 		}];
