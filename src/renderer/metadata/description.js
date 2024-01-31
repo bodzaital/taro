@@ -14,6 +14,10 @@ class Description {
 	setDescriptionValue(value) {
 		this.element.value = value;
 	}
+
+	isEditing() {
+		return document.activeElement === this.element;
+	}
 }
 
 export const description = new Description();

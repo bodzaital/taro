@@ -1,5 +1,6 @@
 import Control from "./control";
 import { folder } from "./folder";
+import { description } from "./metadata/description";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
 import { windowFrame } from "./windowFrame";
@@ -34,6 +35,7 @@ class Thumbnail {
 		window.addEventListener("keydown", (e) => {
 			if (!folder.isFolderLoaded) return;
 			if (windowFrame.isSearchActive) return;
+			if (description.isEditing()) return;
 			
 			const shouldNavigate = this.#navigateOnScroll(e);
 			if (!shouldNavigate) return;
