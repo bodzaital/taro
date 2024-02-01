@@ -5,6 +5,7 @@ export default class Control {
 	#properties = [];
 	#children = [];
 	#innerText = "";
+	#styles = [];
 
 	// TODO: convert element creation to using this class.
 
@@ -41,6 +42,15 @@ export default class Control {
 		});
 		return this;
 	}
+
+	/** Add a key-value pair as CSS style. */
+	style(key, value) {
+		this.#styles.push({
+			"key": key,
+			"value": value
+		});
+		return this;
+	}
 	
 	/** Add a child element. */
 	child(element) {
@@ -69,6 +79,8 @@ export default class Control {
 		this.#children.forEach((child) => {
 			element.appendChild(child);
 		});
+
+		element.style = this.#styles.map((style) => `${style.key}:${style.value}`).join(";");
 
 		return element;
 	}

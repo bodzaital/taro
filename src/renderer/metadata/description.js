@@ -3,11 +3,11 @@ import { $, $$ } from '../shorthand';
 import { sidebar } from '../sidebar';
 
 class Description {
-	element = $("#metadataDescription");
+	#element = $("#metadataDescription");
 
 	constructor() {
-		this.element.addEventListener("keyup", () => {
-			sidebar.metadata.description = this.element.value;
+		this.#element.addEventListener("keyup", () => {
+			sidebar.metadata.description = this.#element.value;
 			sidebar.writeMetadata();
 		});
 
@@ -21,20 +21,20 @@ class Description {
 	}
 
 	setDescriptionValue(value) {
-		this.element.value = value;
+		this.#element.value = value;
 	}
 
 	isEditing() {
-		return document.activeElement === this.element;
+		return document.activeElement === this.#element;
 	}
 
 	loadFolder() {
-		this.element.disabled = false;
+		this.#element.disabled = false;
 	}
 	
 	unloadFolder() {
-		this.element.disabled = true;
-		this.element.value = "";
+		this.#element.disabled = true;
+		this.#element.value = "";
 	}
 }
 

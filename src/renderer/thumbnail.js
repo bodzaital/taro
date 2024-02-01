@@ -21,8 +21,6 @@ class Thumbnail {
 	#isThumbnailsOpen = true;
 
 	constructor() {
-		sidebar.clearExifData();
-
 		this.#container.addEventListener("click", (e) => {
 			if (!folder.isFolderLoaded) return;
 
@@ -136,13 +134,11 @@ class Thumbnail {
 			.forEach((thumbnail) => this.#container.appendChild(thumbnail));
 	}
 
-	/** Calls the necessary instance functions when a folder is loaded. */
 	loadFolder(imageUris) {
 		this.createThumbnails(imageUris);
 		this.selectPhoto();
 	}
 
-	/** Calls the necessary instance functions when a folder is unloaded. */
 	unloadFolder() {
 		this.clearThumbnails();
 		this.clearPhoto();

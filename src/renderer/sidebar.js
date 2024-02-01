@@ -1,3 +1,4 @@
+import Control from './control';
 import { folder } from './folder';
 import { description } from './metadata/description';
 import { rating } from './metadata/rating';
@@ -27,9 +28,10 @@ class Sidebar {
 	#exifLensModelTooltip = null;
 
 	constructor() {
-		this.#details.placeholder = document.createElement("div");
-		this.#details.placeholder.classList.add("placeholder");
-		this.#details.placeholder.style.width = "100%";
+		this.#details.placeholder = new Control("div")
+			.class("placeholder")
+			.style("width", "100%")
+			.get();
 		
 		this.#sidebarToggleButton.addEventListener("click", () => {
 			this.toggleSidebar(!this.#isSidebarOpen);
@@ -39,11 +41,6 @@ class Sidebar {
 
 		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
 		this.#exifLensModelTooltip = new bootstrap.Tooltip($("#sidebarExifLensModel"));
-
-		rating.setRatingValue(0);
-		description.setDescriptionValue("");
-
-		this.clearExifData();
 
 		window.addEventListener("folderLoaded", () => {
 			this.loadFolder();
@@ -69,7 +66,6 @@ class Sidebar {
 	clearExifData() {
 		for (const [key, value] of Object.entries(this.#details)) {
 			if (key == "placeholder") continue;
-			if (key == "exifFloater") continue;
 
 			this.#details[key].innerText = "";
 			this.#details[key].appendChild(this.#details.placeholder.cloneNode());
@@ -119,8 +115,6 @@ class Sidebar {
 				? exif.FNumber?.value[0] / exif.FNumber?.value[1]
 				: null;
 
-			console.log(exif);
-
 			this.setExifData(
 				exif.ExposureTime?.description,
 				fnumber,
@@ -148,11 +142,9 @@ class Sidebar {
 		window.ipc.writeMetadata(folder.folderInfo.folderPath, this.metadata);
 	}
 
-	/** Calls the necessary instance functions when a folder is loaded. */
 	loadFolder() {
 	}
 
-	/** Calls the necessary instance functions when a folder is unloaded. */
 	unloadFolder() {
 		this.clearExifData();
 		this.photoName.innerText = "No image";
