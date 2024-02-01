@@ -137,11 +137,13 @@ class Thumbnail {
 	loadFolder(imageUris) {
 		this.createThumbnails(imageUris);
 		this.selectPhoto();
+		this.activePhoto.classList.remove("d-none");
 	}
 
 	unloadFolder() {
 		this.clearThumbnails();
 		this.clearPhoto();
+		this.activePhoto.classList.add("d-none");
 	}
 
 	#createThumbnail(uri) {

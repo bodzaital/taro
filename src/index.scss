@@ -139,3 +139,14 @@ body
 		}
 	}
 }
+
+// TODO: customize bootstrap somehow... like colors, animation, etc.
+.modal.fade .modal-dialog
+{
+	transform: scale(1.025);
+}
+
+.modal.show .modal-dialog
+{
+	transform: none;
+}

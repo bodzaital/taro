@@ -9,6 +9,14 @@ class WindowFrame {
 	#searchbar = $("#titleBarSearch");
 	#folderName = null;
 	content = $(".content");
+	// #welcomeScreen = $(".startup");
+
+	#welcomeScreen = {
+		container: $(".startup"),
+		openFolderButton: $("#startupOpenFolder"),
+		darkModeButton: $("#startupDarkMode"),
+		getHelpButton: $("#startupGetHelp"),
+	}
 
 	isSearchActive = false;
 
@@ -46,6 +54,14 @@ class WindowFrame {
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
 		});
+		
+		this.#welcomeScreen.darkModeButton.addEventListener("click", () => {
+			window.ipc.welcomeToggleDarkMode();
+		});
+
+		this.#welcomeScreen.openFolderButton.addEventListener("click", () => {
+			window.ipc.welcomeOpenFolder();
+		});
 	}
 	
 	loadFolder(value) {
@@ -55,46 +71,17 @@ class WindowFrame {
 
 		this.#searchbar.placeholder = this.#folderName;
 		this.#searchbar.disabled = false;
+
+		this.#welcomeScreen.container.classList.add("d-none");
 	}
 	
 	unloadFolder() {
 		this.#folderName = null
 
-		thumbnail.activePhoto.appendChild(new Control("div")
-			.class("startup")
-				.child(new Control("h1")
-					.class("branding")
-					.text("taro")
-					.get()
-				).child(new Control("div")
-					.class("sub-branding")
-					.text("Photography culling and tagging")
-					.get()
-				).child(new Control("div")
-					.class("btn-group")
-					.child(new Control("button")
-						.add("id", "startupOpenFolder")
-						.class("btn", "btn-sm", "btn-success")
-						.text("Open folder")
-						.get()
-					).child(new Control("button")
-						.add("id", "startupDarkMode")
-						.class("btn", "btn-sm", "btn-outline-secondary")
-						.text("Dark mode")
-						.get()
-					).child(new Control("button")
-						.add("id", "startupGetHelp")
-						.class("btn", "btn-sm", "btn-outline-secondary")
-						.text("Get help")
-						.get()
-					)
-					.get()
-				)
-			.get()
-		);
-
 		this.#searchbar.placeholder = "taro";
 		this.#searchbar.disabled = true;
+
+		this.#welcomeScreen.container.classList.remove("d-none");
 	}
 }
 
