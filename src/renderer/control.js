@@ -1,4 +1,6 @@
 export default class Control {
+	#isDebugMode = false;
+
 	#elementName = null;
 	#classList = [];
 	#dataset = [];
@@ -60,6 +62,8 @@ export default class Control {
 
 	/** Create a DOM object from this builder. */
 	get() {
+		if (this.#isDebugMode) console.log("Building control", this);
+
 		const element = document.createElement(this.#elementName);
 
 		element.innerText = this.#innerText;

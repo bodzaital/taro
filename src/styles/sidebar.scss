@@ -56,4 +56,35 @@
 	{
 		font-size: .8rem;
 	}
+
+	.tag-cloud-container
+	{
+		font-size: 1rem;
+		display: flex;
+		gap: .25rem;
+		flex-wrap: wrap;
+
+		.badge
+		{
+			display: inline-flex;
+			gap: .25rem;
+		}
+
+		.tag-dismiss
+		{
+			color: var(--badge-color)
+		}
+	}
+
+	.tag-suggestion-container
+	{
+		position: relative;
+
+		.list-group
+		{
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+	}
 }

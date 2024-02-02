@@ -2,6 +2,7 @@ import Control from './control';
 import { folder } from './folder';
 import { description } from './metadata/description';
 import { rating } from './metadata/rating';
+import { tagging } from './metadata/tagging';
 import { $, $$ } from './shorthand';
 
 class Sidebar {
