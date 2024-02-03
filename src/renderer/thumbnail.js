@@ -32,10 +32,7 @@ class Thumbnail {
 		});
 
 		window.addEventListener("keydown", (e) => {
-			if (!folder.isFolderLoaded) return;
-			if (windowFrame.isSearchActive) return;
-			if (description.isEditing()) return;
-			if (tagging.isInputActive()) return;
+			if (this.#isNavigationBlocked()) return;
 			
 			const shouldNavigate = this.#navigateOnScroll(e);
 			if (!shouldNavigate) return;
@@ -56,6 +53,15 @@ class Thumbnail {
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
 		});
+	}
+
+	#isNavigationBlocked() {
+		if (!folder.isFolderLoaded) return true;
+		if (windowFrame.isSearchActive) return true;
+		if (description.isEditing()) return true;
+		if (tagging.isInputActive()) return true;
+
+		return false;
 	}
 
 	toggleThumbnail(state) {
