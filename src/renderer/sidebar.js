@@ -136,6 +136,7 @@ class Sidebar {
 
 			rating.setRatingValue(this.metadata.rating);
 			description.setDescriptionValue(this.metadata.description);
+			tagging.createTags(...this.metadata.tags);
 		});
 	}
 
