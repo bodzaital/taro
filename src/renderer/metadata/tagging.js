@@ -39,6 +39,10 @@ class Tagging {
 		});
 	}
 
+	isInputActive() {
+		return document.activeElement == this.tagInput;
+	}
+
 	deleteTag(tagName) {
 		sidebar.metadata.tags = sidebar.metadata.tags.filter((x) => x != tagName);
 

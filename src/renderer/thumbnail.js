@@ -1,6 +1,7 @@
 import Control from "./control";
 import { folder } from "./folder";
 import { description } from "./metadata/description";
+import { tagging } from "./metadata/tagging";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
 import { windowFrame } from "./windowFrame";
@@ -34,6 +35,7 @@ class Thumbnail {
 			if (!folder.isFolderLoaded) return;
 			if (windowFrame.isSearchActive) return;
 			if (description.isEditing()) return;
+			if (tagging.isInputActive()) return;
 			
 			const shouldNavigate = this.#navigateOnScroll(e);
 			if (!shouldNavigate) return;
