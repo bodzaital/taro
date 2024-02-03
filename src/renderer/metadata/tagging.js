@@ -5,7 +5,6 @@ import { sidebar } from "../sidebar";
 
 class Tagging {
 	tagCloudContainer = $(".tag-cloud-container");
-	tagSuggestionContainer = $(".tag-suggestion-container");
 	tagInput = $("#tagInput");
 
 	constructor() {
@@ -21,21 +20,11 @@ class Tagging {
 			this.deleteTag(tagName);
 		});
 
-		this.tagSuggestionContainer.addEventListener("click", (e) => {
-			const nearestItem = e.target.closest(".list-group-item");
-			if (nearestItem == null) return;
-
-			const chosenTagName = nearestItem.innerText;
-
-			this.addTag(chosenTagName);
-		});
-
 		// TODO: multiple issues with this.
 
 		window.addEventListener("folderUnloaded", () => {
 			this.tagInput.disabled = true;
 			this.clearTags();
-			this.#clearSuggestions();
 		});
 		
 		window.addEventListener("folderLoaded", () => {
@@ -50,10 +39,6 @@ class Tagging {
 
 				return;
 			}
-
-			console.log("what");
-			
-			this.#createSuggestions(this.tagInput.value, "test1", "test2");
 		});
 	}
 
@@ -112,31 +97,6 @@ class Tagging {
 					.get()
 				).get()
 			).get();
-	}
-
-	#clearSuggestions() {
-		this.tagSuggestionContainer.innerText = "";
-	}
-	
-	#createSuggestions(...names) {
-		this.#clearSuggestions();
-
-		const items = names.map((name) => this.#createSuggestion(name));
-
-		const container = new Control("div")
-			.class("list-group")
-			.get();
-
-		items.forEach((item) => container.appendChild(item));
-
-		this.tagSuggestionContainer.appendChild(container);
-	}
-
-	#createSuggestion(name) {
-		return new Control("button")
-			.class("list-group-item", "list-group-item-action")
-			.text(name)
-			.get();
 	}
 }
 
