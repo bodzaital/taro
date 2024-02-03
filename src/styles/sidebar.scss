@@ -70,21 +70,16 @@
 			gap: .25rem;
 		}
 
+		.tag-content
+		{
+			max-width: 10rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
 		.tag-dismiss
 		{
 			color: var(--badge-color)
-		}
-	}
-
-	.tag-suggestion-container
-	{
-		position: relative;
-
-		.list-group
-		{
-			position: absolute;
-			top: 0;
-			width: 100%;
 		}
 	}
 }
