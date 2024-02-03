@@ -17,10 +17,7 @@ class Tagging {
 
 			const tagName = $(".tag-content", nearestBadge).innerText;
 
-			sidebar.metadata.tags = sidebar.metadata.tags.filter((x) => x != tagName);
-			this.createTags(...sidebar.metadata.tags);
-			
-			sidebar.writeMetadata();
+			this.deleteTag(tagName);
 		});
 
 		window.addEventListener("folderUnloaded", () => {
@@ -31,6 +28,29 @@ class Tagging {
 		window.addEventListener("folderLoaded", () => {
 			this.tagInput.disabled = false;
 		});
+
+		this.tagInput.addEventListener("keyup", (e) => {
+			if (e.key != "Enter") return;
+			const newTag = this.tagInput.value;
+			if (sidebar.metadata.tags.includes(newTag)) return;
+
+			this.addTag(this.tagInput.value);
+			this.tagInput.value = "";
+		});
+	}
+
+	deleteTag(tagName) {
+		sidebar.metadata.tags = sidebar.metadata.tags.filter((x) => x != tagName);
+
+		this.createTags(...sidebar.metadata.tags);
+		sidebar.writeMetadata();
+	}
+	
+	addTag(tagName) {
+		sidebar.metadata.tags.push(tagName);
+
+		this.createTags(...sidebar.metadata.tags);
+		sidebar.writeMetadata();
 	}
 
 	createTags(...tags) {
