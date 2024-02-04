@@ -4,87 +4,85 @@ import { $ } from "../shorthand";
 import { sidebar } from "../sidebar";
 
 class Tagging {
-	tagCloudContainer = $(".tag-cloud-container");
-	tagInput = $("#tagInput");
+	#cloud = $(".tag-cloud-container");
+	#input = $("#tagInput");
 
 	constructor() {
-		this.tagCloudContainer.addEventListener("click", (e) => {
-			const nearestDismiss = e.target.closest(".tag-dismiss");
-			if (nearestDismiss == null) return;
-
-			const nearestBadge = e.target.closest(".badge");
-			if (nearestBadge == null) return;
-
-			const tagName = $(".tag-content", nearestBadge).innerText;
-
-			this.deleteTag(tagName);
-		});
-
-		// TODO: multiple issues with this.
-
 		window.addEventListener("folderUnloaded", () => {
-			this.tagInput.disabled = true;
-			this.clearTags();
+			this.#folderUnloaded();
 		});
 		
 		window.addEventListener("folderLoaded", () => {
-			this.tagInput.disabled = false;
+			this.#folderLoaded();
 		});
 
-		this.tagInput.addEventListener("keyup", (e) => {
-			if (e.key == "Enter") {
-				if (!this.tagInputTryAdd()) {
-					notifications.create("Cannot duplicate tag.", "danger");
-				}
+		this.#cloud.addEventListener("click", (e) => {
+			const tagDismiss = e.target.closest(".tag-dismiss");
+			if (tagDismiss == null) return;
 
-				return;
-			}
+			const badge = e.target.closest(".badge");
+			const tagNameToRemove = badge.dataset.tag;
+
+			this.#removeTag(tagNameToRemove);
+		});
+
+		this.#input.addEventListener("keyup", (e) => {
+			if (e.key == "Enter") this.#tryAddTag(this.#input.value);
 		});
 	}
 
 	isInputActive() {
-		return document.activeElement == this.tagInput;
+		return document.activeElement == this.#input;
 	}
 
-	deleteTag(tagName) {
-		sidebar.metadata.tags = sidebar.metadata.tags.filter((x) => x != tagName);
+	createTags(...names) {
+		this.#cloud.innerText = "";
+		names.forEach((name) => this.#insertElement(name));
+	}
 
-		this.createTags(...sidebar.metadata.tags);
+	#tryAddTag(name) {
+		if (!this.#canAddTag(name)) {
+			notifications.create(`Cannot add duplicate tag "${name}"`, "danger");
+			return;
+		}
+
+		this.#addTag(name);
+		this.#input.value = "";
+	}
+
+	#canAddTag(name) {
+		return !sidebar.metadata.tags.includes(name);
+	}
+
+	#insertElement(name) {
+		this.#cloud.appendChild(this.#createElement(name));
+	}
+
+	#addTag(name) {
+		this.#insertElement(name);
+		sidebar.metadata.tags.push(name);
 		sidebar.writeMetadata();
 	}
 
-	tagInputTryAdd() {
-		const newTag = this.tagInput.value;
-		if (sidebar.metadata.tags.includes(newTag)) return false;
-
-		this.addTag(newTag);
-		this.tagInput.value = "";
-		return true;
-	}
-	
-	addTag(tagName) {
-		sidebar.metadata.tags.push(tagName);
-
-		this.createTags(...sidebar.metadata.tags);
+	#removeTag(name) {
+		$(`[data-tag='${name}']`, this.#cloud).remove();
+		sidebar.metadata.tags = sidebar.metadata.tags.filter((tag) => tag != name);
 		sidebar.writeMetadata();
 	}
 
-	createTags(...tags) {
-		this.clearTags();
-		tags.forEach((tag) => this.#insertTag(this.#createTag(tag)));
-	}
-	
-	clearTags() {
-		this.tagCloudContainer.innerText = "";
+	#folderLoaded() {
+		this.#input.disabled = false;
 	}
 
-	#insertTag(tag) {
-		this.tagCloudContainer.appendChild(tag);
+	#folderUnloaded() {
+		this.#input.disabled = true;
+		this.#cloud.innerText = "";
 	}
 
-	#createTag(name) {
+	#createElement(name) {
 		return new Control("span")
 			.class("badge", "rounded-pill", "text-bg-secondary")
+			.data("tag", name)
 			.child(new Control("span")
 				.class("tag-content")
 				.text(name)
