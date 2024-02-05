@@ -18,3 +18,4 @@ export const CH_APPLY_SETTING = "applySetting";
 
 export const CH_GET_METADATA = "getMetadata";
 export const CH_WRITE_METADATA = "writeMetadata";
+export const CH_GET_ALL_TAGS_IN_FOLDER = "getAllTags";

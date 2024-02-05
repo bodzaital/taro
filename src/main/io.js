@@ -124,6 +124,23 @@ class IO {
 		// TODO: create actual empty metadata.
 		// fs.writeFileSync(taroMetadataPath, JSON.stringify(new Metadata("hello")));
 	}
+
+	getAllTagsHandler(folder) {
+		const metadataFolder = path.join(folder, ".taro");
+		
+		const listOfMetadataFiles = fs.readdirSync(metadataFolder)
+			.filter((file) => file[0] != ".")
+			.map((file) => path.join(metadataFolder, file));
+
+		if (listOfMetadataFiles.length == 0) return [];
+
+		const listOfListOfTags = listOfMetadataFiles.map((file) => fs.readFileSync(file))
+			.map((contents) => JSON.parse(contents))
+			.map((metadata) => metadata.tags)
+			.flat();
+
+		return [...new Set(listOfListOfTags)];
+	}
 }
 
 export const io = new IO();

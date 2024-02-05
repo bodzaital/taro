@@ -2,6 +2,7 @@ import Control from "../control";
 import { notifications } from "../inAppNotifications";
 import { $ } from "../shorthand";
 import { sidebar } from "../sidebar";
+import { suggestions } from "./suggestions";
 
 class Tagging {
 	#cloud = $(".tag-cloud-container");
@@ -26,8 +27,14 @@ class Tagging {
 			this.#removeTag(tagNameToRemove);
 		});
 
+		this.#input.addEventListener("focusin", () => {
+			suggestions.getSuggestions();
+		})
+
 		this.#input.addEventListener("keyup", (e) => {
 			if (e.key == "Enter") this.#tryAddTag(this.#input.value.trim());
+
+			suggestions.getSuggestions(this.#input.value.trim());
 		});
 
 		this.#input.addEventListener("keydown", (e) => {

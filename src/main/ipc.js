@@ -1,5 +1,5 @@
 import { Menu, ipcMain } from "electron";
-import { CH_GET_EXIF, CH_GET_METADATA, CH_SAVE_SETTING, CH_WELCOME_OPEN_FOLDER, CH_WELCOME_SCREEN_TOGGLE_DARK_MODE, CH_WRITE_METADATA } from "../ipcConstants";
+import { CH_GET_ALL_TAGS_IN_FOLDER, CH_GET_EXIF, CH_GET_METADATA, CH_SAVE_SETTING, CH_WELCOME_OPEN_FOLDER, CH_WELCOME_SCREEN_TOGGLE_DARK_MODE, CH_WRITE_METADATA } from "../ipcConstants";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
 import { system } from "./system";
@@ -22,6 +22,7 @@ class IPC {
 
 		ipcMain.handle(CH_GET_METADATA, (_, folder, photo) => io.getMetadataHandler(folder, photo));
 		ipcMain.handle(CH_WRITE_METADATA, (_, folder, metadata) => io.writeMetadataHandler(folder, metadata));
+		ipcMain.handle(CH_GET_ALL_TAGS_IN_FOLDER, (_, folder) => io.getAllTagsHandler(folder));
 
 		// ABSOLUTELY REFACTOR THIS. THIS IS UGLY AND BAD.
 		ipcMain.handle(CH_WELCOME_SCREEN_TOGGLE_DARK_MODE, () => {
