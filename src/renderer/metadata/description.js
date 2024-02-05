@@ -18,6 +18,16 @@ class Description {
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
 		});
+
+		this.#element.addEventListener("keydown", (e) => {
+			if (!this.#hasPressedCtrlOrCmdA(e)) return;
+
+			this.#element.select();
+		});
+	}
+
+	#hasPressedCtrlOrCmdA(e) {
+		return e.key == "a" && (e.ctrlKey || e.metaKey);
 	}
 
 	setDescriptionValue(value) {
