@@ -29,8 +29,18 @@ class Tagging {
 		});
 
 		this.#input.addEventListener("keyup", (e) => {
-			if (e.key == "Enter") this.#tryAddTag(this.#input.value);
+			if (e.key == "Enter") this.#tryAddTag(this.#input.value.trim());
 		});
+
+		this.#input.addEventListener("keydown", (e) => {
+			if (!this.#hasPressedCtrlOrCmdA(e)) return;
+
+			this.#input.select();
+		});
+	}
+
+	#hasPressedCtrlOrCmdA(e) {
+		return e.key == "a" && (e.ctrlKey || e.metaKey);
 	}
 
 	isInputActive() {
@@ -45,7 +55,7 @@ class Tagging {
 
 	#tryAddTag(name) {
 		if (!this.#canAddTag(name)) {
-			notifications.create(`Cannot add duplicate tag "${name}"`, "danger");
+			notifications.create(`Cannot tag this photo with ${name}`, "danger");
 			return;
 		}
 
@@ -54,7 +64,10 @@ class Tagging {
 	}
 
 	#canAddTag(name) {
-		return !sidebar.metadata.tags.includes(name);
+		const doesInclude = sidebar.metadata.tags.includes(name);
+		const isEmpty = name.length == 0;
+
+		return !doesInclude && !isEmpty;
 	}
 
 	#insertElement(name) {
