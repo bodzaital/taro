@@ -7,8 +7,6 @@ class Tagging {
 	#cloud = $(".tag-cloud-container");
 	#input = $("#tagInput");
 
-	// TODO: bug: cannot use hotkey to select all text in input boxes.
-
 	constructor() {
 		window.addEventListener("folderUnloaded", () => {
 			this.#folderUnloaded();
