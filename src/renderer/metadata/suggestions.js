@@ -9,6 +9,7 @@ class Suggestions {
 			tags = tags.filter((x) => x.includes(value)).slice(0, 3);
 
 			if (value == null) {
+				// TODO: maybe randomize (not typed in anything).
 				tags = tags.slice(0, 3);
 			}
 
