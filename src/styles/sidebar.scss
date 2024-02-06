@@ -82,4 +82,18 @@
 			color: var(--badge-color)
 		}
 	}
+
+	.tag-suggestions-container
+	{
+		position: relative;
+		z-index: 99;
+
+		.list-group
+		{
+			position: absolute;
+			top: 0;
+			width: 100%;
+			box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .5);
+		}
+	}
 }

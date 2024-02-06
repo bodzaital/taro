@@ -27,14 +27,16 @@ class Tagging {
 			this.#removeTag(tagNameToRemove);
 		});
 
-		this.#input.addEventListener("focusin", () => {
-			suggestions.getSuggestions();
-		})
+		this.#input.addEventListener("focusin", async () => {
+			suggestions.showSuggestions();
+		});
 
-		this.#input.addEventListener("keyup", (e) => {
-			if (e.key == "Enter") this.#tryAddTag(this.#input.value.trim());
-
-			suggestions.getSuggestions(this.#input.value.trim());
+		this.#input.addEventListener("keyup", async (e) => {
+			if (e.key == "Enter") this.tryAddTag(this.#input.value.trim());
+		});
+		
+		this.#input.addEventListener("input", () => { 
+			suggestions.showSuggestions(this.#input.value.trim());
 		});
 
 		this.#input.addEventListener("keydown", (e) => {
@@ -58,14 +60,15 @@ class Tagging {
 		names.forEach((name) => this.#insertElement(name));
 	}
 
-	#tryAddTag(name) {
+	tryAddTag(name) {
 		if (!this.#canAddTag(name)) {
-			notifications.create(`Cannot tag this photo with ${name}`, "danger");
-			return;
+			notifications.create(`Cannot tag this photo with "${name}"`, "danger");
+			return false;
 		}
 
 		this.#addTag(name);
 		this.#input.value = "";
+		return true;
 	}
 
 	#canAddTag(name) {
