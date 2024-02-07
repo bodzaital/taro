@@ -1,0 +1,91 @@
+// TODO: look into a less hacky way of keeping the viewer from growing too large.
+$titleBarHeight: 50px;
+$thumbnailRowHeight: 115px;
+
+body
+{
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	height: 100vh;
+}
+
+.title-bar
+{
+	flex-basis: $titleBarHeight;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    user-select: none;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+
+	.title-bar-center
+	{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		grid-column: 2;
+
+		#titleBarHeader
+		{
+			&.is-header { text-align: center; }
+			&.is-search { text-align: left; }
+		}
+	}
+
+	.title-bar-right
+	{
+		display: flex;
+		align-items: center;
+		justify-content: right;
+		grid-column: 3;
+		margin-right: .5rem;
+		gap: .5rem;
+		
+		#toggleThumbnails { transform: rotate(90deg); }
+	}
+
+	[data-interactable]
+	{
+		-webkit-app-region: none;
+		-webkit-user-select: auto;
+		user-select: auto;
+	}
+}
+
+.content
+{
+	flex: 1;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	&::-webkit-scrollbar { display: none; }
+
+	&.no-thumbnails
+	{
+		.viewer { height: 100%; }
+		.thumbnail-container { display: none; }
+	}
+}
+
+.viewer
+{
+	height: calc(100vh - $titleBarHeight - $thumbnailRowHeight);
+	display: grid;
+	grid-template-columns: auto 250px;
+	grid-template-rows: minmax(0, 1fr);
+
+	.photo
+	{
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	&.no-sidebar
+	{
+		grid-template-columns: auto 0px;
+	}
+}

@@ -1,5 +1,5 @@
 // TODO: separate scss file into smaller files.
-// @use "styles/sidebar-tag";
+@use "styles/window";
 @use "styles/sidebar";
 @use "styles/darkmode-colors";
 @use "styles/startup";
@@ -7,120 +7,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
 // * { outline: 1px solid red; }
 
-// TODO: look into a less hacky way of keeping the viewer from growing too large.
-$titleBarHeight: 50px;
-$thumbnailRowHeight: 115px;
-
-body
-{
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	height: 100vh;
-}
-
-#title-bar
-{
-	flex-basis: $titleBarHeight;
-    -webkit-app-region: drag;
-    -webkit-user-select: none;
-    user-select: none;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-
-	.title-bar-center
-	{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		grid-column: 2;
-
-		#titleBarSearch
-		{
-			text-align: center;
-
-			&.is-search-field
-			{
-				text-align: left;
-			}
-		}
-	}
-
-	.title-bar-right
-	{
-		display: flex;
-		align-items: center;
-		justify-content: right;
-		grid-column: 3;
-		margin-right: .5rem;
-		gap: .5rem;
-		
-		#thumbnailsToggleButton
-		{
-			transform: rotate(90deg);
-		}
-	}
-
-	[data-interactable]
-	{
-		-webkit-app-region: none;
-		-webkit-user-select: auto;
-		user-select: auto;
-	}
-}
-
-.content
-{
-	flex: 1;
-	overflow: scroll;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-
-	&::-webkit-scrollbar { display: none; }
-
-	&.no-thumbnails
-	{
-		.viewer
-		{
-			height: 100%;
-		}
-
-		.thumbnail-container
-		{
-			display: none;
-		}
-	}
-}
-
-.viewer
-{
-	height: calc(100vh - $titleBarHeight - $thumbnailRowHeight);
-	display: grid;
-	grid-template-columns: auto 250px;
-	grid-template-rows: minmax(0, 1fr);
-
-	.photo
-	{
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
-	}
-
-	&.no-sidebar
-	{
-		grid-template-columns: auto 0px;
-	}
-}
-
 .thumbnail-container
 {
 	flex-grow: 0;
 	display: flex;
 	gap: .5rem;
 	overflow-x: scroll;
-	height: $thumbnailRowHeight;
+	height: window.$thumbnailRowHeight;
 	scroll-behavior: smooth;
 	padding: .5rem;
 

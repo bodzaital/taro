@@ -18,7 +18,7 @@ class Thumbnail {
 	#container = $(".thumbnail-container");
 	activePhoto = $("#activePhoto");
 	#currentIndex = 0;
-	#thumbnailsToggleButton = $("#thumbnailsToggleButton");
+	#thumbnailsToggleButton = $("#toggleThumbnails");
 	#isThumbnailsOpen = true;
 
 	constructor() {

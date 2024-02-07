@@ -6,7 +6,7 @@ import { thumbnail } from "./thumbnail";
 // TODO: handle dark mode here
 
 class WindowFrame {
-	#searchbar = $("#titleBarSearch");
+	#searchbar = $("#titleBarHeader");
 	#folderName = null;
 	content = $(".content");
 	// #welcomeScreen = $(".startup");
@@ -22,13 +22,15 @@ class WindowFrame {
 
 	constructor() {
 		this.#searchbar.addEventListener("focusin", () => {
-			this.#searchbar.classList.add("is-search-field");
+			this.#searchbar.classList.add("is-search");
+			this.#searchbar.classList.remove("is-header");
 			this.#searchbar.placeholder = "Search for photo..."
 			this.isSearchActive = true;
 		});
 		
 		this.#searchbar.addEventListener("focusout", () => {
-			this.#searchbar.classList.remove("is-search-field");
+			this.#searchbar.classList.remove("is-search");
+			this.#searchbar.classList.add("is-header");
 			this.#searchbar.placeholder = this.#folderName;
 			this.#searchbar.value = "";
 			this.isSearchActive = false;
