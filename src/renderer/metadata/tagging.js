@@ -5,7 +5,7 @@ import { sidebar } from "../sidebar";
 import { suggestions } from "./suggestions";
 
 class Tagging {
-	#cloud = $(".tag-cloud-container");
+	#cloud = $(".tag-cloud");
 	#input = $("#tagInput");
 
 	constructor() {

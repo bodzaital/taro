@@ -4,6 +4,8 @@ import { $ } from "../shorthand";
 import { sidebar } from "../sidebar";
 import { tagging } from "./tagging";
 
+// TODO: tagging/suggestions refactor.
+// TODO: close/open suggestions when needed.
 class Suggestions {
 	static #SUGGESTION_LIMIT = 5;
 	static #SELECT_UP_KEYS = ["ArrowUp"];
