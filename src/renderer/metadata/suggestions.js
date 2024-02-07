@@ -6,6 +6,13 @@ import { tagging } from "./tagging";
 
 class Suggestions {
 	static #SUGGESTION_LIMIT = 5;
+	static #SELECT_UP_KEYS = ["ArrowUp"];
+	static #SELECT_DOWN_KEYS = ["ArrowDown"];
+	
+	static #SELECTION_KEYS = [
+		...this.#SELECT_UP_KEYS,
+		...this.#SELECT_DOWN_KEYS
+	];
 
 	isOpen = false;
 
@@ -22,11 +29,48 @@ class Suggestions {
 			if (addedTag) this.hideSuggestions();
 		});
 
-		window.addEventListener("keyup", (e) => {
-			if (!this.isOpen) return;
-			
-			// TODO: allow selecting by arrows.
+		window.addEventListener("keydown", (e) => {
+			this.#selectSuggestions(e, true);
 		});
+
+		window.addEventListener("keyup", (e) => {
+			this.#selectSuggestions(e);
+		});
+	}
+
+	getSelectedSuggestion() {
+		return $(".active", this.#container).innerText;
+	}
+	
+	#selectSuggestions(event, isKeyDown = false) {
+		if (!this.isOpen) return;
+		if (!Suggestions.#SELECTION_KEYS.includes(event.key)) return;
+		
+		// Preventing caret positioning is only on keydown event.
+		event.preventDefault();
+		if (isKeyDown) return;
+
+		const selected = $(".active", this.#container);
+
+		if (Suggestions.#SELECT_UP_KEYS.includes(event.key)) {
+			const previous = selected.previousElementSibling;
+			if (previous == null) return;
+
+			selected.classList.remove("active");
+			previous.classList.add("active");
+			
+			return;
+		}
+
+		if (Suggestions.#SELECT_DOWN_KEYS.includes(event.key)) {
+			const next = selected.nextElementSibling;
+			if (next == null) return;
+
+			selected.classList.remove("active");
+			next.classList.add("active");
+			
+			return;
+		}
 	}
 	
 	async #getSuggestions(value = null) {

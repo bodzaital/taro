@@ -32,7 +32,7 @@ class Tagging {
 		});
 
 		this.#input.addEventListener("keyup", async (e) => {
-			if (e.key == "Enter") this.tryAddTag(this.#input.value.trim());
+			if (e.key == "Enter") this.tryAddTag(suggestions.getSelectedSuggestion());
 		});
 		
 		this.#input.addEventListener("input", () => { 
