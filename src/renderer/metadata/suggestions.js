@@ -39,7 +39,10 @@ class Suggestions {
 	}
 
 	getSelectedSuggestion() {
-		return $(".active", this.#container).innerText;
+		const active = $(".active", this.#container);
+		if (active == null) return "";
+
+		return active.innerText;
 	}
 	
 	#selectSuggestions(event, isKeyDown = false) {
