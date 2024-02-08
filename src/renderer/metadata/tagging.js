@@ -68,6 +68,9 @@ class Tagging {
 
 		this.#addTag(name);
 		this.#input.value = "";
+
+		suggestions.hideSuggestions();
+		
 		return true;
 	}
 
