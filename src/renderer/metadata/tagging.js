@@ -28,7 +28,7 @@ class Tagging {
 		});
 
 		this.#input.addEventListener("focusin", async () => {
-			suggestions.showSuggestions();
+			suggestions.showSuggestions(this.#input.value.trim());
 		});
 
 		this.#input.addEventListener("keyup", async (e) => {
