@@ -7,7 +7,7 @@ import { suggestions } from "./suggestions";
 class Tagging {
 	#cloud = $(".tag-cloud");
 	#input = $("#tagInput");
-	#reset = $("#tagInputReset");
+	#focusContainer = $(".tag-focus-container");
 
 	constructor() {
 		window.addEventListener("folderUnloaded", () => {
@@ -32,13 +32,17 @@ class Tagging {
 			suggestions.showSuggestions(this.#input.value.trim());
 		});
 
+		this.#focusContainer.addEventListener("focusout", (e) => {
+			if (!this.#focusContainer.contains(e.relatedTarget)) {
+				suggestions.hideSuggestions();
+			}
+		});
+
 		this.#input.addEventListener("keyup", async (e) => {
 			if (e.key == "Enter") this.tryAddTag(suggestions.getSelectedSuggestion());
 		});
 		
 		this.#input.addEventListener("input", () => {
-			this.#reset.disabled = this.#input.value.trim().length == 0;
-
 			suggestions.showSuggestions(this.#input.value.trim());
 		});
 
@@ -46,11 +50,6 @@ class Tagging {
 			if (!this.#hasPressedCtrlOrCmdA(e)) return;
 
 			this.#input.select();
-		});
-
-		this.#reset.addEventListener("click", () => {
-			this.#input.value = "";
-			suggestions.hideSuggestions();
 		});
 	}
 
@@ -76,8 +75,6 @@ class Tagging {
 
 		this.#addTag(name);
 		this.#input.value = "";
-		this.#reset.disabled = true;
-
 		suggestions.hideSuggestions();
 		
 		return true;
@@ -112,7 +109,7 @@ class Tagging {
 
 	#folderUnloaded() {
 		this.#input.disabled = true;
-		this.#reset.disabled = true;
+		// this.#reset.disabled = true;
 		this.#cloud.innerText = "";
 	}
 
