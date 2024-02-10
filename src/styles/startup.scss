@@ -10,7 +10,7 @@
 		font-size: 4rem;
 		margin: 0 0 1rem 0;
 		padding: 0;
-		background: linear-gradient(to right, black, purple);
+		background: linear-gradient(to right, var(--bs-body-color), purple);
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}

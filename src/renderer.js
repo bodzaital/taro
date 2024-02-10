@@ -5,6 +5,7 @@ import { $ } from './renderer/shorthand';
 import { notifications } from './renderer/inAppNotifications';
 import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
+import { support } from './renderer/support';
 
 folder.unloadFolder();
 

@@ -1,6 +1,7 @@
 import Control from './control';
 import { folder } from './folder';
 import { description } from './metadata/description';
+import { location } from './metadata/location';
 import { rating } from './metadata/rating';
 import { tagging } from './metadata/tagging';
 import { $, $$ } from './shorthand';
@@ -137,6 +138,7 @@ class Sidebar {
 			rating.setRatingValue(this.metadata.rating);
 			description.setDescriptionValue(this.metadata.description);
 			tagging.createTags(...this.metadata.tags);
+			location.setLocationValue(this.metadata.location);
 		});
 	}
 

@@ -1,0 +1,27 @@
+#supportModal
+{
+	.modal-body
+	{
+		display: grid;
+		grid-template-columns: 125px auto;
+		gap: 1rem;
+	}
+
+	.btn-group-vertical
+	{
+		width: 100%;
+	}
+
+	.support-pages
+	{
+		div
+		{
+			display: none;
+
+			&.visible
+			{
+				display: block;
+			}
+		}
+	}
+}

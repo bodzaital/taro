@@ -1,6 +1,7 @@
 import Control from "./control";
 import { folder } from "./folder";
 import { description } from "./metadata/description";
+import { location } from "./metadata/location";
 import { tagging } from "./metadata/tagging";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
@@ -60,6 +61,7 @@ class Thumbnail {
 		if (windowFrame.isSearchActive) return true;
 		if (description.isEditing()) return true;
 		if (tagging.isInputActive()) return true;
+		if (location.isEditing()) return true;
 
 		return false;
 	}

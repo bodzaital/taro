@@ -24,7 +24,7 @@
 					<div class="btn-group">
 						<button class="btn btn-sm btn-success" id="startupOpenFolder">Open folder</button>
 						<button class="btn btn-sm btn-outline-secondary" id="startupDarkMode">Dark mode</button>
-						<button class="btn btn-sm btn-outline-info" id="startupGetHelp" data-bs-toggle="modal" data-bs-target="#supportModal">Support</button>
+						<button class="btn btn-sm btn-outline-info" id="startupGetHelp" data-bs-toggle="modal" data-bs-target="#supportModal">Get help</button>
 					</div>
 				</div>
 				<div class="photo d-none" id="activePhoto"></div>
@@ -94,6 +94,7 @@
 					</div>
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">Location</div>
+						<input type="text" class="form-control form-control-sm" id="locationInput">
 					</div>
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">Description</div>
@@ -108,26 +109,70 @@
 		<div class="toast-container position-fixed bottom-0 end-0 p-3" id="inAppNotifications"></div>
 
 		<div class="modal fade" id="supportModal">
-			<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-dialog modal-lg modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Support</h5>
+						<h5 class="modal-title">Help</h5>
 						<button class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
-						<h6>Keyboard Shortcuts</h6>
-						<ul>
-							<li><kbd>⌘O</kbd> &middot; Open folder</li>
-							<li><kbd>⌘W</kbd> &middot; Close folder</li>
-							<li><kbd>⌥⌘R</kbd> &middot; Reveal folder</li>
-							<li><kbd>⌥⌘L</kbd> &middot; Toggle light/dark mode</li>
-							<li><kbd>⌘X</kbd> &middot; Toggle thumbnails</li>
-							<li><kbd>⌘B</kbd> &middot; Toggle sidebar</li>
-							<li><kbd>⌘F</kbd> &middot; Toggle full screen</li>
-						</ul>
-						<h6>Tagging</h6>
-						<p>Tags must be unique on a photo.</p>
-						<p>Some tags are suggested when you start typing based on previously used tags in this folder.</p>
+						<div>
+							<div id="supportTabs" class="btn-group-vertical btn-group-sm">
+								<button class="btn btn-primary" data-target="#supportShortcuts">Shortcuts</button>
+								<button class="btn btn-outline-primary" data-target="#supportEXIF">EXIF data</button>
+								<button class="btn btn-outline-primary" data-target="#supportTagging">Tagging</button>
+								<button class="btn btn-outline-primary" data-target="#supportRating">Rating</button>
+								<button class="btn btn-outline-primary" data-target="#supportLocation">Location</button>
+								<button class="btn btn-outline-primary" data-target="#supportDescription">Description</button>
+							</div>
+						</div>
+						<div class="support-pages">
+							<div id="supportShortcuts" class="visible">
+								<h5>Shortcuts</h5>
+								<ul>
+									<li><kbd>⌘O</kbd> &middot; Open folder</li>
+									<li><kbd>⌘W</kbd> &middot; Close folder</li>
+									<li><kbd>⌘Q</kbd> &middot; Quit app</li>
+									<li><kbd>⌥⌘R</kbd> &middot; Reveal folder in Finder</li>
+									<li><kbd>⌥⌘L</kbd> &middot; Toggle dark mode</li>
+									<li><kbd>⌘X</kbd> &middot; Toggle thumbnails</li>
+									<li><kbd>⌘B</kbd> &middot; Toggle sidebar</li>
+									<li><kbd>⌘F</kbd> &middot; Toggle full screen</li>
+									<li><kbd>F12</kbd> &middot; (Debug) Open developer tools</li>
+								</ul>
+							</div>
+							<div id="supportEXIF">
+								<h5>EXIF data</h5>
+								<p>When opening a photo, the app will load its EXIF information embedded in the file. It tries to load the following values:</p>
+								<ul>
+									<li>Shutter speed in seconds (or fractions of a second)</li>
+									<li>Aperture value in F-Number</li>
+									<li>ISO</li>
+									<li>Focal length in milimeters</li>
+									<li>Date and time the photo was shot</li>
+									<li>Exposure mode</li>
+									<li>Camera and lens model</li>
+								</ul>
+								<p>Right now, the EXIF data is tested against Canon cameras and lenses, so some or all data may be missing from other manufacturers.</p>
+							</div>
+							<div id="supportTagging">
+								<h5>Tagging</h5>
+								<p>When tagging a photo, the app will suggest tags you have used previously in this folder.</p>
+								<p>A photo cannot be tagged by a duplicate tag.</p>
+							</div>
+							<div id="supportRating">
+								<h5>Rating</h5>
+								<p>You can rate a photo by giving it a "thumbs up" or a "thumbs down."</p>
+							</div>
+							<div id="supportLocation">
+								<h5>Location information</h5>
+								<p>You can assign location information to a photo.</p>
+							</div>
+							<div id="supportDescription">
+								<h5>Description</h5>
+								<p>If you want to add a longer description to a photo, you can add it in the description field.</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
