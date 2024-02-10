@@ -114,17 +114,6 @@ class IO {
 			.filter((file) => IO.SUPPORTED_PHOTO_EXTENSIONS.includes(path.extname(file)));
 	}
 
-	#ensureMetadataFileExists(folderPath) {
-		const taroMetadataPath = path.join(folderPath, IO.TARO_METADATA_FILENAME);
-
-		if (fs.existsSync(taroMetadataPath)) {
-			return;
-		}
-
-		// TODO: create actual empty metadata.
-		// fs.writeFileSync(taroMetadataPath, JSON.stringify(new Metadata("hello")));
-	}
-
 	getAllTagsHandler(folder) {
 		const metadataFolder = path.join(folder, ".taro");
 		
