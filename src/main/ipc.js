@@ -1,8 +1,7 @@
 import { Menu, ipcMain } from "electron";
-import { CH_GET_ALL_TAGS_IN_FOLDER, CH_GET_EXIF, CH_GET_METADATA, CH_SAVE_SETTING, CH_WELCOME_OPEN_FOLDER, CH_WELCOME_SCREEN_TOGGLE_DARK_MODE, CH_WRITE_METADATA } from "../ipcConstants";
+import { CH_GET_ALL_TAGS_IN_FOLDER, CH_GET_EXIF, CH_GET_METADATA, CH_SAVE_SETTING, CH_WELCOME_OPEN_FOLDER, CH_WELCOME_SCREEN_TOGGLE_DARK_MODE, CH_WRITE_METADATA, IpcConstants } from "../ipcConstants";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
-import { system } from "./system";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 class IPC {
@@ -34,7 +33,7 @@ class IPC {
 			}]);
 		});
 
-		ipcMain.handle(CH_WELCOME_OPEN_FOLDER, () => {
+		ipcMain.handle(IpcConstants.SELECT_FOLDER, () => {
 			io.openFolderHandler();
 		});
 	}

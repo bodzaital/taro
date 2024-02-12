@@ -1,5 +1,5 @@
 import { Menu, app, dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT } from "../ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
@@ -46,7 +46,7 @@ class IO {
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = true;
 
 		const baseName = path.basename(folderPath);
-		ipc.raise(CH_LOAD_IMAGES, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
+		ipc.raise(IpcConstants.OPEN_FOLDER, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
 	}
 	
 	closeFolderHandler() {

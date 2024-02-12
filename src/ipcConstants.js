@@ -1,4 +1,3 @@
-export const CH_OPEN_FOLDER = "openFolder";
 export const CH_WELCOME_OPEN_FOLDER = "welcomeOpenFolder";
 export const CH_CLOSE_FOLDER = "closeFolder";
 
@@ -19,3 +18,8 @@ export const CH_APPLY_SETTING = "applySetting";
 export const CH_GET_METADATA = "getMetadata";
 export const CH_WRITE_METADATA = "writeMetadata";
 export const CH_GET_ALL_TAGS_IN_FOLDER = "getAllTags";
+
+export class IpcConstants {
+	static OPEN_FOLDER = "openFolder";
+	static SELECT_FOLDER = "selectFolder";
+}

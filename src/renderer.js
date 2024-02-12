@@ -9,7 +9,7 @@ import { support } from './renderer/support';
 
 folder.unloadFolder();
 
-window.ipc.loadImages((folderInfo) => {
+window.listen.openFolder((folderInfo) => {
 	folder.loadFolder(folderInfo);
 });
 

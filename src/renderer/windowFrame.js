@@ -62,7 +62,8 @@ class WindowFrame {
 		});
 
 		this.#welcomeScreen.openFolderButton.addEventListener("click", () => {
-			window.ipc.welcomeOpenFolder();
+			// window.ipc.welcomeOpenFolder();
+			window.invoke.openFolder();
 		});
 	}
 	
