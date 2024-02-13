@@ -98,6 +98,24 @@ class System {
 					click: (item) => this.#handleViewDarkMode(item),
 					accelerator: "CmdOrCtrl+Alt+L"
 				},
+				{
+					label: "Sidebar Position",
+					submenu: [
+						{
+							label: "Left",
+							id: "view/sidebar-position/left",
+							type: "radio",
+							click: (item) => this.#handleSidebarPosition(item)
+						},
+						{
+							label: "Right",
+							id: "view/sidebar-position/right",
+							type: "radio",
+							checked: true,
+							click: (item) => this.#handleSidebarPosition(item)
+						},
+					]
+				},
 				{ type: "separator" },
 				{
 					label: "Thumbnails",
@@ -170,6 +188,17 @@ class System {
 		} else {
 			this.#mainWindow.setFullScreen(true);
 		}
+	}
+
+	#handleSidebarPosition(item) {
+		if (!item.checked) return;
+		
+		const setting = {
+			key: AppSettingsConstant.SIDEBAR_POSITION,
+			value: item.label.toLowerCase()
+		}
+		
+		appSettings.updateAndApply([setting]);
 	}
 }
 

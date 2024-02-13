@@ -65,6 +65,14 @@ class Sidebar {
 		}
 	}
 
+	changePosition(value) {
+		if (value == "left") {
+			this.#viewer.classList.add("left-sidebar");
+		} else {
+			this.#viewer.classList.remove("left-sidebar");
+		}
+	}
+
 	clearExifData() {
 		for (const [key, value] of Object.entries(this.#details)) {
 			if (key == "placeholder") continue;

@@ -43,6 +43,7 @@ export class AppSettings {
 		this.#applyDarkMode();
 		this.#applyIsThumbnailsVisible();
 		this.#applyIsSidebarVisible();
+		this.#applySidebarPosition();
 	}
 
 	#write() {
@@ -82,6 +83,15 @@ export class AppSettings {
 			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, value]);
 		}, () => {
 			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, true]);
+		});
+	}
+
+	#applySidebarPosition() {
+		this.#applySetting(AppSettingsConstant.SIDEBAR_POSITION, (value) => {
+			Menu.getApplicationMenu().getMenuItemById(`view/sidebar-position/${value}`).checked = true;
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, value]);
+		}, () => {
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, "right"]);
 		});
 	}
 

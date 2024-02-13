@@ -35,4 +35,8 @@ window.listen.applySetting((key, value) => {
 	if (key == AppSettingsConstant.THUMBNAILS_VISILE) {
 		thumbnail.toggleThumbnail(value);
 	}
+
+	if (key == AppSettingsConstant.SIDEBAR_POSITION) {
+		sidebar.changePosition(value);
+	}
 });
