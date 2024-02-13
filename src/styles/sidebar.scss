@@ -25,33 +25,6 @@
 		font-weight: 700;
 	}
 
-	// .sidebar-exif-row
-	// {
-	// 	display: grid;
-	// 	gap: .5rem;
-	// 	grid-template-columns: repeat(3, 1fr);
-
-	// 	.exif-data
-	// 	{
-	// 		display: flex;
-	// 		gap: .25rem;
-
-	// 		&.long-data
-	// 		{
-	// 			grid-column-end: span 2;
-	// 		}
-
-	// 		.exif-icon { flex-basis: 1rem; }
-	// 		.exif-value { flex-grow: 1; }
-
-	// 		.exif-value#sidebarExifDate,
-	// 		.exif-value#sidebarExifCamera
-	// 		{
-	// 			text-decoration: var(--bs-body-color) underline dashed;
-	// 		}
-	// 	}
-	// }
-
 	.exif-row
 	{
 		display: grid;
