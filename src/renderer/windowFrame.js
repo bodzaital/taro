@@ -58,12 +58,11 @@ class WindowFrame {
 		});
 		
 		this.#welcomeScreen.darkModeButton.addEventListener("click", () => {
-			window.ipc.welcomeToggleDarkMode();
+			window.invoke.toggleWelcomeDarkMode();
 		});
 
 		this.#welcomeScreen.openFolderButton.addEventListener("click", () => {
-			// window.ipc.welcomeOpenFolder();
-			window.invoke.openFolder();
+			window.invoke.selectFolder();
 		});
 	}
 	

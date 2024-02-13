@@ -1,25 +1,18 @@
-export const CH_WELCOME_OPEN_FOLDER = "welcomeOpenFolder";
-export const CH_CLOSE_FOLDER = "closeFolder";
+export class IpcToRenderer {
+	static OPEN__FOLDER = "openFolder";
+	static CLOSE__FOLDER = "closeFolder";
+	static TOGGLE__DARKMODE = "toggleDarkMode";
+	static SHOW__ALERT = "showAlert";
+	static APPLY__SETTING = "applySetting";
+}
 
-export const CH_LOAD_IMAGES = "loadImages";
-export const CH_NO_IMAGES = "noImages";
-export const CH_OPEN_CANCELED = "openCanceled";
-
-export const CH_WELCOME_SCREEN_TOGGLE_DARK_MODE = "welcomeToggleDarkMode";
-export const CH_TOGGLE_DARK_MODE = "toggleDarkMode";
-
-export const CH_GET_EXIF = "getExif";
-
-export const CH_SHOW_ALERT = "showAlert";
-
-export const CH_SAVE_SETTING = "saveSetting";
-export const CH_APPLY_SETTING = "applySetting";
-
-export const CH_GET_METADATA = "getMetadata";
-export const CH_WRITE_METADATA = "writeMetadata";
-export const CH_GET_ALL_TAGS_IN_FOLDER = "getAllTags";
-
-export class IpcConstants {
-	static OPEN_FOLDER = "openFolder";
-	static SELECT_FOLDER = "selectFolder";
+export class IpcToMain {
+	static SELECT__FOLDER = "selectFolder";
+	static SELECT__WELCOME_FOLDER = "selectWelcomeFolder";
+	static TOGGLE__WELCOME_DARK_MODE = "toggleWelcomeDarkMode";
+	static SAVE__SETTING = "saveSetting";
+	static GET__EXIF = "getExif";
+	static GET__METADATA = "getMetadata";
+	static WRITE__METADATA = "writeMetadata";
+	static GET__EVERY_TAG = "getEveryTag";
 }

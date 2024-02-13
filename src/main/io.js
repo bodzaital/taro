@@ -1,5 +1,5 @@
 import { Menu, app, dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants } from "../ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToRenderer } from "../ipcConstants";
 import path from "path";
 import { ipc } from "./ipc";
 import FolderInfo from "../data/folderInfo";
@@ -29,7 +29,7 @@ class IO {
 	openFolderHandler() {
 		const folderPath = this.#getFolderPathFromDialog();
 		if (folderPath == null) {
-			ipc.raise(CH_SHOW_ALERT, ["Opening a folder is canceled.", "info"]);
+			ipc.raise(IpcToRenderer.SHOW__ALERT, ["Opening a folder is canceled.", "info"]);
 			return;
 		}
 
@@ -38,7 +38,7 @@ class IO {
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
 		if (listOfImageURIs.length == 0) {
-			ipc.raise(CH_SHOW_ALERT, ["There are no images in this folder.", "warning"]);
+			ipc.raise(IpcToRenderer.SHOW__ALERT, ["There are no images in this folder.", "warning"]);
 			return;
 		}
 		
@@ -46,14 +46,14 @@ class IO {
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = true;
 
 		const baseName = path.basename(folderPath);
-		ipc.raise(IpcConstants.OPEN_FOLDER, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
+		ipc.raise(IpcToRenderer.OPEN__FOLDER, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
 	}
 	
 	closeFolderHandler() {
 		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = false;
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = false;
 		this.#folderPath = null;
-		ipc.raise(CH_CLOSE_FOLDER);
+		ipc.raise(IpcToRenderer.CLOSE__FOLDER);
 	}
 
 	exifHandler(uri) {

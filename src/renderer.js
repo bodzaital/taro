@@ -13,21 +13,21 @@ window.listen.openFolder((folderInfo) => {
 	folder.loadFolder(folderInfo);
 });
 
-window.ipc.closeFolder(() => {
+window.listen.closeFolder(() => {
 	folder.unloadFolder();
 });
 
-window.ipc.toggleDarkMode((isDarkMode) => {
+window.listen.toggleDarkMode((isDarkMode) => {
 	$("html").dataset.bsTheme = isDarkMode
 		? "dark"
 		: "light";
 });
 
-window.ipc.showAlert((message, style) => {
+window.listen.showAlert((message, style) => {
 	notifications.create(message, style);
 });
 
-window.ipc.applySetting((key, value) => {
+window.listen.applySetting((key, value) => {
 	if (key == AppSettingsConstant.SIDEBAR_VISIBLE) {
 		sidebar.toggleSidebar(value);
 	}

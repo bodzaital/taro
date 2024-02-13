@@ -38,7 +38,7 @@ class Sidebar {
 		this.#sidebarToggleButton.addEventListener("click", () => {
 			this.toggleSidebar(!this.#isSidebarOpen);
 			
-			window.ipc.saveSetting("isSidebarVisible", this.#isSidebarOpen);
+			window.invoke.saveSetting("isSidebarVisible", this.#isSidebarOpen);
 		});
 
 		this.#exifDateTimeTooltip = new bootstrap.Tooltip($("#sidebarExifDateTime"));
@@ -112,7 +112,7 @@ class Sidebar {
 	loadExifData(uri) {
 		this.clearExifData();
 
-		window.ipc.getExif(uri).then((exif) => {
+		window.invoke.getExif(uri).then((exif) => {
 			const fnumber = exif.FNumber != null
 				? exif.FNumber?.value[0] / exif.FNumber?.value[1]
 				: null;
@@ -131,7 +131,7 @@ class Sidebar {
 	}
 
 	loadMetadata(photo) {
-		window.ipc.getMetadata(folder.folderInfo.folderPath, photo).then((metadata) => {
+		window.invoke.getMetadata(folder.folderInfo.folderPath, photo).then((metadata) => {
 			this.metadata = metadata;
 			console.log("Loaded metadata:", this.metadata);
 
@@ -143,7 +143,7 @@ class Sidebar {
 	}
 
 	writeMetadata() {
-		window.ipc.writeMetadata(folder.folderInfo.folderPath, this.metadata);
+		window.invoke.writeMetadata(folder.folderInfo.folderPath, this.metadata);
 	}
 
 	loadFolder() {

@@ -2,7 +2,7 @@ import { Menu, app } from "electron";
 import path from "path";
 import fs from "fs";
 import { ipc } from "./ipc";
-import { CH_APPLY_SETTING, CH_TOGGLE_DARK_MODE } from "../ipcConstants";
+import { CH_APPLY_SETTING, IpcToRenderer } from "../ipcConstants";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 export class AppSettings {
@@ -60,28 +60,28 @@ export class AppSettings {
 	#applyDarkMode() {
 		this.#applySetting(AppSettingsConstant.DARK_MODE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value;
-			ipc.raise(CH_TOGGLE_DARK_MODE, [value]);
+			ipc.raise(IpcToRenderer.TOGGLE__DARKMODE, [value]);
 		}, () => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = false;
-			ipc.raise(CH_TOGGLE_DARK_MODE, [false]);
+			ipc.raise(IpcToRenderer.TOGGLE__DARKMODE, [false]);
 		});
 	}
 
 	#applyIsThumbnailsVisible() {
 		this.#applySetting(AppSettingsConstant.THUMBNAILS_VISILE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/thumbnails").checked = value;
-			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, value]);
 		}, () => {
-			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, true]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, true]);
 		});
 	}
 	
 	#applyIsSidebarVisible() {
 		this.#applySetting(AppSettingsConstant.SIDEBAR_VISIBLE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/sidebar").checked = value;
-			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, value]);
 		}, () => {
-			ipc.raise(CH_APPLY_SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, true]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, true]);
 		});
 	}
 

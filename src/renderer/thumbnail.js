@@ -44,7 +44,7 @@ class Thumbnail {
 		this.#thumbnailsToggleButton.addEventListener("click", () => {
 			this.toggleThumbnail(!this.#isThumbnailsOpen);
 			
-			window.ipc.saveSetting("isThumbnailsVisible", this.#isThumbnailsOpen);
+			window.invoke.saveSetting("isThumbnailsVisible", this.#isThumbnailsOpen);
 		});
 
 		window.addEventListener("folderLoaded", () => {
