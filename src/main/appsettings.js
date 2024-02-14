@@ -62,13 +62,14 @@ export class AppSettings {
 	}
 
 	// TODO: allow to follow system color mode. Also: set the appropriate system setting to show the window as dark mode.
+	// TODO: refactor to apply__setting every time.
 	#applyDarkMode() {
 		this.#applySetting(AppSettingsConstant.DARK_MODE, (value) => {
-			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value;
-			ipc.raise(IpcToRenderer.TOGGLE__DARKMODE, [value]);
+			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value == "dark";
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.DARK_MODE, value]);
 		}, () => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = false;
-			ipc.raise(IpcToRenderer.TOGGLE__DARKMODE, [false]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.DARK_MODE, "light"]);
 		});
 	}
 

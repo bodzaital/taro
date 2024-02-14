@@ -5,7 +5,7 @@ import { $ } from './renderer/shorthand';
 import { notifications } from './renderer/inAppNotifications';
 import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
-import { support } from './renderer/support';
+import { settings } from './renderer/settings';
 
 folder.unloadFolder();
 
@@ -17,17 +17,13 @@ window.listen.closeFolder(() => {
 	folder.unloadFolder();
 });
 
-window.listen.toggleDarkMode((isDarkMode) => {
-	$("html").dataset.bsTheme = isDarkMode
-		? "dark"
-		: "light";
-});
-
 window.listen.showAlert((message, style) => {
 	notifications.create(message, style);
 });
 
 window.listen.applySetting((key, value) => {
+	settings.set(key, value);
+	
 	if (key == AppSettingsConstant.SIDEBAR_VISIBLE) {
 		sidebar.toggleSidebar(value);
 	}
@@ -39,9 +35,13 @@ window.listen.applySetting((key, value) => {
 	if (key == AppSettingsConstant.SIDEBAR_POSITION) {
 		sidebar.changePosition(value);
 	}
+
+	if (key == AppSettingsConstant.DARK_MODE) {
+		$("html").dataset.bsTheme = value;
+	}
 });
 
-// window.listen.showSettingsModal(() => {
+window.listen.showSettingsModal(() => {
 	// TODO: close last modal when opening a modal.
 	new bootstrap.Modal($("#settingsModal")).show();
-// });
+});

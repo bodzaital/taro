@@ -20,6 +20,8 @@ class IPC {
 			"value": value
 		}]));
 
+		ipcMain.handle(IpcToMain.SAVE__SETTINGS, (_, keyValues) => appSettings.updateAndApply(keyValues));
+
 		ipcMain.handle(IpcToMain.GET__METADATA, (_, folder, photo) => io.getMetadataHandler(folder, photo));
 		ipcMain.handle(IpcToMain.WRITE__METADATA, (_, folder, metadata) => io.writeMetadataHandler(folder, metadata));
 		ipcMain.handle(IpcToMain.GET__EVERY_TAG, (_, folder) => io.getAllTagsHandler(folder));
@@ -31,6 +33,8 @@ class IPC {
 			appSettings.updateAndApply([{
 				"key": AppSettingsConstant.DARK_MODE,
 				"value": !isDarkMode
+					? "dark"
+					: "light"
 			}]);
 		});
 

@@ -167,6 +167,8 @@ class System {
 		const setting = {
 			key: AppSettingsConstant.DARK_MODE,
 			value: item.checked
+				? "dark"
+				: "light"
 		};
 
 		appSettings.updateAndApply([setting]);
