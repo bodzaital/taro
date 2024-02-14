@@ -13,9 +13,10 @@ So far only tested on macOS, but will eventually test on Windows and Linux.
 Alpha
 - [x] Open a folder of images.
 - [x] Dark mode.
-- [x] Assign meta data to images (in progress).
+- [x] Assign meta data to images.
 
 Beta
+- [ ] Settings page (in progress).
 - [ ] Search for images by meta data.
 - [ ] Export images by a certain criteria.
 
