@@ -2,7 +2,7 @@ import { Menu, app } from "electron";
 import path from "path";
 import fs from "fs";
 import { ipc } from "./ipc";
-import { CH_APPLY_SETTING, IpcToRenderer } from "../ipcConstants";
+import { CH_APPLY_SETTING, IpcToMain, IpcToRenderer } from "../ipcConstants";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 export class AppSettings {
@@ -18,6 +18,10 @@ export class AppSettings {
 		this.#update(keyValuePairs);
 		this.#apply();
 		this.#write();
+	}
+
+	showModal() {
+		ipc.raise(IpcToRenderer.SHOW__SETTINGS_MODAL);
 	}
 
 	#open() {

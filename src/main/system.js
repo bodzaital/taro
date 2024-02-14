@@ -2,6 +2,8 @@ import { Menu, app } from "electron";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
+import { ipc } from "./ipc";
+import { IpcToRenderer } from "../ipcConstants";
 
 class System {
 	#mainWindow = null;
@@ -47,6 +49,12 @@ class System {
 			label: app.name,
 			submenu: [
 				{ role: "about" },
+				{ type: "separator" },
+				{
+					label: "Settings...",
+					click: () => appSettings.showModal(),
+					id: "app/settings"
+				},
 				{ type: "separator" },
 				{ role: "services" },
 				{ type: "separator" },

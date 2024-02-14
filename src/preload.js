@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld("listen", {
 	toggleDarkMode: (callback) => ipcRenderer.on(IpcToRenderer.TOGGLE__DARKMODE, (_, args) => callback(...args)),
 	showAlert: (callback) => ipcRenderer.on(IpcToRenderer.SHOW__ALERT, (_, args) => callback(...args)),
 	applySetting: (callback) => ipcRenderer.on(IpcToRenderer.APPLY__SETTING, (_, args) => callback(...args)),
+	showSettingsModal: (callback) => ipcRenderer.on(IpcToRenderer.SHOW__SETTINGS_MODAL, () => callback()),
 });
 
 // Renderer -> Main ( -> Renderer)

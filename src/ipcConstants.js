@@ -4,6 +4,7 @@ export class IpcToRenderer {
 	static TOGGLE__DARKMODE = "toggleDarkMode";
 	static SHOW__ALERT = "showAlert";
 	static APPLY__SETTING = "applySetting";
+	static SHOW__SETTINGS_MODAL = "showSettingsModal";
 }
 
 export class IpcToMain {

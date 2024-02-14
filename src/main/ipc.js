@@ -14,6 +14,7 @@ class IPC {
 	register() {
 		ipcMain.handle(IpcToMain.GET__EXIF, (_, b) => io.exifHandler(b));
 
+		// TODO: make this accept a list of settings instead of one key-value pair.
 		ipcMain.handle(IpcToMain.SAVE__SETTING, (_, key, value) => appSettings.updateAndApply([{
 			"key": key,
 			"value": value

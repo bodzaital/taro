@@ -107,6 +107,62 @@
 
 		<div class="toast-container position-fixed bottom-0 end-0 p-3" id="inAppNotifications"></div>
 
+		<div class="modal fade" id="settingsModal">
+			<div class="modal-dialog modal-lg modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Settings</h5>
+						<button class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						<div class="settings-panel border border-secondary-subtle">
+							<div class="panel-title">Appearance</div>
+							<div class="setting-title">Dark Mode</div>
+							<div class="setting-value">
+								<div class="form-check">
+									<input type="radio" class="form-check-input" id="settingDarkModeLight" name="settingDarkMode" value="Light">
+									<label for="settingDarkModeLight" class="form-check-label">Light</label>
+								</div>
+								<div class="form-check">
+									<input type="radio" class="form-check-input" id="settingDarkModeDark" name="settingDarkMode" value="Dark">
+									<label for="settingDarkModeDark" class="form-check-label">Dark</label>
+								</div>
+							</div>
+						</div>
+						<div class="settings-panel border border-secondary-subtle">
+							<div class="panel-title">Layout</div>
+							<div class="setting-title">Thumbnails</div>
+							<div class="setting-value">
+								<div class="form-check form-switch">
+									<input type="checkbox" class="form-check-input" id="settingThumbnailsVisibility">
+									<label class="form-check-label" for="settingThumbnailsVisibility">Visible</label>
+								</div>
+							</div>
+							<div class="setting-title">Sidebar</div>
+							<div class="setting-value">
+								<div class="form-check form-switch">
+									<input type="checkbox" class="form-check-input" id="settingSidebarVisibility">
+									<label class="form-check-label" for="settingSidebarVisibility">Visible</label>
+								</div>
+								<div class="form-check">
+									<input type="radio" class="form-check-input" id="settingSidebarLeft" name="settingSidebar" value="Left">
+									<label for="settingSidebarLeft" class="form-check-label">Left</label>
+								</div>
+								<div class="form-check">
+									<input type="radio" class="form-check-input" id="settingSidebarRight" name="settingSidebar" value="Right">
+									<label for="settingSidebarRight" class="form-check-label">Right</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button class="btn btn-sm btn-success" data-bs-dismiss="modal">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="modal fade" id="supportModal">
 			<div class="modal-dialog modal-lg modal-dialog-scrollable">
 				<div class="modal-content">

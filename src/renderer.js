@@ -40,3 +40,8 @@ window.listen.applySetting((key, value) => {
 		sidebar.changePosition(value);
 	}
 });
+
+// window.listen.showSettingsModal(() => {
+	// TODO: close last modal when opening a modal.
+	new bootstrap.Modal($("#settingsModal")).show();
+// });
