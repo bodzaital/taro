@@ -6,6 +6,7 @@ import { notifications } from './renderer/inAppNotifications';
 import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
 import { settings } from './renderer/settings';
+import { support } from './renderer/support';
 
 folder.unloadFolder();
 
@@ -19,26 +20,6 @@ window.listen.closeFolder(() => {
 
 window.listen.showAlert((message, style) => {
 	notifications.create(message, style);
-});
-
-window.listen.applySetting((key, value) => {
-	settings.set(key, value);
-	
-	if (key == AppSettingsConstant.SIDEBAR_VISIBLE) {
-		sidebar.toggleSidebar(value);
-	}
-
-	if (key == AppSettingsConstant.THUMBNAILS_VISILE) {
-		thumbnail.toggleThumbnail(value);
-	}
-
-	if (key == AppSettingsConstant.SIDEBAR_POSITION) {
-		sidebar.changePosition(value);
-	}
-
-	if (key == AppSettingsConstant.DARK_MODE) {
-		$("html").dataset.bsTheme = value;
-	}
 });
 
 window.listen.showSettingsModal(() => {

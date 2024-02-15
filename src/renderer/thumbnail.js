@@ -1,3 +1,4 @@
+import { AppSettingsConstant } from "../data/appsettingsConstants";
 import Control from "./control";
 import { folder } from "./folder";
 import { description } from "./metadata/description";
@@ -53,6 +54,10 @@ class Thumbnail {
 
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
+		});
+
+		window.listen.applySetting((key, value) => {
+			if (key == AppSettingsConstant.THUMBNAILS_VISILE) this.toggleThumbnail(value);
 		});
 	}
 

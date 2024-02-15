@@ -1,3 +1,4 @@
+import { AppSettingsConstant } from '../data/appsettingsConstants';
 import Control from './control';
 import { folder } from './folder';
 import { description } from './metadata/description';
@@ -50,6 +51,11 @@ class Sidebar {
 
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
+		});
+
+		window.listen.applySetting((key, value) => {
+			if (key == AppSettingsConstant.SIDEBAR_VISIBLE) this.toggleSidebar(value);
+			if (key == AppSettingsConstant.SIDEBAR_POSITION) this.changePosition(value);
 		});
 	}
 

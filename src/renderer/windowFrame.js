@@ -1,15 +1,13 @@
+import { AppSettingsConstant } from "../data/appsettingsConstants";
 import Control from "./control";
 import { folder } from "./folder";
 import { $, $$ } from "./shorthand";
 import { thumbnail } from "./thumbnail";
 
-// TODO: handle dark mode here
-
 class WindowFrame {
 	#searchbar = $("#titleBarHeader");
 	#folderName = null;
 	content = $(".content");
-	// #welcomeScreen = $(".startup");
 
 	#welcomeScreen = {
 		container: $(".startup"),
@@ -56,6 +54,10 @@ class WindowFrame {
 		window.addEventListener("folderUnloaded", () => {
 			this.unloadFolder();
 		});
+
+		window.listen.applySetting((key, value) => {
+			if (key == AppSettingsConstant.DARK_MODE) this.setDarkMode(value);
+		});
 		
 		this.#welcomeScreen.darkModeButton.addEventListener("click", () => {
 			window.invoke.toggleWelcomeDarkMode();
@@ -84,6 +86,10 @@ class WindowFrame {
 		this.#searchbar.disabled = true;
 
 		this.#welcomeScreen.container.classList.remove("d-none");
+	}
+
+	setDarkMode(value) {
+		$("html").dataset.bsTheme = value;
 	}
 }
 

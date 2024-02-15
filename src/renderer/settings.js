@@ -23,9 +23,13 @@ class Settings {
 		this.#saveButton.addEventListener("click", () => {
 			this.save();
 		});
+
+		window.listen.applySetting((key, value) => {
+			this.#set(key, value);
+		});
 	}
 
-	set(key, value) {
+	#set(key, value) {
 		if (key == AppSettingsConstant.SIDEBAR_VISIBLE) {
 			this.#controls.sidebarVisibleCheckbox.checked = value;
 		}
