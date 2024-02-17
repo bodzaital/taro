@@ -22,7 +22,12 @@ class Internationalization {
 		const elements = $$("[data-i18n]");
 
 		elements.forEach((element) => {
-			element.innerText = this.#resolve(element.dataset.i18n, resources);
+			const text = this.#resolve(element.dataset.i18n, resources);
+			if (element.dataset.i18nTarget) {
+				element[element.dataset.i18nTarget] = text;
+			} else {
+				element.innerText = text;
+			}
 		});
 	}
 
