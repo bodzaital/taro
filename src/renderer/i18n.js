@@ -7,7 +7,9 @@ class Internationalization {
 	];
 
 	constructor() {
-		
+		import("../data/i18n/en.json")
+			.then((data) => data.resources)
+			.then((resources) => this.#refresh(resources));
 	}
 
 	changeLanguage(targetLanguage) {
@@ -19,15 +21,12 @@ class Internationalization {
 	}
 
 	#refresh(resources) {
-		const elements = $$("[data-i18n]");
+		const elements = Array.from($$("[data-i18n]"));
 
 		elements.forEach((element) => {
 			const text = this.#resolve(element.dataset.i18n, resources);
-			if (element.dataset.i18nTarget) {
-				element[element.dataset.i18nTarget] = text;
-			} else {
-				element.innerText = text;
-			}
+
+			this.#set(text, element);
 		});
 	}
 
@@ -36,6 +35,16 @@ class Internationalization {
 		return path.split(".").reduce((a, c) => {
 			return a ? a[c] : null;
 		}, object || self);
+	}
+
+	#set(text, element) {
+		if (text == undefined) return;
+
+		if (element.dataset.i18nTarget) {
+			element[element.dataset.i18nTarget] = text;
+		} else {
+			element.innerText = text;
+		}
 	}
 }
 

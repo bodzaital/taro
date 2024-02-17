@@ -1,7 +1,38 @@
 {
 	"resources": {
 		"taro": {
-			"subBranding": "Photography culling and tagging"
+			"subBranding": "Photography culling and tagging",
+			"openFolder": "Open folder",
+			"darkMode": "Dark mode",
+			"getHelp": "Get help"
+		},
+		"sidebar": {
+			"details": "Details",
+			"noImage": "No image",
+			"tags": "Tags",
+			"rating": "Rating",
+			"location": "Location",
+			"description": "Description"
+		},
+		"settings": {
+			"title": "Settings",
+			"darkMode": {
+				"key": "Dark Mode",
+				"light": "Light",
+				"dark": "Dark"
+			},
+			"sidebar": {
+				"key": "Sidebar",
+				"visible": "Visible",
+				"left": "Left",
+				"right": "Right"
+			},
+			"thumbnails": {
+				"key": "Thumbnails",
+				"visible": "Visible"
+			},
+			"cancel": "Cancel",
+			"save": "Save"
 		}
 	}
 }

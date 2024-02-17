@@ -22,16 +22,16 @@
 					<h1 class="branding">taro</h1>
 					<div class="sub-branding" data-i18n="taro.subBranding">Photography culling and tagging</div>
 					<div class="btn-group">
-						<button class="btn btn-sm btn-success" id="startupOpenFolder">Open folder</button>
-						<button class="btn btn-sm btn-outline-secondary" id="startupDarkMode">Dark mode</button>
-						<button class="btn btn-sm btn-outline-info" id="startupGetHelp" data-bs-toggle="modal" data-bs-target="#supportModal">Get help</button>
+						<button class="btn btn-sm btn-success" id="startupOpenFolder" data-i18n="taro.openFolder">Open folder</button>
+						<button class="btn btn-sm btn-outline-secondary" id="startupDarkMode" data-i18n="taro.darkMode">Dark mode</button>
+						<button class="btn btn-sm btn-outline-info" id="startupGetHelp" data-bs-toggle="modal" data-bs-target="#supportModal" data-i18n="taro.getHelp">Get help</button>
 					</div>
 				</div>
 				<div class="photo d-none" id="activePhoto"></div>
 				<div class="sidebar border-start border-secondary-subtle">
 					<div class="sidebar-section ">
 						<div class="sidebar-section-header">
-							Details - <span id="photo-name">No image</span>
+							<span data-i18n="sidebar.details"></span> - <span id="photo-name" data-i18n="sidebar.noImage">No image</span>
 						</div>
 						<div class="exif-row exif-short">
 							<div class="exif-data">
@@ -69,7 +69,7 @@
 						</div>
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header">Tags</div>
+						<div class="sidebar-section-header" data-i18n="sidebar.tags">Tags</div>
 						<div class="tag-cloud"></div>
 						<div class="tag-focus-container">
 							<input type="text" class="form-control form-control-sm" id="tagInput">
@@ -79,7 +79,7 @@
 						</div>
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header">Rating</div>
+						<div class="sidebar-section-header" data-i18n="sidebar.rating">Rating</div>
 						<div class="btn-group">
 							<input type="radio" class="btn-check" name="rating" id="rate-down" value="-1" autocomplete="off">
 							<label for="rate-down" class="btn btn-sm btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i></label>
@@ -91,12 +91,12 @@
 							<label for="rate-up" class="btn btn-sm btn-outline-success"><i class="bi bi-hand-thumbs-up"></i></label>
 						</div>
 					</div>
-					<div class="sidebar-section ">
-						<div class="sidebar-section-header">Location</div>
+					<div class="sidebar-section">
+						<div class="sidebar-section-header" data-i18n="sidebar.location">Location</div>
 						<input type="text" class="form-control form-control-sm" id="locationInput">
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header">Description</div>
+						<div class="sidebar-section-header" data-i18n="sidebar.description">Description</div>
 						<textarea class="form-control form-control-sm sidebar-textarea" id="metadataDescription"></textarea>
 					</div>
 				</div>
@@ -111,47 +111,47 @@
 			<div class="modal-dialog modal-lg modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Settings</h5>
+						<h5 class="modal-title" data-i18n="settings.title">Settings</h5>
 						<button class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
-						<div class="setting-key">Dark Mode</div>
+						<div class="setting-key" data-i18n="settings.darkMode.key">Dark Mode</div>
 						<div class="setting-value">
 							<div class="form-check">
 								<input type="radio" class="form-check-input" id="settingDarkModeLight" name="settingDarkMode">
-								<label for="settingDarkModeLight" class="form-check-label">Light</label>
+								<label for="settingDarkModeLight" class="form-check-label" data-i18n="settings.darkMode.light">Light</label>
 							</div>
 							<div class="form-check">
 								<input type="radio" class="form-check-input" id="settingDarkModeDark" name="settingDarkMode">
-								<label for="settingDarkModeDark" class="form-check-label">Dark</label>
+								<label for="settingDarkModeDark" class="form-check-label" data-i18n="settings.darkMode.dark">Dark</label>
 							</div>
 						</div>
-						<div class="setting-key">Sidebar</div>
+						<div class="setting-key" data-i18n="settings.sidebar.key">Sidebar</div>
 						<div class="setting-value">
 							<div class="form-check form-switch">
 								<input type="checkbox" class="form-check-input" id="settingSidebarVisible">
-								<label for="settingSidebarVisible" class="form-check-label">Visible</label>
+								<label for="settingSidebarVisible" class="form-check-label" data-i18n="settings.sidebar.visible">Visible</label>
 							</div>
 							<div class="form-check">
 								<input type="radio" class="form-check-input" id="settingSidebarLeft" name="settingSidebar">
-								<label for="settingSidebarLeft" class="form-check-label">Left</label>
+								<label for="settingSidebarLeft" class="form-check-label" data-i18n="settings.sidebar.left">Left</label>
 							</div>
 							<div class="form-check">
 								<input type="radio" class="form-check-input" id="settingSidebarRight" name="settingSidebar">
-								<label for="settingSidebarRight" class="form-check-label">Right</label>
+								<label for="settingSidebarRight" class="form-check-label" data-i18n="settings.sidebar.right">Right</label>
 							</div>
 						</div>
-						<div class="setting-key">Thumbnails</div>
+						<div class="setting-key" data-i18n="settings.thumbnails.key">Thumbnails</div>
 						<div class="setting-value">
 							<div class="form-check form-switch">
 								<input type="checkbox" class="form-check-input" id="settingThumbnailsVisible">
-								<label for="settingThumbnailsVisible" class="form-check-label">Visible</label>
+								<label for="settingThumbnailsVisible" class="form-check-label" data-i18n="settings.thumbnails.visible">Visible</label>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button class="btn btn-sm btn-success" data-bs-dismiss="modal" id="settingsSave">Save</button>
+						<button class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal" data-i18n="settings.cancel">Cancel</button>
+						<button class="btn btn-sm btn-success" data-bs-dismiss="modal" id="settingsSave" data-i18n="settings.save">Save</button>
 					</div>
 				</div>
 			</div>

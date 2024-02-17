@@ -1,7 +1,38 @@
 {
 	"resources": {
 		"taro": {
-			"subBranding": "Fotó rendezés és cimkézés"
+			"subBranding": "Fotó rendszerezés és kezelés",
+			"openFolder": "Mappa megnyitása",
+			"darkMode": "Sötét mód",
+			"getHelp": "Segítség"
+		},
+		"sidebar": {
+			"details": "Részletek",
+			"noImage": "Nincs kép",
+			"tags": "Cimkék",
+			"rating": "Értékelés",
+			"location": "Helyszín",
+			"description": "Leírás"
+		},
+		"settings": {
+			"title": "Beállítások",
+			"darkMode": {
+				"key": "Sötét Mód",
+				"light": "Világos",
+				"dark": "Sötét"
+			},
+			"sidebar": {
+				"key": "Oldalsáv",
+				"visible": "Látható",
+				"left": "Balra",
+				"right": "Jobbra"
+			},
+			"thumbnails": {
+				"key": "Bélyegképek",
+				"visible": "Látható"
+			},
+			"cancel": "Mégse",
+			"save": "Mentés"
 		}
 	}
 }
