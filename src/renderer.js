@@ -7,8 +7,10 @@ import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
 import { settings } from './renderer/settings';
 import { support } from './renderer/support';
+import { i18n } from './renderer/i18n';
 
 folder.unloadFolder();
+i18n.changeLanguage("hu");
 
 window.listen.openFolder((folderInfo) => {
 	folder.loadFolder(folderInfo);
