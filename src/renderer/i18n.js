@@ -1,3 +1,4 @@
+import { AppSettingsConstant } from "../data/appsettingsConstants";
 import { $, $$ } from "./shorthand";
 
 class Internationalization {
@@ -7,9 +8,10 @@ class Internationalization {
 	];
 
 	constructor() {
-		import("../data/i18n/en.json")
-			.then((data) => data.resources)
-			.then((resources) => this.#refresh(resources));
+		window.listen.applySetting((key, value) => this.#applySetting(key, value));
+		// import("../data/i18n/en.json")
+		// 	.then((data) => data.resources)
+		// 	.then((resources) => this.#refresh(resources));
 	}
 
 	changeLanguage(targetLanguage) {
@@ -18,6 +20,10 @@ class Internationalization {
 		import(`../data/i18n/${targetLanguage}.json`)
 			.then((data) => data.resources)
 			.then((resources) => this.#refresh(resources));
+	}
+
+	#applySetting(key, value) {
+		if (key == AppSettingsConstant.LANGUAGE) this.changeLanguage(value);
 	}
 
 	#refresh(resources) {

@@ -10,7 +10,7 @@ import { i18n } from './renderer/i18n';
 import { appSettingsInRenderer } from "./renderer/appSettingsInRenderer";
 
 folder.unloadFolder();
-i18n.changeLanguage("hu");
+// i18n.changeLanguage("hu");
 
 window.listen.openFolder((folderInfo) => {
 	folder.loadFolder(folderInfo);

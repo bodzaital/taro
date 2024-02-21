@@ -17,6 +17,7 @@ class AppSettingsInRenderer {
 			darkRadio: $("#settingDarkModeDark"),
 			lightRadio: $("#settingDarkModeLight"),
 		},
+		language: $("#settingLanguage")
 	};
 
 	constructor() {
@@ -43,6 +44,10 @@ class AppSettingsInRenderer {
 			this.#controls.darkMode.darkRadio.checked = value == "dark";
 			this.#controls.darkMode.lightRadio.checked = value == "light";
 		}
+
+		if (key == AppSettingsConstant.LANGUAGE) {
+			this.#controls.language.value = value;
+		}
 	}
 
 	#saveSettings() {
@@ -50,7 +55,8 @@ class AppSettingsInRenderer {
 			{ "key": AppSettingsConstant.SIDEBAR_VISIBLE, "value": this.#getSidebarVisible() },
 			{ "key": AppSettingsConstant.THUMBNAILS_VISIBLE, "value": this.#getThumbnailsVisible() },
 			{ "key": AppSettingsConstant.SIDEBAR_POSITION, "value": this.#getSidebarPosition() },
-			{ "key": AppSettingsConstant.DARK_MODE, "value": this.#getDarkMode() }
+			{ "key": AppSettingsConstant.DARK_MODE, "value": this.#getDarkMode() },
+			{ "key": AppSettingsConstant.LANGUAGE, "value": this.#getLanguage() },
 		]);
 	}
 
@@ -72,6 +78,10 @@ class AppSettingsInRenderer {
 		return this.#controls.darkMode.darkRadio.checked
 			? "dark"
 			: "light";
+	}
+
+	#getLanguage() {
+		return this.#controls.language.value;
 	}
 }
 

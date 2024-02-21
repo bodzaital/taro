@@ -31,6 +31,9 @@
 				"key": "Thumbnails",
 				"visible": "Visible"
 			},
+			"language": {
+				"key": "Language"
+			},
 			"cancel": "Cancel",
 			"save": "Save"
 		}

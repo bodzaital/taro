@@ -48,6 +48,7 @@ class AppSettings {
 		this.#applyIsThumbnailsVisible();
 		this.#applyIsSidebarVisible();
 		this.#applySidebarPosition();
+		this.#applyLanguage();
 	}
 
 	#write() {
@@ -97,6 +98,14 @@ class AppSettings {
 			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, value]);
 		}, () => {
 			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, "right"]);
+		});
+	}
+
+	#applyLanguage() {
+		this.#applySetting(AppSettingsConstant.LANGUAGE, (value) => {
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.LANGUAGE, value]);
+		}, () => {
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.LANGUAGE, "en"]);
 		});
 	}
 
