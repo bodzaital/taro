@@ -130,6 +130,11 @@ class IO {
 
 		return [...new Set(listOfListOfTags)];
 	}
+
+	openSettingsJson() {
+		const userData = app.getPath("userData");
+		exec(`open "${userData}"`);
+	}
 }
 
 export const io = new IO();

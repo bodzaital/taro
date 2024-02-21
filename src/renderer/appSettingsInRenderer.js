@@ -3,6 +3,7 @@ import { $, $$ } from "./shorthand";
 
 class AppSettingsInRenderer {
 	#saveButton = $("#settingsSave");
+	#openJson = $("#settingOpenJson");
 
 	#controls = {
 		sidebarVisibleCheckbox: $("#settingSidebarVisible"),
@@ -22,6 +23,10 @@ class AppSettingsInRenderer {
 
 	constructor() {
 		this.#saveButton.addEventListener("click", () => this.#saveSettings());
+
+		this.#openJson.addEventListener("click", () => {
+			window.invoke.openSettingsJson();
+		});
 
 		window.listen.applySetting((key, value) => this.#setControls(key, value));
 	}

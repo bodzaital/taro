@@ -22,4 +22,5 @@ contextBridge.exposeInMainWorld("invoke", {
 	getMetadata: (folder, photo) => ipcRenderer.invoke(IpcToMain.GET__METADATA, folder, photo),
 	writeMetadata: (folder, metadata) => ipcRenderer.invoke(IpcToMain.WRITE__METADATA, folder, metadata),
 	getEveryTag: (folder) => ipcRenderer.invoke(IpcToMain.GET__EVERY_TAG, folder),
+	openSettingsJson: () => ipcRenderer.invoke(IpcToMain.OPEN__SETTINGS_JSON),
 });

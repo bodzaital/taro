@@ -25,6 +25,7 @@ class IPC {
 		ipcMain.handle(IpcToMain.GET__METADATA, (_, folder, photo) => io.getMetadataHandler(folder, photo));
 		ipcMain.handle(IpcToMain.WRITE__METADATA, (_, folder, metadata) => io.writeMetadataHandler(folder, metadata));
 		ipcMain.handle(IpcToMain.GET__EVERY_TAG, (_, folder) => io.getAllTagsHandler(folder));
+		ipcMain.handle(IpcToMain.OPEN__SETTINGS_JSON, () => io.openSettingsJson());
 
 		// ABSOLUTELY REFACTOR THIS. THIS IS UGLY AND BAD.
 		ipcMain.handle(IpcToMain.TOGGLE__WELCOME_DARK_MODE, () => {

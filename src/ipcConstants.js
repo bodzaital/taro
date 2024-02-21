@@ -17,4 +17,5 @@ export class IpcToMain {
 	static GET__METADATA = "getMetadata";
 	static WRITE__METADATA = "writeMetadata";
 	static GET__EVERY_TAG = "getEveryTag";
+	static OPEN__SETTINGS_JSON = "openSettingsJson";
 }
