@@ -1,22 +1,12 @@
-import { folder } from '../folder';
 import { $, $$ } from '../shorthand';
-import { sidebar } from '../sidebar';
+import { metadata } from './metadata';
 
 class Description {
 	#element = $("#metadataDescription");
 
 	constructor() {
 		this.#element.addEventListener("keyup", () => {
-			sidebar.metadata.description = this.#element.value;
-			sidebar.writeMetadata();
-		});
-
-		window.addEventListener("folderLoaded", () => {
-			this.loadFolder();
-		});
-
-		window.addEventListener("folderUnloaded", () => {
-			this.unloadFolder();
+			metadata.setDescription(this.#element.value.trim());
 		});
 
 		this.#element.addEventListener("keydown", (e) => {
@@ -24,10 +14,13 @@ class Description {
 
 			this.#element.select();
 		});
+
+		window.addEventListener("folderLoaded", () => this.loadFolder());
+		window.addEventListener("folderUnloaded", () => this.unloadFolder());
 	}
 
 	#hasPressedCtrlOrCmdA(e) {
-		return e.key == "a" && (e.ctrlKey || e.metaKey);
+		return (e.ctrlKey || e.metaKey) && e.key == "a";
 	}
 
 	setDescriptionValue(value) {

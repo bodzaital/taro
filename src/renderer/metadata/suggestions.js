@@ -1,7 +1,7 @@
 import Control from "../control";
 import { folder } from "../folder";
 import { $ } from "../shorthand";
-import { sidebar } from "../sidebar";
+import { metadata } from "./metadata";
 import { tagging } from "./tagging";
 
 // TODO: tagging/suggestions refactor.
@@ -31,13 +31,8 @@ class Suggestions {
 			if (addedTag) this.hideSuggestions();
 		});
 
-		window.addEventListener("keydown", (e) => {
-			this.#selectSuggestions(e, true);
-		});
-
-		window.addEventListener("keyup", (e) => {
-			this.#selectSuggestions(e);
-		});
+		window.addEventListener("keydown", (e) => this.#selectSuggestions(e, true));
+		window.addEventListener("keyup", (e) => this.#selectSuggestions(e));
 	}
 
 	getSelectedSuggestion() {
@@ -92,7 +87,7 @@ class Suggestions {
 		this.#tagList = await this.#getSuggestions(value);
 		if (this.#tagList == null) return;
 
-		this.#tagList = this.#tagList.filter((x) => !sidebar.metadata.tags.includes(x));
+		this.#tagList = this.#tagList.filter((x) => !metadata.hasTag(x));
 
 		if (!this.#tagList.includes(value)) this.#tagList = [value, ...this.#tagList];
 

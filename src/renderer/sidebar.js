@@ -11,7 +11,6 @@ class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
 	#viewer = $(".viewer");
 	#isSidebarOpen = true;
-	metadata = null;
 
 	photoName = $("#photo-name");
 
@@ -65,22 +64,6 @@ class Sidebar {
 				data.ExposureProgram?.description
 			);
 		});
-	}
-
-	loadMetadata(photo) {
-		window.invoke.getMetadata(folder.folderInfo.folderPath, photo).then((metadata) => {
-			this.metadata = metadata;
-			console.log("Loaded metadata:", this.metadata);
-
-			rating.setRatingValue(this.metadata.rating);
-			description.setDescriptionValue(this.metadata.description);
-			tagging.createTags(...this.metadata.tags);
-			location.setLocationValue(this.metadata.location);
-		});
-	}
-
-	writeMetadata() {
-		window.invoke.writeMetadata(folder.folderInfo.folderPath, this.metadata);
 	}
 
 	#loadFolder() {

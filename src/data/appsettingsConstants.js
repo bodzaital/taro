@@ -3,4 +3,5 @@ export class AppSettingsConstant {
 	static THUMBNAILS_VISIBLE = "isThumbnailsVisible";
 	static SIDEBAR_VISIBLE = "isSidebarVisible";
 	static SIDEBAR_POSITION = "sidebarPosition";
+	static LANGUAGE = "language";
 }

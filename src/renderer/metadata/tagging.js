@@ -1,7 +1,7 @@
 import Control from "../control";
 import { notifications } from "../inAppNotifications";
 import { $ } from "../shorthand";
-import { sidebar } from "../sidebar";
+import { metadata } from "./metadata";
 import { suggestions } from "./suggestions";
 
 class Tagging {
@@ -10,14 +10,6 @@ class Tagging {
 	#focusContainer = $(".tag-focus-container");
 
 	constructor() {
-		window.addEventListener("folderUnloaded", () => {
-			this.#folderUnloaded();
-		});
-		
-		window.addEventListener("folderLoaded", () => {
-			this.#folderLoaded();
-		});
-
 		this.#cloud.addEventListener("click", (e) => {
 			const tagDismiss = e.target.closest(".tag-dismiss");
 			if (tagDismiss == null) return;
@@ -39,7 +31,9 @@ class Tagging {
 		});
 
 		this.#input.addEventListener("keyup", async (e) => {
-			if (e.key == "Enter") this.tryAddTag(suggestions.getSelectedSuggestion());
+			if (e.key == "Enter") {
+				this.tryAddTag(suggestions.getSelectedSuggestion());
+			}
 		});
 		
 		this.#input.addEventListener("input", () => {
@@ -51,6 +45,9 @@ class Tagging {
 
 			this.#input.select();
 		});
+
+		window.addEventListener("folderUnloaded", () => this.#folderUnloaded());
+		window.addEventListener("folderLoaded", () => this.#folderLoaded());
 	}
 
 	#hasPressedCtrlOrCmdA(e) {
@@ -68,7 +65,7 @@ class Tagging {
 	}
 
 	tryAddTag(name) {
-		if (!this.#canAddTag(name)) {
+		if (!metadata.canAddTag(name)) {
 			notifications.create(`Cannot tag this photo with "${name}"`, "danger");
 			return false;
 		}
@@ -80,27 +77,18 @@ class Tagging {
 		return true;
 	}
 
-	#canAddTag(name) {
-		const doesInclude = sidebar.metadata.tags.includes(name);
-		const isEmpty = name.length == 0;
-
-		return !doesInclude && !isEmpty;
-	}
-
 	#insertElement(name) {
 		this.#cloud.appendChild(this.#createElement(name));
 	}
 
 	#addTag(name) {
 		this.#insertElement(name);
-		sidebar.metadata.tags.push(name);
-		sidebar.writeMetadata();
+		metadata.addTag(name);
 	}
 
 	#removeTag(name) {
 		$(`[data-tag='${name}']`, this.#cloud).remove();
-		sidebar.metadata.tags = sidebar.metadata.tags.filter((tag) => tag != name);
-		sidebar.writeMetadata();
+		metadata.removeTag(name);
 	}
 
 	#folderLoaded() {
@@ -109,7 +97,8 @@ class Tagging {
 
 	#folderUnloaded() {
 		this.#input.disabled = true;
-		// this.#reset.disabled = true;
+		
+		this.#input.value = "";
 		this.#cloud.innerText = "";
 	}
 

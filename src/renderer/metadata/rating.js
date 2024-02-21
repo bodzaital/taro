@@ -1,22 +1,16 @@
 import { $, $$ } from '../shorthand';
-import { sidebar } from '../sidebar';
+import { metadata } from './metadata';
 
 class Rating {
 	#radioes = $$("input[name='rating']");
 
 	constructor() {
 		this.#radioes.forEach((x) => x.addEventListener("click", () => {
-			sidebar.metadata.rating = x.value;
-			sidebar.writeMetadata()
+			metadata.setRating(x.value);
 		}));
 
-		window.addEventListener("folderLoaded", () => {
-			this.#loadFolder();
-		});
-
-		window.addEventListener("folderUnloaded", () => {
-			this.#unloadFolder();
-		});
+		window.addEventListener("folderLoaded", () => this.#loadFolder());
+		window.addEventListener("folderUnloaded", () => this.#unloadFolder());
 	}
 
 	getRatingValue() {

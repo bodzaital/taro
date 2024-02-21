@@ -3,6 +3,7 @@ import Control from "./control";
 import { folder } from "./folder";
 import { description } from "./metadata/description";
 import { location } from "./metadata/location";
+import { metadata } from "./metadata/metadata";
 import { tagging } from "./metadata/tagging";
 import { $, $$ } from "./shorthand";
 import { sidebar } from "./sidebar";
@@ -136,7 +137,7 @@ class Thumbnail {
 		this.activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
 		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
-		sidebar.loadMetadata(selectedThumbnail.dataset.name);
+		metadata.loadMetadata(selectedThumbnail.dataset.name);
 		sidebar.photoName.innerText = selectedThumbnail.dataset.name;
 	}
 

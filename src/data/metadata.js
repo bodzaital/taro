@@ -3,7 +3,7 @@ export default class Metadata {
 		this.photo = photo;
 		this.tags = [];
 		this.rating = 0;
-		this.location = [];
+		this.location = "";
 		this.description = "";
 		this.created = created;
 	}
