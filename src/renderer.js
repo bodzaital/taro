@@ -5,9 +5,9 @@ import { $ } from './renderer/shorthand';
 import { notifications } from './renderer/inAppNotifications';
 import { thumbnail } from './renderer/thumbnail';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
-import { settings } from './renderer/settings';
 import { support } from './renderer/support';
 import { i18n } from './renderer/i18n';
+import { appSettingsInRenderer } from "./renderer/appSettingsInRenderer";
 
 folder.unloadFolder();
 i18n.changeLanguage("hu");

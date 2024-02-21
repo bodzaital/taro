@@ -43,9 +43,7 @@ class Thumbnail {
 		});
 
 		this.#thumbnailsToggleButton.addEventListener("click", () => {
-			this.toggleThumbnail(!this.#isThumbnailsOpen);
-			
-			window.invoke.saveSetting("isThumbnailsVisible", this.#isThumbnailsOpen);
+			window.invoke.saveSetting("isThumbnailsVisible", !this.#isThumbnailsOpen);
 		});
 
 		window.addEventListener("folderLoaded", () => {
@@ -57,7 +55,7 @@ class Thumbnail {
 		});
 
 		window.listen.applySetting((key, value) => {
-			if (key == AppSettingsConstant.THUMBNAILS_VISILE) this.toggleThumbnail(value);
+			if (key == AppSettingsConstant.THUMBNAILS_VISIBLE) this.toggleThumbnail(value);
 		});
 	}
 

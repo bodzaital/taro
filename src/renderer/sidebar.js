@@ -1,12 +1,11 @@
 import { AppSettingsConstant } from '../data/appsettingsConstants';
-import Control from './control';
 import { folder } from './folder';
 import { description } from './metadata/description';
 import { location } from './metadata/location';
 import { rating } from './metadata/rating';
 import { tagging } from './metadata/tagging';
 import { exif } from "./metadata/exif";
-import { $, $$ } from './shorthand';
+import { $ } from './shorthand';
 
 class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
@@ -17,28 +16,17 @@ class Sidebar {
 	photoName = $("#photo-name");
 
 	constructor() {
-		
 		this.#sidebarToggleButton.addEventListener("click", () => {
-			this.toggleSidebar(!this.#isSidebarOpen);
-			
-			window.invoke.saveSetting("isSidebarVisible", this.#isSidebarOpen);
+			window.invoke.saveSetting("isSidebarVisible", !this.#isSidebarOpen);
 		});
 
-		window.addEventListener("folderLoaded", () => {
-			this.loadFolder();
-		});
+		window.addEventListener("folderLoaded", () => this.#loadFolder());
+		window.addEventListener("folderUnloaded", () => this.#unloadFolder());
 
-		window.addEventListener("folderUnloaded", () => {
-			this.unloadFolder();
-		});
-
-		window.listen.applySetting((key, value) => {
-			if (key == AppSettingsConstant.SIDEBAR_VISIBLE) this.toggleSidebar(value);
-			if (key == AppSettingsConstant.SIDEBAR_POSITION) this.changePosition(value);
-		});
+		window.listen.applySetting((key, value) => this.#applySetting(key, value));
 	}
 
-	toggleSidebar(state) {
+	#toggleSidebar(state) {
 		this.#isSidebarOpen = state;
 
 		if (this.#isSidebarOpen) {
@@ -50,7 +38,7 @@ class Sidebar {
 		}
 	}
 
-	changePosition(value) {
+	#changePosition(value) {
 		if (value == "left") {
 			this.#viewer.classList.add("left-sidebar");
 		} else {
@@ -95,11 +83,17 @@ class Sidebar {
 		window.invoke.writeMetadata(folder.folderInfo.folderPath, this.metadata);
 	}
 
-	loadFolder() {
+	#loadFolder() {
 	}
 
-	unloadFolder() {
+	#unloadFolder() {
+		// TODO: how to internationalize this?
 		this.photoName.innerText = "No image";
+	}
+
+	#applySetting(key, value) {
+		if (key == AppSettingsConstant.SIDEBAR_VISIBLE) this.#toggleSidebar(value);
+		if (key == AppSettingsConstant.SIDEBAR_POSITION) this.#changePosition(value);
 	}
 }
 

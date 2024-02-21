@@ -2,10 +2,10 @@ import { Menu, app } from "electron";
 import path from "path";
 import fs from "fs";
 import { ipc } from "./ipc";
-import { CH_APPLY_SETTING, IpcToMain, IpcToRenderer } from "../ipcConstants";
+import { IpcToRenderer } from "../ipcConstants";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
-export class AppSettings {
+class AppSettings {
 	#appSettings = null;
 
 	apply() {
