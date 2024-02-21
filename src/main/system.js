@@ -20,7 +20,7 @@ class System {
 		app.setAboutPanelOptions({
 			applicationName: "taro - Photography Organization",
 			applicationVersion: "Alpha",
-			version: "v0.2",
+			version: "v0.2.1",
 			credits: "",
 			copyright: "Copyright ©️ 2023-2024 - Zsolt Boda"
 		});

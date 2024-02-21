@@ -1,6 +1,6 @@
 # taro
 
-Current version: `Alpha - v0.2`
+Current version: `Alpha - v0.2.1`
 
 ![](docs/screenshot-v0.2.png)
 
@@ -16,7 +16,7 @@ Alpha
 - [x] Assign meta data to images.
 
 Beta
-- [ ] Settings page (in progress).
+- [x] Settings page.
 - [ ] Search for images by meta data.
 - [ ] Export images by a certain criteria.
 - [ ] Internationalization
