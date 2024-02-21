@@ -19,6 +19,7 @@ Beta
 - [ ] Settings page (in progress).
 - [ ] Search for images by meta data.
 - [ ] Export images by a certain criteria.
+- [ ] Internationalization
 
 v1.0
 - [ ] Polished code (hopefully no bugs).
