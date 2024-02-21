@@ -75,11 +75,11 @@ class AppSettings {
 	}
 
 	#applyIsThumbnailsVisible() {
-		this.#applySetting(AppSettingsConstant.THUMBNAILS_VISILE, (value) => {
+		this.#applySetting(AppSettingsConstant.THUMBNAILS_VISIBLE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/thumbnails").checked = value;
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISIBLE, value]);
 		}, () => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISILE, true]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISIBLE, true]);
 		});
 	}
 	
