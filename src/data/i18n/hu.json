@@ -34,6 +34,10 @@
 			"language": {
 				"key": "Nyelv"
 			},
+			"edit": {
+				"key": "Beállítások",
+				"value": "A settings.json megnyitása"
+			},
 			"cancel": "Mégse",
 			"save": "Mentés"
 		}

@@ -34,6 +34,10 @@
 			"language": {
 				"key": "Language"
 			},
+			"edit": {
+				"key": "Edit Settings",
+				"value": "Open settings.json"
+			},
 			"cancel": "Cancel",
 			"save": "Save"
 		}
