@@ -48,7 +48,7 @@ class Thumbnail {
 		});
 
 		window.addEventListener("folderLoaded", () => {
-			this.loadFolder(folder.folderInfo.imageURIs);
+			this.loadFolder(folder.listOfImageURIs);
 		});
 
 		window.addEventListener("folderUnloaded", () => {

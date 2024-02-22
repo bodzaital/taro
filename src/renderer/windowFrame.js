@@ -48,7 +48,7 @@ class WindowFrame {
 		});
 
 		window.addEventListener("folderLoaded", () => {
-			this.loadFolder(folder.folderInfo.folderName);
+			this.loadFolder(folder.baseName);
 		});
 
 		window.addEventListener("folderUnloaded", () => {

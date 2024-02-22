@@ -44,7 +44,7 @@ class IPC {
 		});
 	}
 
-	raise(channel, args = null) {
+	raise(channel, ...args) {
 		this.#mainWindow.webContents.send(channel, args);
 	}
 }

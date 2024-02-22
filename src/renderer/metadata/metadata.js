@@ -14,7 +14,7 @@ class Metadata {
 
 	/** Loads the photo's metadata and calls the necessary functions to show the values. */
 	loadMetadata(photoName) {
-		window.invoke.getMetadata(folder.folderInfo.folderPath, photoName).then((data) => {
+		window.invoke.getMetadata(folder.folderPath, photoName).then((data) => {
 			this.#metadata = data;
 			console.log("metadata.js loaded:", this.#metadata);
 
@@ -26,7 +26,7 @@ class Metadata {
 	}
 
 	#writeMetadata() {
-		window.invoke.writeMetadata(folder.folderInfo.folderPath, this.#metadata);
+		window.invoke.writeMetadata(folder.folderPath, this.#metadata);
 	}
 
 	addTag(value) {

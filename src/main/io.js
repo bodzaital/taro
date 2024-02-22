@@ -1,8 +1,7 @@
 import { Menu, app, dialog, net, protocol } from "electron";
 import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToRenderer } from "../ipcConstants";
-import path from "path";
+import path, { basename } from "path";
 import { ipc } from "./ipc";
-import FolderInfo from "../data/folderInfo";
 import fs from "fs";
 import Metadata from "../data/metadata";
 import ExifReader from "exifreader";
@@ -45,8 +44,12 @@ class IO {
 		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = true;
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = true;
 
-		const baseName = path.basename(folderPath);
-		ipc.raise(IpcToRenderer.OPEN__FOLDER, [new FolderInfo(folderPath, baseName, listOfImageURIs)]);
+		ipc.raise(
+			IpcToRenderer.OPEN__FOLDER,
+			folderPath,
+			path.basename(folderPath),
+			listOfImageURIs
+		);
 	}
 	
 	closeFolderHandler() {

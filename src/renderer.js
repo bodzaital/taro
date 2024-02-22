@@ -12,8 +12,8 @@ import { appSettingsInRenderer } from "./renderer/appSettingsInRenderer";
 folder.unloadFolder();
 // i18n.changeLanguage("hu");
 
-window.listen.openFolder((folderInfo) => {
-	folder.loadFolder(folderInfo);
+window.listen.openFolder((folderPath, baseName, listOfImageURIs) => {
+	folder.loadFolder(folderPath, baseName, listOfImageURIs);
 });
 
 window.listen.closeFolder(() => {

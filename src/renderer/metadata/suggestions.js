@@ -76,7 +76,7 @@ class Suggestions {
 	async #getSuggestions(value = null) {
 		if (value == null || value.length == 0) return null;
 		
-		return await window.invoke.getEveryTag(folder.folderInfo.folderPath).then((tags) => {
+		return await window.invoke.getEveryTag(folder.folderPath).then((tags) => {
 			return tags.filter((x) => x.includes(value)).slice(0, Suggestions.#SUGGESTION_LIMIT);
 		});
 	}
