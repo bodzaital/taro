@@ -67,45 +67,45 @@ class AppSettings {
 	#applyDarkMode() {
 		this.#applySetting(AppSettingsConstant.DARK_MODE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value == "dark";
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.DARK_MODE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.DARK_MODE, value);
 		}, () => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = false;
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.DARK_MODE, "light"]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.DARK_MODE, "light");
 		});
 	}
 
 	#applyIsThumbnailsVisible() {
 		this.#applySetting(AppSettingsConstant.THUMBNAILS_VISIBLE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/thumbnails").checked = value;
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISIBLE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.THUMBNAILS_VISIBLE, value);
 		}, () => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.THUMBNAILS_VISIBLE, true]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.THUMBNAILS_VISIBLE, true);
 		});
 	}
 	
 	#applyIsSidebarVisible() {
 		this.#applySetting(AppSettingsConstant.SIDEBAR_VISIBLE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/sidebar").checked = value;
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.SIDEBAR_VISIBLE, value);
 		}, () => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_VISIBLE, true]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.SIDEBAR_VISIBLE, true);
 		});
 	}
 
 	#applySidebarPosition() {
 		this.#applySetting(AppSettingsConstant.SIDEBAR_POSITION, (value) => {
 			Menu.getApplicationMenu().getMenuItemById(`view/sidebar-position/${value}`).checked = true;
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.SIDEBAR_POSITION, value);
 		}, () => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.SIDEBAR_POSITION, "right"]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.SIDEBAR_POSITION, "right");
 		});
 	}
 
 	#applyLanguage() {
 		this.#applySetting(AppSettingsConstant.LANGUAGE, (value) => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.LANGUAGE, value]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.LANGUAGE, value);
 		}, () => {
-			ipc.raise(IpcToRenderer.APPLY__SETTING, [AppSettingsConstant.LANGUAGE, "en"]);
+			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.LANGUAGE, "en");
 		});
 	}
 

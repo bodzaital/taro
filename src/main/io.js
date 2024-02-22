@@ -28,7 +28,7 @@ class IO {
 	openFolderHandler() {
 		const folderPath = this.#getFolderPathFromDialog();
 		if (folderPath == null) {
-			ipc.raise(IpcToRenderer.SHOW__ALERT, ["Opening a folder is canceled.", "info"]);
+			ipc.raise(IpcToRenderer.SHOW__ALERT, "Opening a folder is canceled.", "info");
 			return;
 		}
 
@@ -37,7 +37,7 @@ class IO {
 		const listOfImageURIs = this.#getListOfImageURIs(folderPath);
 		
 		if (listOfImageURIs.length == 0) {
-			ipc.raise(IpcToRenderer.SHOW__ALERT, ["There are no images in this folder.", "warning"]);
+			ipc.raise(IpcToRenderer.SHOW__ALERT, "There are no images in this folder.", "warning");
 			return;
 		}
 		
