@@ -1,10 +1,6 @@
-const { app, BrowserWindow, Menu } = require('electron');
-// const { registerAboutPanel, registerMenu } = require('./main/system');
-// const { registerTaroProtocol } = require('./main/io');
+const { app, BrowserWindow } = require('electron');
 const { ipc } = require('./main/ipc');
 const { io } = require('./main/io');
-const { CH_TOGGLE_DARK_MODE } = require('./ipcConstants');
-const { appSettings } = require('./main/appsettings');
 const { system } = require('./main/system');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -35,11 +31,6 @@ const createWindow = () => {
 	system.registerOnStartup(mainWindow);
 
 	ipc.register();
-
-	// TODO: (settings) refactor into separate class for waiting for the DOM.
-	mainWindow.webContents.once("dom-ready", () => {
-		appSettings.apply();
-	});
 };
 
 // This method will be called when Electron has finished

@@ -9,6 +9,8 @@ import { support } from './renderer/support';
 import { i18n } from './renderer/i18n';
 import { appSettingsInRenderer } from "./renderer/appSettingsInRenderer";
 
+window.invoke.applySettings();
+
 folder.unloadFolder();
 
 window.listen.openFolder((folderPath, baseName, listOfImageURIs) => {
