@@ -7,43 +7,59 @@ class Internationalization {
 		"hu",
 	];
 
+	#resources = null;
+	#callbacks = [];
+
 	constructor() {
 		window.listen.applySetting((key, value) => this.#applySetting(key, value));
-		// import("../data/i18n/en.json")
-		// 	.then((data) => data.resources)
-		// 	.then((resources) => this.#refresh(resources));
 	}
 
-	changeLanguage(targetLanguage) {
+	/** Registers a promise to when the language file is loaded. If the supplied
+	 * key is not found, the promise is rejected. */
+	register(key, resolve, reject) {
+		this.#callbacks.push({
+			"key": key,
+			"resolve": resolve,
+			"reject": reject
+		});
+	}
+
+	#changeLanguage(targetLanguage) {
 		if (!this.#knownLanguages.includes(targetLanguage)) targetLanguage = "en";
 
 		import(`../data/i18n/${targetLanguage}.json`)
-			.then((data) => data.resources)
-			.then((resources) => this.#refresh(resources));
+			.then((data) => this.#cache(data))
+			.then(() => this.#reload());
+	}
+
+	#cache(data) {
+		this.#resources = data.resources;
 	}
 
 	#applySetting(key, value) {
-		if (key == AppSettingsConstant.LANGUAGE) this.changeLanguage(value);
+		if (key == AppSettingsConstant.LANGUAGE) this.#changeLanguage(value);
 	}
 
-	#refresh(resources) {
-		const elements = Array.from($$("[data-i18n]"));
+	#reload() {
+		this.#callbacks.forEach((callback) => {
+			const text = this.#resolveKeyPath(callback.key, this.#resources);
+			this.#setCallbackValue(text, callback);
+		});
 
-		elements.forEach((element) => {
-			const text = this.#resolve(element.dataset.i18n, resources);
-
-			this.#set(text, element);
+		Array.from($$("[data-i18n]")).forEach((element) => {
+			const text = this.#resolveKeyPath(element.dataset.i18n, this.#resources);
+			this.#setElementValue(text, element);
 		});
 	}
 
 	/** Resolves the value of a path of keys in an object. Source: https://stackoverflow.com/a/45322101 */
-	#resolve(path, object) {
+	#resolveKeyPath(path, object) {
 		return path.split(".").reduce((a, c) => {
 			return a ? a[c] : null;
 		}, object || self);
 	}
 
-	#set(text, element) {
+	#setElementValue(text, element) {
 		if (text == undefined) return;
 
 		if (element.dataset.i18nTarget) {
@@ -51,6 +67,15 @@ class Internationalization {
 		} else {
 			element.innerText = text;
 		}
+	}
+
+	#setCallbackValue(text, callback) {
+		if (text == undefined) {
+			callback.reject();
+			return;
+		}
+
+		callback.resolve(text);
 	}
 }
 

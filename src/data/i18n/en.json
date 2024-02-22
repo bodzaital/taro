@@ -12,7 +12,11 @@
 			"tags": "Tags",
 			"rating": "Rating",
 			"location": "Location",
-			"description": "Description"
+			"description": "Description",
+			"tooltip": {
+				"unknownDateAndTime": "Unknown date and time",
+				"unknownLensModel": "Unknown lens model"
+			}
 		},
 		"settings": {
 			"title": "Settings",

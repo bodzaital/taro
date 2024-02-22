@@ -1,4 +1,5 @@
 import Control from "../control";
+import { i18n } from "../i18n";
 import { $ } from "../shorthand";
 
 class EXIF {
@@ -67,8 +68,17 @@ class EXIF {
 			this.#controls[key].appendChild(this.#placeholder.cloneNode());
 		}
 
-		this.#tooltips.timeOnly.setContent({ ".tooltip-inner": "Unknown date and time" });
-		this.#tooltips.lensModel.setContent({ ".tooltip-inner": "Unknown lens model" });
+		i18n.register("sidebar.tooltip.unknownDateAndTime", (text) => {
+			this.#tooltips.timeOnly.setContent({ ".tooltip-inner": text });
+		}, () => {
+			this.#tooltips.timeOnly.setContent({ ".tooltip-inner": "Unknown date and time" });
+		});
+
+		i18n.register("sidebar.tooltip.unknownLensModel", (text) => {
+			this.#tooltips.lensModel.setContent({ ".tooltip-inner": text });
+		}, () => {
+			this.#tooltips.lensModel.setContent({ ".tooltip-inner": "Unknown lens model" });
+		});
 	}
 
 	loadFolder() {

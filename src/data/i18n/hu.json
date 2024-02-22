@@ -12,7 +12,11 @@
 			"tags": "Cimkék",
 			"rating": "Értékelés",
 			"location": "Helyszín",
-			"description": "Leírás"
+			"description": "Leírás",
+			"tooltip": {
+				"unknownDateAndTime": "Ismeretlen dátum és idő",
+				"unknownLensModel": "Ismeretlen objektív"
+			}
 		},
 		"settings": {
 			"title": "Beállítások",
