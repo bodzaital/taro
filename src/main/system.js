@@ -88,6 +88,12 @@ class System {
 					accelerator: "CmdOrCtrl+Alt+R",
 					id: "file/reveal-folder",
 					enabled: false
+				},
+				{
+					label: "Eject and close folder...",
+					click: () => io.confirmEjectFolder(),
+					id: "file/eject-folder",
+					enabled: false
 				}
 			]
 		}];

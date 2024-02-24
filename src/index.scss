@@ -45,6 +45,17 @@
 	transform: none;
 }
 
+#confirmModal
+{
+	.modal-body
+	{
+		p:last-of-type
+		{
+			margin: 0;
+		}
+	}
+}
+
 #settingsModal
 {
 	.modal-body

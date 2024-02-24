@@ -5,6 +5,7 @@ export class IpcToRenderer {
 	static SHOW__ALERT = "showAlert";
 	static APPLY__SETTING = "applySetting";
 	static SHOW__SETTINGS_MODAL = "showSettingsModal";
+	static SHOW__CONFIRM_DIALOG = "showConfirmDialog";
 }
 
 export class IpcToMain {
@@ -19,4 +20,5 @@ export class IpcToMain {
 	static GET__EVERY_TAG = "getEveryTag";
 	static OPEN__SETTINGS_JSON = "openSettingsJson";
 	static APPLY__SETTINGS = "applySettings";
+	static REPLY__CONFIRM_DIALOG = "replyConfirmDialog";
 }

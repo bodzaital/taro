@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld("listen", {
 	showAlert: (callback) => ipcRenderer.on(IpcToRenderer.SHOW__ALERT, (_, args) => callback(...args)),
 	applySetting: (callback) => ipcRenderer.on(IpcToRenderer.APPLY__SETTING, (_, args) => callback(...args)),
 	showSettingsModal: (callback) => ipcRenderer.on(IpcToRenderer.SHOW__SETTINGS_MODAL, () => callback()),
+	showConfirmDialog: (callback) => ipcRenderer.on(IpcToRenderer.SHOW__CONFIRM_DIALOG, (_, args) => callback(...args)),
 });
 
 // Renderer -> Main ( -> Renderer)
@@ -24,4 +25,5 @@ contextBridge.exposeInMainWorld("invoke", {
 	writeMetadata: (folder, metadata) => ipcRenderer.invoke(IpcToMain.WRITE__METADATA, folder, metadata),
 	getEveryTag: (folder) => ipcRenderer.invoke(IpcToMain.GET__EVERY_TAG, folder),
 	openSettingsJson: () => ipcRenderer.invoke(IpcToMain.OPEN__SETTINGS_JSON),
+	replyConfirmDialog: (reply) => ipcRenderer.invoke(IpcToMain.REPLY__CONFIRM_DIALOG, reply),
 });

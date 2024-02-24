@@ -1,5 +1,5 @@
 import { Menu, app, dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToRenderer } from "../data/ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToMain, IpcToRenderer } from "../data/ipcConstants";
 import path, { basename } from "path";
 import { ipc } from "./ipc";
 import fs from "fs";
@@ -43,6 +43,7 @@ class IO {
 		
 		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = true;
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = true;
+		Menu.getApplicationMenu().getMenuItemById("file/eject-folder").enabled = true;
 
 		ipc.raise(
 			IpcToRenderer.OPEN__FOLDER,
@@ -55,6 +56,7 @@ class IO {
 	closeFolderHandler() {
 		Menu.getApplicationMenu().getMenuItemById("file/close-folder").enabled = false;
 		Menu.getApplicationMenu().getMenuItemById("file/reveal-folder").enabled = false;
+		Menu.getApplicationMenu().getMenuItemById("file/eject-folder").enabled = false;
 		this.#folderPath = null;
 		ipc.raise(IpcToRenderer.CLOSE__FOLDER);
 	}
@@ -137,6 +139,31 @@ class IO {
 	openSettingsJson() {
 		const userData = app.getPath("userData");
 		exec(`open "${userData}"`);
+	}
+
+	confirmEjectFolder() {
+		ipc.raise(
+			IpcToRenderer.SHOW__CONFIRM_DIALOG,
+			"Eject folder",
+			[
+				"Are you sure you want to eject the folder? All metadata in this folder will be lost!",
+				"This operation also closes the current folder. The next time you open this folder, new (empty) metadata will be created."
+			],
+			"No, cancel",
+			"Yes, eject",
+			"ejectFolder",
+		);
+	}
+
+	ejectFolder() {
+		const taroMetadataFolder = path.join(this.#folderPath, IO.TARO_METADATA_FOLDER_NAME);
+
+		fs.rmSync(taroMetadataFolder, {
+			recursive: true,
+			force: true
+		});
+
+		this.closeFolderHandler();
 	}
 }
 

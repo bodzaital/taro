@@ -27,6 +27,7 @@ class IPC {
 		ipcMain.handle(IpcToMain.GET__EVERY_TAG, (_, folder) => io.getAllTagsHandler(folder));
 		ipcMain.handle(IpcToMain.OPEN__SETTINGS_JSON, () => io.openSettingsJson());
 		ipcMain.handle(IpcToMain.APPLY__SETTINGS, () => appSettings.apply());
+		ipcMain.handle(IpcToMain.REPLY__CONFIRM_DIALOG, (_, reply) => this.#handleReplyConfirmDialog(reply));
 
 		// ABSOLUTELY REFACTOR THIS. THIS IS UGLY AND BAD.
 		ipcMain.handle(IpcToMain.TOGGLE__WELCOME_DARK_MODE, () => {
@@ -43,6 +44,15 @@ class IPC {
 		ipcMain.handle(IpcToMain.SELECT__FOLDER, () => {
 			io.openFolderHandler();
 		});
+	}
+
+	#handleReplyConfirmDialog(reply) {
+		const question = reply.split(".")[0];
+		const answer = reply.split(".")[1];
+
+		if (question == "ejectFolder") {
+			if (answer == "yes") io.ejectFolder();
+		}
 	}
 
 	raise(channel, ...args) {
