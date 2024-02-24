@@ -6,6 +6,7 @@ import fs from "fs";
 import Metadata from "../data/metadata";
 import ExifReader from "exifreader";
 import { exec } from "child_process";
+import { i18n } from "../renderer/i18n";
 
 class IO {
 	static TARO_HANDLE = "taro";
@@ -142,6 +143,7 @@ class IO {
 	}
 
 	confirmEjectFolder() {
+		// TODO: internationalize the main process.
 		ipc.raise(
 			IpcToRenderer.SHOW__CONFIRM_DIALOG,
 			"Eject folder",
