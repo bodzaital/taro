@@ -2,8 +2,6 @@ import { Menu, app } from "electron";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
-import { ipc } from "./ipc";
-import { IpcToRenderer } from "../ipcConstants";
 
 class System {
 	#mainWindow = null;

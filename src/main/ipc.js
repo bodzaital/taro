@@ -1,5 +1,5 @@
 import { Menu, ipcMain } from "electron";
-import { IpcToMain, IpcToRenderer } from "../ipcConstants";
+import { IpcToMain, IpcToRenderer } from "../data/ipcConstants";
 import { io } from "./io";
 import { appSettings } from "./appsettings";
 import { AppSettingsConstant } from "../data/appsettingsConstants";

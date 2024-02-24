@@ -1,5 +1,5 @@
 import { Menu, app, dialog, net, protocol } from "electron";
-import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToRenderer } from "../ipcConstants";
+import { CH_CLOSE_FOLDER, CH_LOAD_IMAGES, CH_NO_IMAGES, CH_OPEN_CANCELED, CH_SHOW_ALERT, IpcConstants, IpcToRenderer } from "../data/ipcConstants";
 import path, { basename } from "path";
 import { ipc } from "./ipc";
 import fs from "fs";

@@ -2,7 +2,7 @@ import { Menu, app } from "electron";
 import path from "path";
 import fs from "fs";
 import { ipc } from "./ipc";
-import { IpcToRenderer } from "../ipcConstants";
+import { IpcToRenderer } from "../data/ipcConstants";
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 
 class AppSettings {

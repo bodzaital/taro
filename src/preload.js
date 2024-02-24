@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { IpcToMain, IpcToRenderer } from "./ipcConstants";
+import { IpcToMain, IpcToRenderer } from "./data/ipcConstants";
 
 // Main -> Renderer
 contextBridge.exposeInMainWorld("listen", {
