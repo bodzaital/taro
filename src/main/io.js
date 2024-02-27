@@ -142,16 +142,15 @@ class IO {
 	}
 
 	confirmEjectFolder() {
-		// TODO: internationalize the main process.
 		ipc.raise(
 			IpcToRenderer.SHOW__CONFIRM_DIALOG,
-			"Eject folder",
+			"confirm.ejectFolder.title",
 			[
-				"Are you sure you want to eject the folder? All metadata in this folder will be lost!",
-				"This operation also closes the current folder. The next time you open this folder, new (empty) metadata will be created."
+				"confirm.ejectFolder.body.areYouSure",
+				"confirm.ejectFolder.body.alsoClosesFolder"
 			],
-			"No, cancel",
-			"Yes, eject",
+			"confirm.ejectFolder.cancel",
+			"confirm.ejectFolder.eject",
 			"ejectFolder",
 		);
 	}

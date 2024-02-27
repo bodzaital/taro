@@ -1,4 +1,5 @@
 import Control from "./control";
+import { i18n } from "./i18n";
 import { $ } from "./shorthand";
 
 class ConfirmModal {
@@ -10,7 +11,6 @@ class ConfirmModal {
 	};
 
 	#question = null;
-
 	#modal = new bootstrap.Modal($("#confirmModal"));
 
 	constructor() {
@@ -29,23 +29,23 @@ class ConfirmModal {
 		});
 	}
 
-	#setText(title, paragraphs, negative, positive) {
-		this.#resetBody();
-
-		paragraphs.forEach((text) => {
-			this.#control.body.appendChild(new Control("p").text(text).get());
-		});
-		
-		this.#control.title.innerText = title;
-		this.#control.negative.innerText = negative;
-		this.#control.positive.innerText = positive;
-	}
-
 	#show(title, paragraphs, negative, positive, question) {
 		this.#setText(title, paragraphs, negative, positive);
 		this.#question = question;
 
 		this.#modal.show();
+	}
+
+	#setText(title, paragraphs, negative, positive) {
+		this.#resetBody();
+
+		paragraphs.forEach((text) => {
+			this.#control.body.appendChild(new Control("p").text(i18n.pull(text)).get());
+		});
+		
+		this.#control.title.innerText = i18n.pull(title);
+		this.#control.negative.innerText = i18n.pull(negative);
+		this.#control.positive.innerText = i18n.pull(positive);
 	}
 
 	#resetBody() {
