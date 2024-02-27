@@ -68,16 +68,12 @@ class EXIF {
 			this.#controls[key].appendChild(this.#placeholder.cloneNode());
 		}
 
-		i18n.register("sidebar.tooltip.unknownDateAndTime", (text) => {
+		i18n.push("sidebar.tooltip.unknownDateAndTime",	"Unknown date and time", (text) => {
 			this.#tooltips.timeOnly.setContent({ ".tooltip-inner": text });
-		}, () => {
-			this.#tooltips.timeOnly.setContent({ ".tooltip-inner": "Unknown date and time" });
 		});
 
-		i18n.register("sidebar.tooltip.unknownLensModel", (text) => {
+		i18n.push("sidebar.tooltip.unknownLensModel", "Unknown lens model", (text) => {
 			this.#tooltips.lensModel.setContent({ ".tooltip-inner": text });
-		}, () => {
-			this.#tooltips.lensModel.setContent({ ".tooltip-inner": "Unknown lens model" });
 		});
 	}
 

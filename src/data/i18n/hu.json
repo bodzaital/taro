@@ -6,6 +6,17 @@
 			"darkMode": "Sötét mód",
 			"getHelp": "Segítség"
 		},
+		"confirm": {
+			"ejectFolder": {
+				"title": "Mappa kiadása",
+				"body": {
+					"areYouSure": "Biztos, hogy ki akarod adni a mappát? Az összes metaadat törlésre fog kerülni!",
+					"alsoClosesFolder": "Ezzel egyidejűleg a mappa bezárásra kerül. A mappa következő megnyitásával új (üres) metaadat jön létre."
+				},
+				"cancel": "Nem, mégse",
+				"eject": "Igen, kiadás"
+			}
+		},
 		"sidebar": {
 			"details": "Részletek",
 			"noImage": "Nincs kép",

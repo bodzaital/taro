@@ -2,54 +2,66 @@ import { AppSettingsConstant } from "../data/appsettingsConstants";
 import { $, $$ } from "./shorthand";
 
 class Internationalization {
-	#knownLanguages = [
-		"en",
-		"hu",
-	];
+	static KNOWN_LANGUAGES = [ "en", "hu" ];
 
-	#resources = null;
-	#callbacks = [];
+	#languageResources = null;
+	#registeredCallbacks = [];
 
 	constructor() {
 		window.listen.applySetting((key, value) => this.#applySetting(key, value));
 	}
 
-	/** Registers a promise to when the language file is loaded. If the supplied
-	 * key is not found, the promise is rejected. */
-	register(key, resolve, reject) {
-		this.#callbacks = this.#callbacks.filter((x) => x.key != key);
+	/** Pulls a resource text by the given key. If the key is not found, returns the default text. */
+	pull(key, defaultText) {
+		const text = this.#resolveKeyPath(key, this.#languageResources);
 
-		this.#callbacks.push({
+		return text != undefined
+			? text
+			: defaultText;
+	}
+
+	/** Pushes a resource text by the given key once the language resources are ready. If the key is
+	 * not found, returns the default text. */
+	push(key, defaultText, callback) {
+		if (this.#languageResources != null) {
+			callback(this.get(key, defaultText));
+			return;
+		}
+
+		if (this.#registeredCallbacks.filter((x) => x.key == key).length != 0) {
+			return;
+		}
+
+		this.#registeredCallbacks.push({
 			"key": key,
-			"resolve": resolve,
-			"reject": reject
+			"defaultText": defaultText,
+			"callback": callback,
 		});
-	}
-
-	#changeLanguage(targetLanguage) {
-		if (!this.#knownLanguages.includes(targetLanguage)) targetLanguage = "en";
-
-		import(`../data/i18n/${targetLanguage}.json`)
-			.then((data) => this.#cache(data))
-			.then(() => this.#reload());
-	}
-
-	#cache(data) {
-		this.#resources = data.resources;
 	}
 
 	#applySetting(key, value) {
 		if (key == AppSettingsConstant.LANGUAGE) this.#changeLanguage(value);
 	}
 
-	#reload() {
-		this.#callbacks.forEach((callback) => {
-			const text = this.#resolveKeyPath(callback.key, this.#resources);
-			this.#setCallbackValue(text, callback);
+	#changeLanguage(targetLanguage) {
+		if (!Internationalization.KNOWN_LANGUAGES.includes(targetLanguage)) targetLanguage = "en";
+
+		import(`../data/i18n/${targetLanguage}.json`)
+			.then((data) => this.#cacheLanguageResources(data))
+			.then(() => this.#reloadTextOnGUI());
+	}
+
+	#cacheLanguageResources(data) {
+		this.#languageResources = data.resources;
+	}
+
+	#reloadTextOnGUI() {
+		this.#registeredCallbacks.forEach((registeredCallback) => {
+			registeredCallback.callback(this.get(registeredCallback.key, registeredCallback.defaultText));
 		});
 
 		Array.from($$("[data-i18n]")).forEach((element) => {
-			const text = this.#resolveKeyPath(element.dataset.i18n, this.#resources);
+			const text = this.#resolveKeyPath(element.dataset.i18n, this.#languageResources);
 			this.#setElementValue(text, element);
 		});
 	}
@@ -69,15 +81,6 @@ class Internationalization {
 		} else {
 			element.innerText = text;
 		}
-	}
-
-	#setCallbackValue(text, callback) {
-		if (text == undefined) {
-			callback.reject();
-			return;
-		}
-
-		callback.resolve(text);
 	}
 }
 

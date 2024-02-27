@@ -6,6 +6,21 @@
 			"darkMode": "Dark mode",
 			"getHelp": "Get help"
 		},
+		"confirm": {
+			"ejectFolder": {
+				"title": "Eject folder",
+				"body": {
+					"areYouSure": "Are you sure you want to eject the folder? All metadata in this folder will be lost!",
+					"alsoClosesFolder": "This operation also closes the current folder. The next time you open this folder, new (empty) metadata will be created."
+				},
+				"cancel": "No, cancel",
+				"eject": "Yes, eject"
+			}
+		},
+		"alert": {
+			"folderOpeningCanceled": "Opening a folder is canceled.",
+			"folderHasNoImages": "There are no images in this folder."
+		},
 		"sidebar": {
 			"details": "Details",
 			"noImage": "No image",
