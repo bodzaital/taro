@@ -30,17 +30,3 @@ window.listen.showSettingsModal(() => {
 	// TODO: close last modal when opening a modal.
 	new bootstrap.Modal($("#settingsModal")).show();
 });
-
-// window.listen.showConfirmDialog((title, paragraphs, negative, positive) => {
-// 	const confirmModalTitle = $("#confirmModalTitle");
-// 	const confirmModalBody = $("#confirmModalBody");
-// 	const confirmModalNegative = $("#confirmModalNegative");
-// 	const confirmModalPositive = $("#confirmModalPositive");
-
-// 	confirmModalTitle.innerText = title;
-// 	paragraphs.forEach((line) => confirmModalBody.appendChild(new Control("p").text(line).get()));
-// 	confirmModalNegative.innerText = negative;
-// 	confirmModalPositive.innerText = positive;
-
-// 	new bootstrap.Modal($("#confirmModal")).show();
-// });
