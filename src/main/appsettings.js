@@ -1,4 +1,4 @@
-import { Menu, app } from "electron";
+import { Menu, app, nativeTheme } from "electron";
 import path from "path";
 import fs from "fs";
 import { ipc } from "./ipc";
@@ -67,9 +67,11 @@ class AppSettings {
 	#applyDarkMode() {
 		this.#applySetting(AppSettingsConstant.DARK_MODE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value == "dark";
+			nativeTheme.themeSource = value;
 			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.DARK_MODE, value);
 		}, () => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = false;
+			nativeTheme.themeSource = "light";
 			ipc.raise(IpcToRenderer.APPLY__SETTING, AppSettingsConstant.DARK_MODE, "light");
 		});
 	}
