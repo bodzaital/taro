@@ -17,6 +17,8 @@ class Internationalization {
 	/** Registers a promise to when the language file is loaded. If the supplied
 	 * key is not found, the promise is rejected. */
 	register(key, resolve, reject) {
+		this.#callbacks = this.#callbacks.filter((x) => x.key != key);
+
 		this.#callbacks.push({
 			"key": key,
 			"resolve": resolve,
