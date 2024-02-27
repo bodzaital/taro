@@ -24,7 +24,7 @@ class Internationalization {
 	 * not found, returns the default text. */
 	push(key, defaultText, callback) {
 		if (this.#languageResources != null) {
-			callback(this.get(key, defaultText));
+			callback(this.pull(key, defaultText));
 			return;
 		}
 
@@ -57,7 +57,7 @@ class Internationalization {
 
 	#reloadTextOnGUI() {
 		this.#registeredCallbacks.forEach((registeredCallback) => {
-			registeredCallback.callback(this.get(registeredCallback.key, registeredCallback.defaultText));
+			registeredCallback.callback(this.pull(registeredCallback.key, registeredCallback.defaultText));
 		});
 
 		Array.from($$("[data-i18n]")).forEach((element) => {
