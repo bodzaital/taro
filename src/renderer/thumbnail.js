@@ -138,7 +138,7 @@ class Thumbnail {
 
 		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
 		metadata.loadMetadata(selectedThumbnail.dataset.name);
-		sidebar.photoName.innerText = selectedThumbnail.dataset.name;
+		sidebar.setSidebarData(selectedThumbnail.dataset.name);
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */

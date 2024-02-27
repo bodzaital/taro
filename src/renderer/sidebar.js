@@ -11,8 +11,10 @@ class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");
 	#viewer = $(".viewer");
 	#isSidebarOpen = true;
-
-	photoName = $("#photo-name");
+	#photoName = {
+		noPhoto: $("#noPhoto"),
+		value: $("#photoName")
+	};
 
 	constructor() {
 		this.#sidebarToggleButton.addEventListener("click", () => {
@@ -45,6 +47,10 @@ class Sidebar {
 		}
 	}
 
+	setSidebarData(photoName) {
+		this.#photoName.value.innerText = photoName;
+	}
+
 	loadExifData(uri) {
 		exif.clearData();
 
@@ -67,11 +73,13 @@ class Sidebar {
 	}
 
 	#loadFolder() {
+		this.#photoName.value.classList.remove("d-none");
+		this.#photoName.noPhoto.classList.add("d-none");
 	}
 
 	#unloadFolder() {
-		// TODO: how to internationalize this?
-		this.photoName.innerText = "No image";
+		this.#photoName.value.classList.add("d-none");
+		this.#photoName.noPhoto.classList.remove("d-none");
 	}
 
 	#applySetting(key, value) {
