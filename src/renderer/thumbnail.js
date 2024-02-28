@@ -2,6 +2,7 @@ import { AppSettingsConstant } from "../data/appsettingsConstants";
 import Control from "./control";
 import { folder } from "./folder";
 import { description } from "./metadata/description";
+import { exif } from "./metadata/exif";
 import { location } from "./metadata/location";
 import { metadata } from "./metadata/metadata";
 import { tagging } from "./metadata/tagging";
@@ -136,9 +137,9 @@ class Thumbnail {
 		
 		this.activePhoto.style.backgroundImage = `url('${selectedThumbnail.src}')`;
 
-		sidebar.loadExifData(selectedThumbnail.dataset.rawSrc);
 		metadata.loadMetadata(selectedThumbnail.dataset.name);
-		sidebar.setSidebarData(selectedThumbnail.dataset.name);
+		sidebar.setPhotoName(selectedThumbnail.dataset.name);
+		exif.loadData(selectedThumbnail.dataset.rawSrc);
 	}
 
 	/** Creates the thumbnails from the collection of image URIs. */

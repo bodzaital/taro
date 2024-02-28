@@ -47,29 +47,8 @@ class Sidebar {
 		}
 	}
 
-	setSidebarData(photoName) {
+	setPhotoName(photoName) {
 		this.#photoName.value.innerText = photoName;
-	}
-
-	loadExifData(uri) {
-		exif.clearData();
-
-		window.invoke.getExif(uri).then((data) => {
-			const fnumber = data.FNumber != null
-				? data.FNumber?.value[0] / data.FNumber?.value[1]
-				: null;
-
-			exif.setData(
-				data.ExposureTime?.description,
-				fnumber,
-				data.ISOSpeedRatings?.description,
-				data.Model?.description,
-				data.FocalLength?.description,
-				data.DateTime?.description,
-				data.LensModel?.description,
-				data.ExposureProgram?.description
-			);
-		});
 	}
 
 	#loadFolder() {

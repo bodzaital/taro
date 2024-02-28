@@ -33,13 +33,34 @@ class EXIF {
 		window.addEventListener("folderUnloaded", () => this.unloadFolder());
 	}
 
-	setData(shutter, aperture, iso, model, focalLength, dateTime, lensModel, exposure) {
+	loadData(uri) {
+		this.#clearData();
+
+		window.invoke.getExif(uri).then((data) => {
+			this.#setData(
+				data.ExposureTime?.description,
+				data.FNumber,
+				data.ISOSpeedRatings?.description,
+				data.Model?.description,
+				data.FocalLength?.description,
+				data.DateTime?.description,
+				data.LensModel?.description,
+				data.ExposureProgram?.description
+			);
+		});
+	}
+
+	#setData(shutter, aperture, iso, model, focalLength, dateTime, lensModel, exposure) {
 		this.#controls.shutter.innerText = shutter != null
 			? `${shutter}s`
 			: "N/A";
 
-		this.#controls.aperture.innerText = aperture != null
-			? `ƒ/${aperture}`
+		const fnumber = aperture != null
+			? aperture?.value[0] / aperture?.value[1]
+			: null;
+
+		this.#controls.aperture.innerText = fnumber != null
+			? `ƒ/${fnumber}`
 			: "N/A";
 
 		this.#controls.iso.innerText = iso ?? "N/A";
@@ -62,7 +83,7 @@ class EXIF {
 		this.#controls.exposure.innerText = exposure ?? "N/A";
 	}
 
-	clearData() {
+	#clearData() {
 		for (const [key, value] of Object.entries(this.#controls)) {
 			this.#controls[key].innerText = "";
 			this.#controls[key].appendChild(this.#placeholder.cloneNode());
@@ -82,7 +103,7 @@ class EXIF {
 	}
 
 	unloadFolder() {
-		this.clearData();
+		this.#clearData();
 	}
 }
 
