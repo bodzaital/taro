@@ -14,22 +14,22 @@ class Folder {
 	loadFolder(folderPath, baseName, listOfImageURIs) {
 		// TODO: might delegate IPC communication here from renderer.
 		this.unloadFolder();
+		
 		this.folderPath = folderPath;
 		this.baseName = baseName;
 		this.listOfImageURIs = listOfImageURIs;
 
-		window.dispatchEvent(this.#folderLoadedEvent);
-
 		this.isFolderLoaded = true;
+		window.dispatchEvent(this.#folderLoadedEvent);
 	}
 
 	unloadFolder() {
-		window.dispatchEvent(this.#folderUnloadedEvent);
-		
-		this.isFolderLoaded = false;
 		this.folderPath = null;
 		this.baseName = null;
 		this.listOfImageURIs = null;
+
+		this.isFolderLoaded = false;
+		window.dispatchEvent(this.#folderUnloadedEvent);
 	}
 }
 
