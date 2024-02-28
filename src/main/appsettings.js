@@ -62,8 +62,6 @@ class AppSettings {
 		this.#appSettings = null;
 	}
 
-	// TODO: allow to follow system color mode. Also: set the appropriate system setting to show the window as dark mode.
-	// TODO: refactor to apply__setting every time.
 	#applyDarkMode() {
 		this.#applySetting(AppSettingsConstant.DARK_MODE, (value) => {
 			Menu.getApplicationMenu().getMenuItemById("view/dark-mode").checked = value == "dark";
