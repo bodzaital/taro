@@ -1,6 +1,6 @@
 import Control from "./control";
 import { i18n } from "./i18n";
-import { $ } from "./shorthand";
+import { $ } from "./utility/shorthand";
 
 class ConfirmModal {
 	#control = {

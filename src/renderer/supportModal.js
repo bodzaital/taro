@@ -1,4 +1,4 @@
-import { $ } from "./shorthand";
+import { $ } from "./utility/shorthand";
 
 class Support {
 	#tabConainer = $("#supportTabs");

@@ -1,6 +1,6 @@
 import Control from "../control";
 import { notifications } from "../inAppNotifications";
-import { $ } from "../shorthand";
+import { $ } from "../utility/shorthand";
 import { metadata } from "./metadata";
 import { suggestions } from "./suggestions";
 

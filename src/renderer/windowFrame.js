@@ -1,8 +1,8 @@
 import { AppSettingsConstant } from "../data/appsettingsConstants";
 import Control from "./control";
 import { folder } from "./folder";
-import { $, $$ } from "./shorthand";
-import { thumbnail } from "./thumbnail";
+import { $, $$ } from "./utility/shorthand";
+import { thumbnails } from "./thumbnails";
 
 class WindowFrame {
 	#searchbar = $("#titleBarHeader");
@@ -44,7 +44,7 @@ class WindowFrame {
 
 			if (firstFoundIndex < 0) return;
 
-			thumbnail.selectPhoto(firstFoundIndex);
+			thumbnails.selectPhoto(firstFoundIndex);
 		});
 
 		window.addEventListener("folderLoaded", () => {
@@ -71,7 +71,7 @@ class WindowFrame {
 	loadFolder(value) {
 		this.#folderName = value;
 
-		thumbnail.activePhoto.innerText = "";
+		thumbnails.activePhoto.innerText = "";
 
 		this.#searchbar.placeholder = this.#folderName;
 		this.#searchbar.disabled = false;

@@ -6,17 +6,17 @@ import { exif } from "./metadata/exif";
 import { location } from "./metadata/location";
 import { metadata } from "./metadata/metadata";
 import { tagging } from "./metadata/tagging";
-import { $, $$ } from "./shorthand";
+import { $, $$ } from "./utility/shorthand";
 import { sidebar } from "./sidebar";
 import { windowFrame } from "./windowFrame";
 
-class Thumbnail {
+class Thumbnails {
 	static #NAVIGATION_LEFT_KEYS = ["ArrowLeft"];
 	static #NAVIGATION_RIGHT_KEYS = ["ArrowRight"];
 
 	static #NAVIGATION_KEYS = [
-		...Thumbnail.#NAVIGATION_LEFT_KEYS,
-		...Thumbnail.#NAVIGATION_RIGHT_KEYS
+		...Thumbnails.#NAVIGATION_LEFT_KEYS,
+		...Thumbnails.#NAVIGATION_RIGHT_KEYS
 	];
 
 	#container = $(".thumbnail-container");
@@ -93,7 +93,7 @@ class Thumbnail {
 	}
 
 	#navigateOnScroll(e) {	
-		if (!Thumbnail.#NAVIGATION_KEYS.includes(e.key)) return false;
+		if (!Thumbnails.#NAVIGATION_KEYS.includes(e.key)) return false;
 		e.preventDefault();
 
 		let selectedIndex = this.#currentIndex;
@@ -116,8 +116,8 @@ class Thumbnail {
 
 	/** Calls the previous or next callback functions depending on if the pressed key is part of the left or right navigation keys. */
 	bidirectionalNavigation(key, prevCallback, nextCallback) {
-		if (Thumbnail.#NAVIGATION_LEFT_KEYS.includes(key)) prevCallback();
-		if (Thumbnail.#NAVIGATION_RIGHT_KEYS.includes(key)) nextCallback();
+		if (Thumbnails.#NAVIGATION_LEFT_KEYS.includes(key)) prevCallback();
+		if (Thumbnails.#NAVIGATION_RIGHT_KEYS.includes(key)) nextCallback();
 	}
 
 	/** Advances the index left or right by the delta, clamped to the legal values of photo indexes. */
@@ -188,4 +188,4 @@ class Thumbnail {
 	}
 }
 
-export const thumbnail = new Thumbnail();
+export const thumbnails = new Thumbnails();

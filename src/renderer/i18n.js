@@ -1,5 +1,5 @@
 import { AppSettingsConstant } from "../data/appsettingsConstants";
-import { $, $$ } from "./shorthand";
+import { $, $$ } from "./utility/shorthand";
 
 class Internationalization {
 	static KNOWN_LANGUAGES = [ "en", "hu" ];

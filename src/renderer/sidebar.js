@@ -5,7 +5,7 @@ import { location } from './metadata/location';
 import { rating } from './metadata/rating';
 import { tagging } from './metadata/tagging';
 import { exif } from "./metadata/exif";
-import { $ } from './shorthand';
+import { $ } from './utility/shorthand';
 
 class Sidebar {
 	#sidebarToggleButton = $("#sidebarToggleButton");

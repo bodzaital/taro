@@ -1,4 +1,4 @@
-import { $, $$ } from '../shorthand';
+import { $, $$ } from '../utility/shorthand';
 import { metadata } from './metadata';
 
 class Description {

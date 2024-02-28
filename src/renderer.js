@@ -1,11 +1,11 @@
 import './index.scss';
 import { folder } from './renderer/folder';
 import { sidebar } from "./renderer/sidebar";
-import { $ } from './renderer/shorthand';
+import { $ } from './renderer/utility/shorthand';
 import { notifications } from './renderer/inAppNotifications';
-import { thumbnail } from './renderer/thumbnail';
+import { thumbnails } from './renderer/thumbnails';
 import { AppSettingsConstant } from "./data/appsettingsConstants";
-import { support } from './renderer/support';
+import { support } from './renderer/supportModal';
 import { i18n } from './renderer/i18n';
 import { appSettingsInRenderer } from "./renderer/appSettingsInRenderer";
 import Control from './renderer/control';

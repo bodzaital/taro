@@ -1,6 +1,6 @@
 import Control from "../control";
 import { folder } from "../folder";
-import { $ } from "../shorthand";
+import { $ } from "../utility/shorthand";
 import { metadata } from "./metadata";
 import { tagging } from "./tagging";
 
