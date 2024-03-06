@@ -1,8 +1,7 @@
 import { AppSettingsConstant } from "../data/appsettingsConstants";
-import Control from "./control";
 import { folder } from "./folder";
 import { $, $$ } from "./utility/shorthand";
-import { thumbnails } from "./thumbnails";
+import { photoNavigation } from "./photoNavigation";
 
 class WindowFrame {
 	#searchbar = $("#titleBarHeader");
@@ -44,7 +43,7 @@ class WindowFrame {
 
 			if (firstFoundIndex < 0) return;
 
-			thumbnails.selectPhoto(firstFoundIndex);
+			photoNavigation.selectPhoto(firstFoundIndex);
 		});
 
 		window.addEventListener("folderLoaded", () => {
