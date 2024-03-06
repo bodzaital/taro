@@ -8,22 +8,7 @@ A small photography culling and tagging app built with Bootstrap and Electron
 
 So far only tested on macOS, but will eventually test on Windows and Linux.
 
-## Goals
-
-Alpha
-- [x] Open a folder of images.
-- [x] Dark mode.
-- [x] Assign meta data to images.
-
-Beta
-- [x] Settings page.
-- [ ] Search for images by meta data.
-- [ ] Export images by a certain criteria.
-- [ ] Internationalization
-- [ ] Load thumbnails instead of full image in thumbnail row
-- [ ] Load raw images (EXiF thumbnail in full image)
-
-v1.0
-- [ ] Polished code (hopefully no bugs).
-- [ ] Persisting settings.
-- [ ] Multiplatform support.
+How to run:
+- install dependencies with `npm i`
+- start with `npm start`
+- be amazed at the stupidity of the code (but hey, it works)
