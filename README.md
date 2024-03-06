@@ -20,6 +20,8 @@ Beta
 - [ ] Search for images by meta data.
 - [ ] Export images by a certain criteria.
 - [ ] Internationalization
+- [ ] Load thumbnails instead of full image in thumbnail row
+- [ ] Load raw images (EXiF thumbnail in full image)
 
 v1.0
 - [ ] Polished code (hopefully no bugs).
