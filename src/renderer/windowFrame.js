@@ -71,8 +71,6 @@ class WindowFrame {
 	loadFolder(value) {
 		this.#folderName = value;
 
-		thumbnails.activePhoto.innerText = "";
-
 		this.#searchbar.placeholder = this.#folderName;
 		this.#searchbar.disabled = false;
 
