@@ -1,4 +1,6 @@
 import './index.scss';
+import "bootstrap-icons/font/bootstrap-icons.min.css";
+import { Modal } from "bootstrap";
 import { folder } from './renderer/folder';
 import { sidebar } from "./renderer/sidebar";
 import { $ } from './renderer/utility/shorthand';
@@ -28,5 +30,5 @@ window.listen.showAlert((message, style) => {
 
 window.listen.showSettingsModal(() => {
 	// TODO: close last modal when opening a modal.
-	new bootstrap.Modal($("#settingsModal")).show();
+	new Modal($("#settingsModal")).show();
 });

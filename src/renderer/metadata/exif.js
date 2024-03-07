@@ -1,3 +1,4 @@
+import { Tooltip } from "bootstrap";
 import Control from "../control";
 import { i18n } from "../i18n";
 import { $ } from "../utility/shorthand";
@@ -26,8 +27,8 @@ class EXIF {
 			.style("width", "100%")
 			.get();
 
-		this.#tooltips.timeOnly = new bootstrap.Tooltip($("#sidebarExifDateTime"));
-		this.#tooltips.lensModel = new bootstrap.Tooltip($("#sidebarExifLensModel"));
+		this.#tooltips.timeOnly = new Tooltip($("#sidebarExifDateTime"));
+		this.#tooltips.lensModel = new Tooltip($("#sidebarExifLensModel"));
 
 		window.addEventListener("folderLoaded", () => this.loadFolder());
 		window.addEventListener("folderUnloaded", () => this.unloadFolder());

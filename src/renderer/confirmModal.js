@@ -1,3 +1,4 @@
+import { Modal } from "bootstrap";
 import Control from "./control";
 import { i18n } from "./i18n";
 import { $ } from "./utility/shorthand";
@@ -11,7 +12,7 @@ class ConfirmModal {
 	};
 
 	#question = null;
-	#modal = new bootstrap.Modal($("#confirmModal"));
+	#modal = new Modal($("#confirmModal"));
 
 	constructor() {
 		window.listen.showConfirmDialog((title, paragraphs, negative, positive, question) => {

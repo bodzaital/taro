@@ -1,3 +1,4 @@
+import { Toast } from "bootstrap";
 import Control from "./control";
 import { i18n } from "./i18n";
 import { $ } from "./utility/shorthand";
@@ -31,7 +32,7 @@ class InAppNotifications {
 
 		this.#container.appendChild(notification);
 
-		const toast = new bootstrap.Toast(notification);
+		const toast = new Toast(notification);
 		toast.show();
 	}
 }

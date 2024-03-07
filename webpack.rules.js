@@ -1,3 +1,5 @@
+const autoprefixer = require("autoprefixer");
+
 module.exports = [
 	// Add support for native node modules
 	{
@@ -18,10 +20,19 @@ module.exports = [
 	},
 	{
         test: /\.s[ac]ss$/i,
+		// use: [
+		// 	"style-loader",
+		// 	"css-loader",
+		// 	"sass-loader"
+		// ]
 		use: [
-			"style-loader",
-			"css-loader",
-			"sass-loader"
+			{ loader: "style-loader" },
+			{ loader: "css-loader" },
+			{
+				loader: "postcss-loader",
+				options: { postcssOptions: { plugins: [ autoprefixer ] } }
+			},
+			{ loader: "sass-loader" }
 		]
 	}
 	// Put your webpack loader rules in this array.  This is where you would put
