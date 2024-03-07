@@ -18,7 +18,9 @@ class Sidebar {
 
 	constructor() {
 		this.#sidebarToggleButton.addEventListener("click", () => {
-			window.invoke.saveSetting("isSidebarVisible", !this.#isSidebarOpen);
+			window.invoke.saveSettings([
+				{ "key": "isSidebarVisible", "value": !this.#isSidebarOpen }
+			]);
 		});
 
 		window.addEventListener("folderLoaded", () => this.#loadFolder());

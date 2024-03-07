@@ -18,7 +18,6 @@ contextBridge.exposeInMainWorld("invoke", {
 	selectWelcomeFolder: () => ipcRenderer.invoke(IpcToMain.SELECT__WELCOME_FOLDER),
 	toggleWelcomeDarkMode: () => ipcRenderer.invoke(IpcToMain.TOGGLE__WELCOME_DARK_MODE),
 	applySettings: () => ipcRenderer.invoke(IpcToMain.APPLY__SETTINGS),
-	saveSetting: (key, value) => ipcRenderer.invoke(IpcToMain.SAVE__SETTING, key, value),
 	saveSettings: (keyValues) => ipcRenderer.invoke(IpcToMain.SAVE__SETTINGS, keyValues),
 	getExif: (uri) => ipcRenderer.invoke(IpcToMain.GET__EXIF, uri),
 	getMetadata: (folder, photo) => ipcRenderer.invoke(IpcToMain.GET__METADATA, folder, photo),

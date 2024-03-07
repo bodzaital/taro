@@ -15,7 +15,9 @@ class Thumbnails {
 		window.addEventListener("keydown", (e) => photoNavigation.select("key", e));
 
 		this.#thumbnailsToggleButton.addEventListener("click", () => {
-			window.invoke.saveSetting("isThumbnailsVisible", !this.#isThumbnailsOpen);
+			window.invoke.saveSetting([
+				{ "key": "isThumbnailsVisible", "value": !this.#isThumbnailsOpen }
+			]);
 		});
 		
 		window.listen.applySetting((key, value) => {
