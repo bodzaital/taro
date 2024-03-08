@@ -1,12 +1,12 @@
-@use "styles/window";
-@use "styles/sidebar";
-@use "styles/darkmode-colors";
-@use "styles/startup";
-@use "styles/support";
-
 @import "bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+@import "styles/window";
+@import "styles/sidebar";
+@import "styles/darkmode-colors";
+@import "styles/startup";
+@import "styles/support";
 // * { outline: 1px solid red; }
+
 
 .thumbnail-container
 {
@@ -14,7 +14,7 @@
 	display: flex;
 	gap: .5rem;
 	overflow-x: scroll;
-	height: window.$thumbnailRowHeight;
+	height: $thumbnailRowHeight;
 	scroll-behavior: smooth;
 	padding: .5rem;
 
