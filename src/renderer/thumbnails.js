@@ -48,12 +48,16 @@ class Thumbnails {
 	}
 
 	#createThumbnail(uri) {
+		const photoData = {
+			"uri": uri,
+			"name": this.#getFilenameFromUri(uri).toUpperCase(),
+		};
+
 		return new Control("img")
 			.add("src", `taro://${uri}`)
 			.add("loading", "lazy")
 			.class("thumbnail")
-			.data("rawSrc", uri)
-			.data("name", this.#getFilenameFromUri(uri).toUpperCase())
+			.data("fileinfo", JSON.stringify(photoData))
 			.get();
 	}
 

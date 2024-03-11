@@ -42,11 +42,13 @@ class PhotoNavigation {
 		selected.classList.add("current");
 		selected.scrollIntoView();
 
+		const fileInfo = JSON.parse(selected.dataset.fileinfo);
+
 		this.#photo.style.backgroundImage = `url('${selected.src}')`;
 
-		metadata.loadMetadata(selected.dataset.name);
-		sidebar.setPhotoName(selected.dataset.name);
-		exif.loadData(selected.dataset.rawSrc);
+		metadata.loadMetadata(fileInfo.name);
+		sidebar.setPhotoName(fileInfo.name);
+		exif.loadData(fileInfo.uri);
 	}
 
 	/** Navigates by type and returns true if the index was updated. */
