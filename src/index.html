@@ -33,57 +33,55 @@
 				</div>
 				<div class="photo d-none" id="activePhoto"></div>
 				<div class="sidebar border-start border-secondary-subtle">
-					<div class="sidebar-section ">
-						<div class="sidebar-section-header">
-							<span data-i18n="sidebar.details"></span> &mdash; <span id="photoName" class="d-none"></span><span id="noPhoto" data-i18n="sidebar.noImage"></span>
-						</div>
-						<div class="exif-row exif-short">
-							<div class="exif-data">
+					<div class="sidebar-section">
+						<h2><span data-i18n="sidebar.details"></span> &mdash; <span id="photoName" class="d-none"></span><span id="noPhoto" data-i18n="sidebar.noImage"></span></h2>
+						<div class="exif-row exif-short-row">
+							<div class="exif-cell">
 								<i class="bi bi-stopwatch"></i>
 								<div class="exif-value" id="sidebarExifShutter"></div>
 							</div>
-							<div class="exif-data">
+							<div class="exif-cell">
 								<i class="bi bi-eye"></i>
 								<div class="exif-value" id="sidebarExifAperture"></div>
 							</div>
-							<div class="exif-data">
+							<div class="exif-cell">
 								<i class="bi bi-volume-up"></i>
 								<div class="exif-value" id="sidebarExifIso"></div>
 							</div>
 						</div>
-						<div class="exif-row exif-long">
-							<div class="exif-data">
+						<div class="exif-row exif-long-row">
+							<div class="exif-cell">
 								<i class="bi bi-binoculars"></i>
 								<div class="exif-value" id="sidebarExifFocalLength"></div>
 							</div>
-							<div class="exif-data" data-bs-toggle="tooltip" data-bs-title="Unknown lens" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifLensModel">
+							<div class="exif-cell" data-bs-toggle="tooltip" data-bs-title="Unknown lens" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifLensModel">
 								<i class="bi bi-camera"></i>
-								<div class="exif-value exif-extended" id="sidebarExifCamera"></div>
+								<div class="exif-value exif-ext-value" id="sidebarExifCamera"></div>
 							</div>
 						</div>
-						<div class="exif-row exif-long">
-							<div class="exif-data">
+						<div class="exif-row exif-long-row">
+							<div class="exif-cell">
 								<i class="bi bi-exposure"></i>
 								<div class="exif-value" id="sidebarExifExposureMode"></div>
 							</div>
-							<div class="exif-data" data-bs-toggle="tooltip" data-bs-title="Unknown date/time" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifDateTime">
+							<div class="exif-cell" data-bs-toggle="tooltip" data-bs-title="Unknown date/time" data-bs-custom-class="sidebar-tooltip" data-bs-placement="left" id="sidebarExifDateTime">
 								<i class="bi bi-calendar-heart"></i>
-								<div class="exif-value exif-extended" id="sidebarExifDate"></div>
+								<div class="exif-value exif-ext-value" id="sidebarExifDate"></div>
 							</div>
 						</div>
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header" data-i18n="sidebar.tags">Tags</div>
+						<h2 data-i18n="sidebar.tags.header">Tags</h2>
 						<div class="tag-cloud"></div>
 						<div class="tag-focus-container">
-							<input type="text" class="form-control form-control-sm" id="tagInput">
+							<input type="text" class="form-control form-control-sm" id="tagInput"">
 							<div class="tag-suggestions-container">
 								<div class="list-group"></div>
 							</div>
 						</div>
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header" data-i18n="sidebar.rating">Rating</div>
+						<h2 data-i18n="sidebar.rating">Rating</h2>
 						<div class="btn-group">
 							<input type="radio" class="btn-check" name="rating" id="rate-down" value="-1" autocomplete="off">
 							<label for="rate-down" class="btn btn-sm btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i></label>
@@ -96,11 +94,11 @@
 						</div>
 					</div>
 					<div class="sidebar-section">
-						<div class="sidebar-section-header" data-i18n="sidebar.location">Location</div>
+						<h2 data-i18n="sidebar.location.header">Location</h2>
 						<input type="text" class="form-control form-control-sm" id="locationInput">
 					</div>
 					<div class="sidebar-section ">
-						<div class="sidebar-section-header" data-i18n="sidebar.description">Description</div>
+						<h2 data-i18n="sidebar.description.header">Description</h2>
 						<textarea class="form-control form-control-sm sidebar-textarea" id="metadataDescription"></textarea>
 					</div>
 				</div>

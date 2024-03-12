@@ -16,18 +16,22 @@
 	font-size: .8rem;
 	padding: .5rem;
 	background-color: var(--bs-tertiary-bg);
-	font-family: "Glegoo", serif;
+	font-family: "Glegoo";
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 
 	.sidebar-section
 	{
-		margin-bottom: 1rem;
 		display: flex;
 		flex-direction: column;
 		gap: .5rem;
 	}
 
-	.sidebar-section-header
+	h2
 	{
+		font-size: .8rem;
+		margin: 0;
 		font-weight: 700;
 	}
 
@@ -36,17 +40,10 @@
 		display: grid;
 		gap: .5rem;
 
-		&.exif-short
-		{
-			grid-template-columns: repeat(3, 1fr);
-		}
+		&.exif-short-row { grid-template-columns: repeat(3, 1fr); }
+		&.exif-long-row { grid-template-columns: 2fr 3fr; }
 
-		&.exif-long
-		{
-			grid-template-columns: 2fr 3fr;
-		}
-
-		.exif-data
+		.exif-cell
 		{
 			display: flex;
 			gap: .25rem;
@@ -56,19 +53,12 @@
 		{
 			flex-grow: 1;
 
-			&.exif-extended
-			{
-				text-decoration: var(--bs-body-color) underline dashed;
-			}
+			&.exif-ext-value { text-decoration: var(--bs-body-color) underline dashed; }
 		}
 	}
 
-	.sidebar-textarea
-	{
-		font-size: .8rem;
-	}
-
-	input.form-control
+	input,
+	textarea
 	{
 		font-size: .8rem;
 	}
@@ -93,10 +83,7 @@
 			text-overflow: ellipsis;
 		}
 
-		.tag-dismiss
-		{
-			color: var(--badge-color)
-		}
+		.tag-dismiss { color: var(--badge-color) }
 	}
 
 	.tag-suggestions-container
