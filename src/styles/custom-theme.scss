@@ -1,0 +1,37 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// $custom-colors: (
+// 	"primary": #7A00E6,
+// 	"success": #44CC00,
+// 	"danger": #CC3A00,
+// 	"warning": #F2B705,
+// 	"info": #6081B6,
+// 	"secondary": #4B4B4D,
+// 	"white": #FAFAFA,
+// 	"dark": #5A5A5A
+// );
+
+// $theme-colors: map-merge($theme-colors, $custom-colors);
+
+// $custom-colors-text: (
+// 	"info": #FAFAFA
+// );
+
+// $theme-colors-text: map-merge($theme-colors-text, $custom-colors-text);
+
+// $btn-color: map-get($custom-colors, "white");
+$global-border-radius: 1rem;
+
+$btn-border-radius-sm: $global-border-radius;
+$modal-content-border-radius: $global-border-radius;
+$toast-border-radius: $global-border-radius;
+
+.placeholder
+{
+	// TODO: not like this...
+	cursor: default !important;
+}

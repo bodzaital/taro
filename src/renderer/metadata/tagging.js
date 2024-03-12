@@ -100,6 +100,13 @@ class Tagging {
 		
 		this.#input.value = "";
 		this.#cloud.innerText = "";
+
+		this.#cloud.appendChild(
+			new Control("div")
+			.class("placeholder")
+			.style("width", "100%")
+			.get()
+		);
 	}
 
 	#createElement(name) {

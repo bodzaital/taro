@@ -16,10 +16,11 @@
 	font-size: .8rem;
 	padding: .5rem;
 	background-color: var(--bs-tertiary-bg);
+	font-family: "Glegoo", serif;
 
 	.sidebar-section
 	{
-		margin-bottom: .5rem;
+		margin-bottom: 1rem;
 		display: flex;
 		flex-direction: column;
 		gap: .5rem;
@@ -67,13 +68,18 @@
 		font-size: .8rem;
 	}
 
+	input.form-control
+	{
+		font-size: .8rem;
+	}
+
 	.tag-cloud
 	{
-		font-size: 1rem;
 		display: flex;
 		gap: .25rem;
 		flex-wrap: wrap;
-
+		font-size: 1rem;
+		
 		.badge
 		{
 			display: inline-flex;
