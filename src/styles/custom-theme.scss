@@ -4,18 +4,17 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
-// $custom-colors: (
-// 	"primary": #7A00E6,
-// 	"success": #44CC00,
-// 	"danger": #CC3A00,
-// 	"warning": #F2B705,
-// 	"info": #6081B6,
-// 	"secondary": #4B4B4D,
-// 	"white": #FAFAFA,
-// 	"dark": #5A5A5A
-// );
+// primary, secondary, info, danger, success
 
-// $theme-colors: map-merge($theme-colors, $custom-colors);
+$custom-colors: (
+	"primary": #A242F5,
+	"success": #3ABB29,
+	"danger": #F55E35,
+	"warning": #F5D038,
+	"info": #43BEFF
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 // $custom-colors-text: (
 // 	"info": #FAFAFA
