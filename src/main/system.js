@@ -117,6 +117,7 @@ class System {
 							label: "Left",
 							id: "view/sidebar-position/left",
 							type: "radio",
+							enabled: false,
 							click: (item) => this.#handleSidebarPosition(item)
 						},
 						{
