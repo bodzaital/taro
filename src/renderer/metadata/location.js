@@ -1,3 +1,4 @@
+import { i18n } from "../i18n";
 import { $ } from "../utility/shorthand";
 import { metadata } from "./metadata";
 
@@ -33,11 +34,16 @@ class Location {
 
 	loadFolder() {
 		this.#input.disabled = false;
+
+		i18n.push("sidebar.location.placeholder", "Add tag", (text) => {
+			this.#input.placeholder = text;
+		});
 	}
 
 	unloadFolder() {
 		this.#input.disabled = true;
 		this.#input.value = "";
+		this.#input.placeholder = "";
 	}
 }
 

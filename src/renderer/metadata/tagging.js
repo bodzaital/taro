@@ -1,4 +1,5 @@
 import Control from "../control";
+import { i18n } from "../i18n";
 import { notifications } from "../inAppNotifications";
 import { $ } from "../utility/shorthand";
 import { metadata } from "./metadata";
@@ -93,10 +94,15 @@ class Tagging {
 
 	#folderLoaded() {
 		this.#input.disabled = false;
+
+		i18n.push("sidebar.tags.placeholder", "Add tag", (text) => {
+			this.#input.placeholder = text;
+		});
 	}
 
 	#folderUnloaded() {
 		this.#input.disabled = true;
+		this.#input.placeholder = "";
 		
 		this.#input.value = "";
 		this.#cloud.innerText = "";

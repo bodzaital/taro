@@ -24,10 +24,19 @@
 		"sidebar": {
 			"details": "Details",
 			"noImage": "No image",
-			"tags": "Tags",
+			"tags": {
+				"header": "Tags",
+				"placeholder": "Add tag"
+			},
 			"rating": "Rating",
-			"location": "Location",
-			"description": "Description",
+			"location": {
+				"header": "Location",
+				"placeholder": "Add location"
+			},
+			"description": {
+				"header": "Description",
+				"placeholder": "Add description"
+			},
 			"tooltip": {
 				"unknownDateAndTime": "Unknown date and time",
 				"unknownLensModel": "Unknown lens model"

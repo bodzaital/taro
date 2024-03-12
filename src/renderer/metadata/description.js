@@ -1,3 +1,4 @@
+import { i18n } from '../i18n';
 import { $, $$ } from '../utility/shorthand';
 import { metadata } from './metadata';
 
@@ -33,11 +34,15 @@ class Description {
 
 	loadFolder() {
 		this.#element.disabled = false;
+		i18n.push("sidebar.description.placeholder", "Add description", (text) => {
+			this.#element.placeholder = text;
+		});
 	}
 	
 	unloadFolder() {
 		this.#element.disabled = true;
 		this.#element.value = "";
+		this.#element.placeholder = "";
 	}
 }
 
