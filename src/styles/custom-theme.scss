@@ -4,30 +4,40 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
-// primary, secondary, info, danger, success
+// Custom colors.
 
-$custom-colors: (
-	"primary": #A242F5,
-	"success": #3ABB29,
-	"danger": #F55E35,
-	"warning": #F5D038,
-	"info": #43BEFF
-);
+// $body-bg: #f7f8f9;
+// $body-secondary-bg: shade-color($body-bg, 2.5%);
+// $body-tertiary-bg: shade-color($body-bg, 5%);
 
-$theme-colors: map-merge($theme-colors, $custom-colors);
+// $body-bg-dark: #070809;
+// $body-secondary-bg-dark: tint-color($body-bg-dark, 10%);
+// $body-tertiary-bg-dark: tint-color($body-bg-dark, 20%);
 
-// $custom-colors-text: (
-// 	"info": #FAFAFA
+// Custom theme colors: primary, success, danger, warning, info.
+
+// $custom-colors: (
+// 	"primary": #A242F5,
+// 	"success": #3ABB29,
+// 	"danger": #F55E35,
+// 	"warning": #F5D038,
+// 	"info": #43BEFF
 // );
 
-// $theme-colors-text: map-merge($theme-colors-text, $custom-colors-text);
+// $theme-colors: map-merge($theme-colors, $custom-colors);
 
-// $btn-color: map-get($custom-colors, "white");
+// Custom base font.
+
+$font-family-base: 'Frank Ruhl Libre';
+
+// Border radii.
+
 $global-border-radius: 1rem;
-
 $btn-border-radius-sm: $global-border-radius;
 $modal-content-border-radius: $global-border-radius;
 $toast-border-radius: $global-border-radius;
+
+// Component customizations
 
 .placeholder
 {
