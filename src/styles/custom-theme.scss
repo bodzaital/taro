@@ -36,6 +36,7 @@ $global-border-radius: 1rem;
 $btn-border-radius-sm: $global-border-radius;
 $modal-content-border-radius: $global-border-radius;
 $toast-border-radius: $global-border-radius;
+$nav-pills-border-radius: $global-border-radius;
 
 // Component customizations
 
@@ -44,3 +45,6 @@ $toast-border-radius: $global-border-radius;
 	// TODO: not like this...
 	cursor: default !important;
 }
+
+$nav-link-padding-y: .25rem;
+$nav-link-padding-x: .5rem;
