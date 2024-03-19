@@ -22,13 +22,11 @@ class InAppNotifications {
 				.child(new Control("div")
 					.class("toast-body")
 					.text(i18n.pull(key, "#Missing_Critical_Text"))
-					.get())
-				.child(new Control("button")
+				).child(new Control("button")
 					.class("btn-close", "btn-close-white", "me-2", "m-auto")
 					.data("bsDismiss", "toast")
-					.get())
-				.get())
-			.get();
+				)
+			).get();
 
 		this.#container.appendChild(notification);
 

@@ -122,14 +122,12 @@ class Tagging {
 			.child(new Control("span")
 				.class("tag-content")
 				.text(name)
-				.get()
 			).child(new Control("a")
 				.add("href", "#")
 				.class("tag-dismiss")
 				.child(new Control("i")
 					.class("bi", "bi-x-lg")
-					.get()
-				).get()
+				)
 			).get();
 	}
 }

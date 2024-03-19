@@ -2,10 +2,11 @@ export default class Control {
 	#isDebugMode = false;
 
 	#elementName = null;
+	#id = null;
 	#classList = [];
 	#dataset = [];
 	#properties = [];
-	#children = [];
+	children = [];
 	#innerText = "";
 	#styles = [];
 
@@ -13,6 +14,11 @@ export default class Control {
 
 	constructor(elementName) {
 		this.#elementName = elementName;
+	}
+
+	id(value) {
+		this.#id = value;
+		return this;
 	}
 
 	/** Add a list of strings to the classlist of this element. */
@@ -56,7 +62,7 @@ export default class Control {
 	
 	/** Add a child element. */
 	child(element) {
-		this.#children.push(element);
+		this.children.push(element);
 		return this;
 	}
 
@@ -67,6 +73,8 @@ export default class Control {
 		const element = document.createElement(this.#elementName);
 
 		element.innerText = this.#innerText;
+
+		if (this.#id != null) element.id = this.#id;
 
 		this.#classList.forEach((e) => {
 			element.classList.add(e);
@@ -80,8 +88,13 @@ export default class Control {
 			element.setAttribute(property.key, property.value);
 		});
 
-		this.#children.forEach((child) => {
-			element.appendChild(child);
+		this.children.forEach((child) => {
+			if (typeof child.get !== "function") {
+				console.error(child, this);
+				throw new Error(`The child is not a Control.`);
+			}
+
+			element.appendChild(child.get());
 		});
 
 		element.style = this.#styles.map((style) => `${style.key}:${style.value}`).join(";");
