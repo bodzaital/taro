@@ -7,6 +7,8 @@ class Support {
 	#tabs = [];
 
 	constructor() {
+		this.#loadText();
+
 		Array.from(this.#tabConainer.children).forEach((x) => {
 			this.#tabs.push(x);
 		});
@@ -19,8 +21,8 @@ class Support {
 
 			this.#changePage(currentPageId, clickedPageId);
 		}));
-		
-		this.#loadText();
+
+		this.#changePage(this.#tabs[0].dataset.target, this.#tabs[0].dataset.target);
 	}
 
 	#getActivePageId() {
@@ -107,14 +109,37 @@ You can add a longer description to a photo in the description field.`,
 			],
 		};
 
-		// const supportTabs = $(".support-pages");
+		const nav = this.#createNav(supportContents.tabs);
+		const pages = this.#createPages(supportContents.tabs);
 
-		// supportContents.tabs.forEach((tab) => {
-		// 	tab.contents = new Showdown.Converter().makeHtml(tab.contents);
-		// 	const tabHtml = new Control("div")
-		// 		.add("id", tab.id)
-		// 		.
-		// });
+		pages.forEach((page) => $(".support-pages").appendChild(page));
+		nav.forEach((n) => this.#tabConainer.appendChild(n));
+	}
+
+	#createNav(pages) {
+		const nav = pages.map((page) => new Control("li")
+			.data("target", `#${page.id}`)
+			.class("nav-item")
+			.child(
+				new Control("a")
+				.add("href", "#")
+				.class("nav-link")
+				.text(page.pillText)
+			)
+		);
+
+		nav[0].children[0].class("active");
+
+		return nav.map((x) => x.get());
+	}
+
+	#createPages(pages) {
+		return pages.map((page) => {
+			return new Control("div")
+			.id(page.id)
+			.html(new Showdown.Converter().makeHtml(page.contents))
+			.get()
+		});
 	}
 }
 

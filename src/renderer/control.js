@@ -9,6 +9,7 @@ export default class Control {
 	children = [];
 	#innerText = "";
 	#styles = [];
+	#html = null;
 
 	// TODO: convert element creation to using this class.
 
@@ -18,6 +19,10 @@ export default class Control {
 
 	id(value) {
 		this.#id = value;
+		return this;
+	}
+	html(value) {
+		this.#html = value;
 		return this;
 	}
 
@@ -98,6 +103,8 @@ export default class Control {
 		});
 
 		element.style = this.#styles.map((style) => `${style.key}:${style.value}`).join(";");
+
+		if (this.#html != null) element.innerHTML = this.#html;
 
 		return element;
 	}
