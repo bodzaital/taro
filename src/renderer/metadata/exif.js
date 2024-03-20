@@ -11,7 +11,7 @@ class EXIF {
 		aperture: $("#sidebarExifAperture"),
 		iso: $("#sidebarExifIso"),
 		focalLength: $("#sidebarExifFocalLength"),
-		exposure: $("#sidebarExifExposureMode"),
+		size: $("#sidebarExifSize"),
 		cameraModel: $("#sidebarExifCamera"),
 		dateOnly: $("#sidebarExifDate"),
 	};
@@ -19,6 +19,7 @@ class EXIF {
 	#tooltips = {
 		lensModel: null,
 		timeOnly: null,
+		imageSize: null,
 	};
 
 	constructor() {
@@ -29,6 +30,7 @@ class EXIF {
 
 		this.#tooltips.timeOnly = new Tooltip($("#sidebarExifDateTime"));
 		this.#tooltips.lensModel = new Tooltip($("#sidebarExifLensModel"));
+		this.#tooltips.imageSize = new Tooltip($("#sidebarExifImageSize"));
 
 		window.addEventListener("folderLoaded", () => this.loadFolder());
 		window.addEventListener("folderUnloaded", () => this.unloadFolder());
@@ -38,6 +40,7 @@ class EXIF {
 		this.#clearData();
 
 		window.invoke.getExif(uri).then((data) => {
+			console.log("EXIF loaded:", data);
 			this.#setData(
 				data.ExposureTime?.description,
 				data.FNumber,
@@ -46,12 +49,13 @@ class EXIF {
 				data.FocalLength?.description,
 				data.DateTime?.description,
 				data.LensModel?.description,
-				data.ExposureProgram?.description
+				[data["Image Width"]?.value, data["Image Height"]?.value],
+				data.Orientation.value
 			);
 		});
 	}
 
-	#setData(shutter, aperture, iso, model, focalLength, dateTime, lensModel, exposure) {
+	#setData(shutter, aperture, iso, model, focalLength, dateTime, lensModel, size, orientation) {
 		this.#controls.shutter.innerText = shutter != null
 			? `${shutter}s`
 			: "N/A";
@@ -81,7 +85,19 @@ class EXIF {
 
 		this.#tooltips.timeOnly.setContent({ ".tooltip-inner": timeOnly ?? "N/A" });
 
-		this.#controls.exposure.innerText = exposure ?? "N/A";
+		if ([6, 8].includes(orientation)) {
+			[size[0], size[1]] = [size[1], size[0]];
+		}
+
+		const megapixels = Math.round(size[0] * size[1] / 1000000);
+		this.#controls.size.innerText = megapixels != 0
+			? `${megapixels} MP`
+			: "N/A";
+
+		this.#tooltips.imageSize.setContent({ ".tooltip-inner": megapixels != 0 
+			? `${size[0]} × ${size[1]}`
+			: "Unknown photo size"
+		});
 	}
 
 	#clearData() {
@@ -96,6 +112,10 @@ class EXIF {
 
 		i18n.push("sidebar.tooltip.unknownLensModel", "Unknown lens model", (text) => {
 			this.#tooltips.lensModel.setContent({ ".tooltip-inner": text });
+		});
+		
+		i18n.push("sidebar.tooltip.unknownPhotoSize", "Unknown photo size", (text) => {
+			this.#tooltips.imageSize.setContent({ ".tooltip-inner": text });
 		});
 	}
 
