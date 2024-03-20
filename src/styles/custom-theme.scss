@@ -32,11 +32,12 @@ $font-family-base: 'Frank Ruhl Libre';
 
 // Border radii.
 
-$global-border-radius: 1rem;
+$global-border-radius: .66rem;
 $btn-border-radius-sm: $global-border-radius;
 $modal-content-border-radius: $global-border-radius;
 $toast-border-radius: $global-border-radius;
 $nav-pills-border-radius: $global-border-radius;
+$input-border-radius-sm: $global-border-radius;
 
 // Component customizations
 
