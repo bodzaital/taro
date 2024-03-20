@@ -1,26 +1,26 @@
 export default class Control {
-	#isDebugMode = false;
-
-	#elementName = null;
+	#name = null;
 	#id = null;
 	#classList = [];
 	#dataset = [];
 	#properties = [];
-	children = [];
 	#innerText = "";
 	#styles = [];
 	#html = null;
-
-	// TODO: convert element creation to using this class.
+	
+	children = [];
 
 	constructor(elementName) {
-		this.#elementName = elementName;
+		this.#name = elementName;
 	}
 
+	/** Adds an ID to this element. */
 	id(value) {
 		this.#id = value;
 		return this;
 	}
+
+	/** Sets the raw HTML contents of this element. */
 	html(value) {
 		this.#html = value;
 		return this;
@@ -65,7 +65,7 @@ export default class Control {
 		return this;
 	}
 	
-	/** Add a child element. */
+	/** Add a child element. The child must be a builder Control. */
 	child(element) {
 		this.children.push(element);
 		return this;
@@ -73,9 +73,7 @@ export default class Control {
 
 	/** Create a DOM object from this builder. */
 	get() {
-		if (this.#isDebugMode) console.log("Building control", this);
-
-		const element = document.createElement(this.#elementName);
+		const element = document.createElement(this.#name);
 
 		element.innerText = this.#innerText;
 
